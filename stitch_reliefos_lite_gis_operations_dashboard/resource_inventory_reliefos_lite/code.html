@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resource Inventory — RELIEFOS Lite</title>
+<!-- Tailwind CSS CDN with forms and container-queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<script data-purpose="tailwind-configuration">
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              main: '#0B1220',
+              sidebar: '#101A2A',
+              card: '#151F30',
+              cardHover: '#192538',
+              border: '#263449',
+              teal: '#20BFA5',
+              blue: '#45BFEA',
+              orange: '#F08A42',
+              red: '#F07171',
+              green: '#27AE80',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+<style data-purpose="custom-scrollbars">
+    /* Custom compact scrollbars for data tables and panels */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B1220;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #263449;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #32445e;
+    }
+  </style>
+<style data-purpose="tactical-grid-pattern">
+    /* Subtle background grid pattern for GIS/technical map aesthetic */
+    .gis-grid-bg {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(38, 52, 73, 0.4) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(38, 52, 73, 0.4) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-brand-main text-slate-200 font-sans antialiased h-screen overflow-hidden flex select-none text-[13px]">
+<!-- BEGIN: LeftSidebar -->
+<aside class="w-[250px] min-w-[250px] bg-brand-sidebar border-r border-brand-border flex flex-col justify-between h-full z-30" data-purpose="global-sidebar">
+<div class="flex flex-col h-full overflow-hidden">
+<!-- App Brand Header -->
+<div class="h-16 px-4 flex items-center gap-3 border-b border-brand-border/70 flex-shrink-0">
+<img alt="RELIEFOS Lite Logo" class="w-8 h-8 rounded-md" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%228%22%20fill%3D%22%23151F30%22%20stroke%3D%22%23263449%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%2026C11%2023%2014%2023%2017%2026C20%2029%2023%2029%2026%2026C29%2023%2032%2023%2035%2026%22%20stroke%3D%22%2345BFEA%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%2020C11%2017%2014%2017%2017%2020C20%2023%2023%2023%2026%2020C29%2017%2032%2017%2035%2020%22%20stroke%3D%22%2320BFA5%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2212%22%20r%3D%223%22%20fill%3D%22%2320BFA5%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2212%22%20r%3D%226%22%20stroke%3D%22%2320BFA5%22%20stroke-width%3D%221%22%20stroke-dasharray%3D%222%202%22%2F%3E%0A%3C%2Fsvg%3E"/>
+<div>
+<div class="font-bold text-slate-100 text-sm tracking-wide flex items-center gap-1.5">
+            RELIEFOS <span class="text-xs font-normal px-1.5 py-0.2 bg-brand-teal/20 text-brand-teal rounded border border-brand-teal/30">Lite</span>
+</div>
+<div class="text-[10px] text-slate-400 font-mono tracking-tight">Flood Ops • Kamrup Metro</div>
+</div>
+</div>
+<!-- Navigation Menu -->
+<nav class="flex-1 overflow-y-auto px-3 py-3 space-y-1">
+<div class="px-2 pb-1.5 text-[10px] uppercase font-mono tracking-wider text-slate-400">Operational Matrix</div>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+<span>Operations Overview</span>
+</a>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+<span>Live Flood Map</span>
+</a>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+<span>Zones &amp; Risk</span>
+</a>
+<!-- Active Navigation Item: Resource Inventory -->
+<a class="flex items-center gap-2.5 px-3 py-2 rounded bg-brand-teal/15 text-brand-teal font-medium border border-brand-teal/30 shadow-inner" href="#">
+<svg class="w-4 h-4 text-brand-teal" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Resource Inventory</span>
+</a>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+<span>Demand Management</span>
+</a>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+<span>Relief Allocation</span>
+</a>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+<span>Route Optimization</span>
+</a>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+<span>Simulation &amp; Reports</span>
+</a>
+<div class="pt-3 pb-1 px-2 text-[10px] uppercase font-mono tracking-wider text-slate-400">System Admin</div>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+<span>Data Sources</span>
+</a>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded text-slate-300 hover:text-white hover:bg-brand-card transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path><circle cx="12" cy="12" r="3" stroke-width="1.8"></circle></svg>
+<span>Settings</span>
+</a>
+</nav>
+<!-- Sidebar Bottom System Status & User Profile -->
+<div class="p-3 border-t border-brand-border/70 bg-brand-main/40 flex-shrink-0 space-y-2">
+<!-- Telemetry Status Indicator -->
+<div class="px-2.5 py-1.5 bg-brand-card rounded border border-brand-border/60 flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-[11px] text-brand-green font-medium">
+<span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+            ONLINE • TELEMETRY OK
+          </div>
+<span class="text-[9px] px-1.5 py-0.5 rounded bg-brand-blue/10 text-brand-blue border border-brand-blue/30 font-mono">LIVE</span>
+</div>
+<div class="text-[10px] text-center text-amber-400/90 font-mono bg-amber-500/10 py-0.5 border border-amber-500/20 rounded">
+          MODE: DEMO (SIMULATED)
+        </div>
+<!-- Profile Bar -->
+<div class="pt-1 flex items-center gap-2.5">
+<img alt="Insp. S. Sharma" class="w-8 h-8 rounded border border-brand-border object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqchviyd0V4T55xqHpibFZk18hNmNmyBYBEFCjqYqk0H_oO5aAUVhHHdjMJs9YIMZiWq65bOwsdqD32aUDzt8nZDd_NlGJqRaKgpoKmxRaxVD8ATSkyJtDs4sJJFwMErCHkivAwN1EbaBj7hwM59g-hzEzRFAGrggRYE5ZnlFNXztfyT0IWE9VEN9WsFQvA7bS0u_tqY8EDdm1gTPONi8AXVjkRoAPNA3z-b2HLb-q4gQcF-wEja2W"/>
+<div class="overflow-hidden leading-tight">
+<div class="text-[12px] font-semibold text-slate-100 truncate">Insp. S. Sharma</div>
+<div class="text-[10px] text-slate-400 truncate">Disaster Ops, ASDMA</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- END: LeftSidebar -->
+<!-- BEGIN: MainContentWrapper -->
+<div class="flex-1 flex flex-col h-full overflow-hidden bg-brand-main">
+<!-- BEGIN: TopBar -->
+<header class="h-14 min-h-[56px] border-b border-brand-border bg-brand-sidebar/80 backdrop-blur px-5 flex items-center justify-between flex-shrink-0 z-20" data-purpose="top-navigation-bar">
+<!-- Breadcrumb and District Selector -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 text-xs text-slate-400">
+<span>RELIEFOS</span>
+<span>/</span>
+<span class="text-slate-100 font-semibold">Resource Inventory</span>
+</div>
+<div class="h-4 w-[1px] bg-brand-border"></div>
+<!-- Region Dropdown -->
+<div class="flex items-center gap-2 bg-brand-card hover:bg-brand-cardHover border border-brand-border px-2.5 py-1 rounded cursor-pointer transition text-xs">
+<svg class="w-3.5 h-3.5 text-brand-teal" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="font-medium text-slate-200">Kamrup Metropolitan, Guwahati, Assam</span>
+<svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+<!-- Right System Badges & Actions -->
+<div class="flex items-center gap-3">
+<!-- Simulation Badge -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-medium">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          SIMULATED DATA
+        </div>
+<div class="text-xs text-slate-400 font-mono">
+          Last Sync: <span class="text-slate-200">14:42:10 IST</span>
+</div>
+<div class="h-4 w-[1px] bg-brand-border"></div>
+<!-- Notification Bell with Count -->
+<button class="relative p-1.5 rounded bg-brand-card hover:bg-brand-cardHover border border-brand-border text-slate-300 hover:text-white" title="Operational Alerts">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-brand-red text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-brand-sidebar">4</span>
+</button>
+<!-- Help Info -->
+<button class="p-1.5 rounded bg-brand-card hover:bg-brand-cardHover border border-brand-border text-slate-300 hover:text-white" title="System Guidance">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<!-- On Duty Badge -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-brand-teal/15 border border-brand-teal/30 text-brand-teal text-xs font-semibold">
+<span class="w-2 h-2 rounded-full bg-brand-teal animate-ping"></span>
+          On Duty
+        </div>
+</div>
+</header>
+<!-- END: TopBar -->
+<!-- BEGIN: MainScrollableContent -->
+<main class="flex-1 overflow-y-auto p-5 space-y-4" data-purpose="workspace-main">
+<!-- BEGIN: PageHeaderSection -->
+<section class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-brand-card/50 p-4 rounded-lg border border-brand-border/70" data-purpose="page-header">
+<div>
+<div class="flex items-center gap-2.5">
+<h1 class="text-xl font-bold text-white tracking-tight">Resource Inventory</h1>
+<span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-wider bg-brand-blue/15 text-brand-blue border border-brand-blue/30 font-medium uppercase">
+              Physical Buffer Assessment
+            </span>
+<span class="text-[11px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 font-mono">
+              ILLUSTRATIVE INVENTORY SCENARIO
+            </span>
+</div>
+<p class="text-xs text-slate-400 mt-1">
+            Monitor relief stock, track physical inventory and review resource availability for flood relief operations across Kamrup Metro staging warehouses.
+          </p>
+</div>
+<!-- Controls / Filters / Add Actions -->
+<div class="flex items-center flex-wrap gap-2.5">
+<!-- Depot Selector -->
+<div class="flex items-center gap-2 bg-brand-card border border-brand-border px-3 py-1.5 rounded text-xs text-slate-200 hover:border-slate-500 cursor-pointer">
+<svg class="w-3.5 h-3.5 text-brand-teal" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="font-medium">Depot: Central Hub — Sarusajai</span>
+<svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<!-- Date Filter -->
+<div class="flex items-center gap-1.5 bg-brand-card border border-brand-border px-2.5 py-1.5 rounded text-xs text-slate-300 font-mono">
+<svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Today, 24 Oct 2024</span>
+</div>
+<!-- Export Ledger Button -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-brand-card hover:bg-brand-cardHover border border-brand-border text-xs text-slate-200 font-medium transition" title="Export current ledger">
+<svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Export Ledger (CSV/PDF)
+          </button>
+<!-- Add Stock Primary Action -->
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-brand-teal hover:bg-teal-400 text-slate-950 font-semibold text-xs transition shadow">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            + Add Stock
+          </button>
+</div>
+</section>
+<!-- END: PageHeaderSection -->
+<!-- BEGIN: InventoryKPICards -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" data-purpose="inventory-kpi-summary">
+<!-- Card 1: Total Physical Stock -->
+<div class="bg-brand-card border border-brand-border rounded-lg p-3.5 flex flex-col justify-between hover:border-brand-border/90 transition">
+<div class="flex items-center justify-between text-xs text-slate-400">
+<span class="font-medium">Total Stock</span>
+<svg class="w-4 h-4 text-brand-teal" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="my-1.5 flex items-baseline gap-2">
+<span class="text-2xl font-bold font-mono text-white tracking-tight">5,500</span>
+<span class="text-xs text-slate-400 font-mono">kg</span>
+</div>
+<div class="text-[11px] text-slate-400 flex items-center gap-1">
+<span class="text-brand-green font-medium">100%</span> physical stock indexed
+          </div>
+</div>
+<!-- Card 2: Food Stock -->
+<div class="bg-brand-card border border-brand-border rounded-lg p-3.5 flex flex-col justify-between hover:border-brand-border/90 transition">
+<div class="flex items-center justify-between text-xs text-slate-400">
+<span class="font-medium">Food Stock</span>
+<svg class="w-4 h-4 text-brand-orange" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="my-1.5 flex items-baseline gap-2">
+<span class="text-2xl font-bold font-mono text-white tracking-tight">2,500</span>
+<span class="text-xs text-slate-400 font-mono">kg</span>
+</div>
+<div class="text-[11px] text-slate-400 truncate">
+            Grain &amp; dry rations buffer
+          </div>
+</div>
+<!-- Card 3: Water Stock -->
+<div class="bg-brand-card border border-brand-border rounded-lg p-3.5 flex flex-col justify-between hover:border-brand-border/90 transition">
+<div class="flex items-center justify-between text-xs text-slate-400">
+<span class="font-medium">Water Stock</span>
+<svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="my-1.5 flex items-baseline gap-2">
+<span class="text-2xl font-bold font-mono text-white tracking-tight">3,000</span>
+<span class="text-xs text-slate-400 font-mono">L / eq.</span>
+</div>
+<div class="text-[11px] text-brand-teal flex items-center gap-1 font-medium">
+<span>Optimal purification reserve</span>
+</div>
+</div>
+<!-- Card 4: Reserved Stock -->
+<div class="bg-brand-card border border-brand-border rounded-lg p-3.5 flex flex-col justify-between hover:border-brand-border/90 transition">
+<div class="flex items-center justify-between text-xs text-slate-400">
+<span class="font-medium">Reserved Stock</span>
+<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="my-1.5 flex items-baseline gap-2">
+<span class="text-2xl font-bold font-mono text-amber-400 tracking-tight">1,200</span>
+<span class="text-xs text-slate-400 font-mono">kg</span>
+</div>
+<div class="text-[11px] text-slate-400">
+            Earmarked for active zones
+          </div>
+</div>
+<!-- Card 5: Low Stock Items -->
+<div class="bg-brand-card border border-brand-border rounded-lg p-3.5 flex flex-col justify-between hover:border-brand-border/90 transition">
+<div class="flex items-center justify-between text-xs text-slate-400">
+<span class="font-medium">Low Stock Items</span>
+<span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+</div>
+<div class="my-1.5 flex items-baseline gap-2">
+<span class="text-2xl font-bold font-mono text-brand-orange tracking-tight">01</span>
+<span class="text-xs text-slate-400 font-mono">SKU</span>
+</div>
+<div class="text-[11px] text-brand-orange flex items-center gap-1">
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Infant formula low buffer</span>
+</div>
+</div>
+</section>
+<!-- END: InventoryKPICards -->
+<!-- BEGIN: MainTwoColumnWorkspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+<!-- BEGIN: LeftMainInventoryTable (8 Cols) -->
+<section class="lg:col-span-8 flex flex-col gap-3" data-purpose="inventory-items-section">
+<div class="bg-brand-card border border-brand-border rounded-lg overflow-hidden flex flex-col h-full">
+<!-- Table Header Filtering & Search Toolbar -->
+<div class="p-3 border-b border-brand-border bg-brand-sidebar/50 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+<!-- Search bar -->
+<div class="relative flex-1 max-w-sm">
+<span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+<input class="w-full bg-brand-main text-xs text-slate-200 pl-8 pr-3 py-1.5 rounded border border-brand-border placeholder-slate-500 focus:outline-none focus:border-brand-teal" placeholder="Filter by SKU, item name, lot number..." type="text"/>
+</div>
+<!-- Quick Category Tabs & Filters -->
+<div class="flex items-center gap-1.5 flex-wrap">
+<div class="inline-flex rounded-md p-0.5 bg-brand-main border border-brand-border text-xs">
+<button class="px-2.5 py-1 rounded bg-brand-teal text-slate-950 font-semibold shadow-xs">All (8)</button>
+<button class="px-2 py-1 rounded text-slate-400 hover:text-slate-200">Food (4)</button>
+<button class="px-2 py-1 rounded text-slate-400 hover:text-slate-200">Water (2)</button>
+<button class="px-2 py-1 rounded text-slate-400 hover:text-slate-200">Medical (2)</button>
+</div>
+<!-- Status Filter -->
+<select class="bg-brand-main border border-brand-border text-xs text-slate-300 py-1 px-2 rounded focus:outline-none focus:border-brand-teal">
+<option>All Statuses</option>
+<option>In Stock</option>
+<option>Reserved</option>
+<option>Low Stock</option>
+</select>
+<!-- Sort By -->
+<button class="p-1.5 bg-brand-main border border-brand-border rounded text-slate-400 hover:text-slate-200" title="Sort Column">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+<!-- Main Data Table Container -->
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="border-b border-brand-border bg-brand-main/60 text-slate-400 font-mono text-[11px] uppercase tracking-wider">
+<th class="py-2.5 px-3">Item ID</th>
+<th class="py-2.5 px-3">Resource Name &amp; Description</th>
+<th class="py-2.5 px-3">Category</th>
+<th class="py-2.5 px-2 text-right">Avail Qty</th>
+<th class="py-2.5 px-2 text-right">Reserved</th>
+<th class="py-2.5 px-2 text-right">Total Buffer</th>
+<th class="py-2.5 px-3 text-center">Status</th>
+<th class="py-2.5 px-3">Verified</th>
+<th class="py-2.5 px-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-brand-border/60">
+<!-- Row 1: Masoor Dal & Rice Grain Packs -->
+<tr class="hover:bg-brand-cardHover/60 transition-colors">
+<td class="py-2.5 px-3 font-mono font-medium text-brand-teal">FOOD-001</td>
+<td class="py-2.5 px-3">
+<div class="font-medium text-slate-100">Masoor Dal &amp; Rice Grain Packs</div>
+<div class="text-[10px] text-slate-400 font-mono">Standard 50kg double-seal moisture resistant sacks</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-2 py-0.5 rounded bg-brand-main border border-brand-border text-slate-300 text-[10px]">Food Supplies</span>
+</td>
+<td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-100">1,300 kg</td>
+<td class="py-2.5 px-2 text-right font-mono text-amber-400/90">700 kg</td>
+<td class="py-2.5 px-2 text-right font-mono text-slate-300 font-semibold">2,000 kg</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-brand-green/15 text-brand-green border border-brand-green/30">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> In Stock
+                      </span>
+</td>
+<td class="py-2.5 px-3 font-mono text-slate-400 text-[11px]">14:30 IST</td>
+<td class="py-2.5 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-brand-sidebar hover:bg-brand-border text-slate-300 text-[11px] border border-brand-border">Dispatch</button>
+<button class="p-1 rounded hover:bg-brand-sidebar text-slate-400 hover:text-white" title="Options">•••</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Ready-to-Eat Thermal Meal Kits -->
+<tr class="hover:bg-brand-cardHover/60 transition-colors">
+<td class="py-2.5 px-3 font-mono font-medium text-brand-teal">FOOD-002</td>
+<td class="py-2.5 px-3">
+<div class="font-medium text-slate-100">Ready-to-Eat Thermal Meal Kits</div>
+<div class="text-[10px] text-slate-400 font-mono">NDRF Spec self-heating MRE packs (1,800 kcal)</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-2 py-0.5 rounded bg-brand-main border border-brand-border text-slate-300 text-[10px]">Packaged Food</span>
+</td>
+<td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-100">650 kg</td>
+<td class="py-2.5 px-2 text-right font-mono text-amber-400/90">350 kg</td>
+<td class="py-2.5 px-2 text-right font-mono text-slate-300 font-semibold">1,000 kg</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-brand-green/15 text-brand-green border border-brand-green/30">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> In Stock
+                      </span>
+</td>
+<td class="py-2.5 px-3 font-mono text-slate-400 text-[11px]">14:15 IST</td>
+<td class="py-2.5 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-brand-sidebar hover:bg-brand-border text-slate-300 text-[11px] border border-brand-border">Dispatch</button>
+<button class="p-1 rounded hover:bg-brand-sidebar text-slate-400 hover:text-white" title="Options">•••</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Fortified High-Calorie Dry Biscuits -->
+<tr class="hover:bg-brand-cardHover/60 transition-colors">
+<td class="py-2.5 px-3 font-mono font-medium text-brand-teal">FOOD-003</td>
+<td class="py-2.5 px-3">
+<div class="font-medium text-slate-100">Fortified High-Calorie Dry Biscuits</div>
+<div class="text-[10px] text-slate-400 font-mono">Emergency dry ration ration boxes with glucose enrich</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-2 py-0.5 rounded bg-brand-main border border-brand-border text-slate-300 text-[10px]">Dry Rations</span>
+</td>
+<td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-100">550 kg</td>
+<td class="py-2.5 px-2 text-right font-mono text-amber-400/90">150 kg</td>
+<td class="py-2.5 px-2 text-right font-mono text-slate-300 font-semibold">700 kg</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-brand-green/15 text-brand-green border border-brand-green/30">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> In Stock
+                      </span>
+</td>
+<td class="py-2.5 px-3 font-mono text-slate-400 text-[11px]">13:50 IST</td>
+<td class="py-2.5 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-brand-sidebar hover:bg-brand-border text-slate-300 text-[11px] border border-brand-border">Dispatch</button>
+<button class="p-1 rounded hover:bg-brand-sidebar text-slate-400 hover:text-white" title="Options">•••</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: 20L Potable Treated Water Cans -->
+<tr class="hover:bg-brand-cardHover/60 transition-colors">
+<td class="py-2.5 px-3 font-mono font-medium text-brand-blue">WATR-001</td>
+<td class="py-2.5 px-3">
+<div class="font-medium text-slate-100">20L Potable Treated Water Cans</div>
+<div class="text-[10px] text-slate-400 font-mono">PHED lab-certified mobile water canister containers</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-2 py-0.5 rounded bg-brand-main border border-brand-border text-slate-300 text-[10px]">Drinking Water</span>
+</td>
+<td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-100">1,500 L</td>
+<td class="py-2.5 px-2 text-right font-mono text-amber-400/90">900 L</td>
+<td class="py-2.5 px-2 text-right font-mono text-slate-300 font-semibold">2,400 L</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-brand-green/15 text-brand-green border border-brand-green/30">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> In Stock
+                      </span>
+</td>
+<td class="py-2.5 px-3 font-mono text-slate-400 text-[11px]">14:38 IST</td>
+<td class="py-2.5 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-brand-sidebar hover:bg-brand-border text-slate-300 text-[11px] border border-brand-border">Dispatch</button>
+<button class="p-1 rounded hover:bg-brand-sidebar text-slate-400 hover:text-white" title="Options">•••</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Bottled Mineral Water -->
+<tr class="hover:bg-brand-cardHover/60 transition-colors">
+<td class="py-2.5 px-3 font-mono font-medium text-brand-blue">WATR-002</td>
+<td class="py-2.5 px-3">
+<div class="font-medium text-slate-100">Bottled Mineral Water (1L Emergency Cartons)</div>
+<div class="text-[10px] text-slate-400 font-mono">12-bottle crates for rapid boat drop in cut-off wards</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-2 py-0.5 rounded bg-brand-main border border-brand-border text-slate-300 text-[10px]">Bottled Water</span>
+</td>
+<td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-100">900 L</td>
+<td class="py-2.5 px-2 text-right font-mono text-amber-400/90">300 L</td>
+<td class="py-2.5 px-2 text-right font-mono text-slate-300 font-semibold">1,200 L</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-brand-green/15 text-brand-green border border-brand-green/30">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> In Stock
+                      </span>
+</td>
+<td class="py-2.5 px-3 font-mono text-slate-400 text-[11px]">14:05 IST</td>
+<td class="py-2.5 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-brand-sidebar hover:bg-brand-border text-slate-300 text-[11px] border border-brand-border">Dispatch</button>
+<button class="p-1 rounded hover:bg-brand-sidebar text-slate-400 hover:text-white" title="Options">•••</button>
+</div>
+</td>
+</tr>
+<!-- Row 6: Water Purification Tablets -->
+<tr class="hover:bg-brand-cardHover/60 transition-colors">
+<td class="py-2.5 px-3 font-mono font-medium text-purple-400">MEDS-001</td>
+<td class="py-2.5 px-3">
+<div class="font-medium text-slate-100">Water Purification Chlorine Tablets</div>
+<div class="text-[10px] text-slate-400 font-mono">Pack of 100 tabs • Treats 1,000L raw pond/groundwater</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-2 py-0.5 rounded bg-brand-main border border-brand-border text-slate-300 text-[10px]">Sanitation</span>
+</td>
+<td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-100">85 pk</td>
+<td class="py-2.5 px-2 text-right font-mono text-amber-400/90">15 pk</td>
+<td class="py-2.5 px-2 text-right font-mono text-slate-300 font-semibold">100 pk</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-brand-green/15 text-brand-green border border-brand-green/30">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> In Stock
+                      </span>
+</td>
+<td class="py-2.5 px-3 font-mono text-slate-400 text-[11px]">12:40 IST</td>
+<td class="py-2.5 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-brand-sidebar hover:bg-brand-border text-slate-300 text-[11px] border border-brand-border">Dispatch</button>
+<button class="p-1 rounded hover:bg-brand-sidebar text-slate-400 hover:text-white" title="Options">•••</button>
+</div>
+</td>
+</tr>
+<!-- Row 7: Infant Formula & Weaning Nutrition (LOW STOCK) -->
+<tr class="bg-brand-orange/5 hover:bg-brand-orange/10 transition-colors border-l-2 border-l-brand-orange">
+<td class="py-2.5 px-3 font-mono font-medium text-brand-orange">FOOD-004</td>
+<td class="py-2.5 px-3">
+<div class="font-medium text-brand-orange flex items-center gap-1.5">
+                        Infant Formula &amp; Weaning Nutrition
+                        <span class="text-[9px] px-1 rounded bg-brand-orange/20 text-brand-orange border border-brand-orange/30">CRITICAL</span>
+</div>
+<div class="text-[10px] text-slate-400 font-mono">Lactogen / Cerelac cans for Bharalumukh relief camp infants</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-2 py-0.5 rounded bg-brand-main border border-brand-border text-slate-300 text-[10px]">Infant Care</span>
+</td>
+<td class="py-2.5 px-2 text-right font-mono font-bold text-brand-orange">45 kg</td>
+<td class="py-2.5 px-2 text-right font-mono text-amber-400/90">80 kg</td>
+<td class="py-2.5 px-2 text-right font-mono text-slate-300 font-semibold">125 kg</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-brand-orange/20 text-brand-orange border border-brand-orange/40 animate-pulse">
+<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                        Low Stock
+                      </span>
+</td>
+<td class="py-2.5 px-3 font-mono text-slate-400 text-[11px]">14:41 IST</td>
+<td class="py-2.5 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-brand-orange/20 hover:bg-brand-orange/30 text-brand-orange text-[11px] border border-brand-orange/40 font-semibold">Reorder</button>
+<button class="p-1 rounded hover:bg-brand-sidebar text-slate-400 hover:text-white" title="Options">•••</button>
+</div>
+</td>
+</tr>
+<!-- Row 8: ORS Sachets & Trauma First Aid Bundles -->
+<tr class="hover:bg-brand-cardHover/60 transition-colors">
+<td class="py-2.5 px-3 font-mono font-medium text-purple-400">MEDS-002</td>
+<td class="py-2.5 px-3">
+<div class="font-medium text-slate-100">ORS Sachets &amp; Trauma First Aid Bundles</div>
+<div class="text-[10px] text-slate-400 font-mono">Oral rehydration salts, waterproof antiseptic bandages &amp; splints</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-2 py-0.5 rounded bg-brand-main border border-brand-border text-slate-300 text-[10px]">Medical</span>
+</td>
+<td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-100">210 kit</td>
+<td class="py-2.5 px-2 text-right font-mono text-amber-400/90">40 kit</td>
+<td class="py-2.5 px-2 text-right font-mono text-slate-300 font-semibold">250 kit</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-brand-green/15 text-brand-green border border-brand-green/30">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> In Stock
+                      </span>
+</td>
+<td class="py-2.5 px-3 font-mono text-slate-400 text-[11px]">11:20 IST</td>
+<td class="py-2.5 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-brand-sidebar hover:bg-brand-border text-slate-300 text-[11px] border border-brand-border">Dispatch</button>
+<button class="p-1 rounded hover:bg-brand-sidebar text-slate-400 hover:text-white" title="Options">•••</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination & Footer Status -->
+<div class="p-3 border-t border-brand-border bg-brand-sidebar/40 flex items-center justify-between text-xs text-slate-400">
+<div class="flex items-center gap-2">
+<span>Showing <strong class="text-slate-200">1-8</strong> of <strong class="text-slate-200">8</strong> items</span>
+<span class="text-slate-500">•</span>
+<span class="font-mono text-[11px]">Ledger checksum: 0x88F2A9</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2 py-1 rounded bg-brand-card border border-brand-border text-slate-500 cursor-not-allowed">Previous</button>
+<span class="px-2 py-0.5 rounded bg-brand-teal/20 text-brand-teal border border-brand-teal/40 font-mono">1</span>
+<button class="px-2 py-1 rounded bg-brand-card border border-brand-border text-slate-500 cursor-not-allowed">Next</button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: LeftMainInventoryTable -->
+<!-- BEGIN: RightDepotOverviewPanel (4 Cols) -->
+<section class="lg:col-span-4 flex flex-col gap-3" data-purpose="depot-context-sidebar">
+<!-- Depot Summary & Capacity Gauge -->
+<div class="bg-brand-card border border-brand-border rounded-lg p-3.5 space-y-3">
+<div class="flex items-center justify-between border-b border-brand-border/60 pb-2">
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-brand-teal" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="font-semibold text-slate-100 text-xs">Depot Overview</span>
+</div>
+<span class="text-[10px] font-mono bg-brand-blue/15 text-brand-blue border border-brand-blue/30 px-1.5 py-0.5 rounded">
+                DEPOT-GAU-01
+              </span>
+</div>
+<div>
+<div class="text-xs font-semibold text-slate-200">Sarusajai Central Logistics Hub</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Sarusajai Sports Complex Annex, NH-27 bypass, South Guwahati</div>
+</div>
+<!-- Capacity Progress Bar -->
+<div class="space-y-1.5 pt-1">
+<div class="flex justify-between text-xs">
+<span class="text-slate-400">Total Capacity Utilization</span>
+<span class="font-mono font-semibold text-brand-blue">68% <span class="text-slate-500 font-normal">/ 15,000 kg cap</span></span>
+</div>
+<div class="w-full bg-brand-main h-2 rounded-full overflow-hidden border border-brand-border">
+<div class="bg-gradient-to-r from-brand-teal to-brand-blue h-full rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+<!-- Food vs Water balance ratio -->
+<div class="space-y-1.5 pt-1">
+<div class="flex justify-between text-xs">
+<span class="text-slate-400">Buffer Balance (Food : Water)</span>
+<span class="font-mono text-slate-200">45% : 55%</span>
+</div>
+<div class="w-full bg-brand-main h-2 rounded-full overflow-hidden flex border border-brand-border">
+<div class="bg-brand-orange h-full" style="width: 45%;"></div>
+<div class="bg-brand-blue h-full" style="width: 55%;"></div>
+</div>
+</div>
+<!-- Quick Metrics Grid -->
+<div class="grid grid-cols-3 gap-2 pt-2 border-t border-brand-border/60 text-center font-mono">
+<div class="p-1.5 bg-brand-sidebar rounded border border-brand-border/60">
+<div class="text-[10px] text-slate-400">Total</div>
+<div class="text-xs font-bold text-white">5,500kg</div>
+</div>
+<div class="p-1.5 bg-brand-sidebar rounded border border-brand-border/60">
+<div class="text-[10px] text-slate-400">Available</div>
+<div class="text-xs font-bold text-brand-teal">4,300kg</div>
+</div>
+<div class="p-1.5 bg-brand-sidebar rounded border border-brand-border/60">
+<div class="text-[10px] text-slate-400">Reserved</div>
+<div class="text-xs font-bold text-amber-400">1,200kg</div>
+</div>
+</div>
+<div class="text-[10px] text-brand-green bg-brand-green/10 p-2 rounded border border-brand-green/20 flex items-center gap-1.5 font-mono">
+<svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Verified by ASDMA Logistics Wing • Today 13:30 IST • AUDITED
+            </div>
+</div>
+<!-- Tactical GIS Geographic Context Map -->
+<div class="bg-brand-card border border-brand-border rounded-lg overflow-hidden flex flex-col" data-purpose="mini-gis-map">
+<div class="p-2.5 border-b border-brand-border bg-brand-sidebar/50 flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-xs font-semibold text-slate-200">
+<svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Depot Tactical Geographic Placement</span>
+</div>
+<span class="text-[9px] font-mono text-slate-400">EPSG:4326</span>
+</div>
+<!-- SVG Vector Map Representation -->
+<div class="h-44 w-full bg-brand-main relative overflow-hidden gis-grid-bg flex items-center justify-center">
+<!-- Map Vector Graphic -->
+<svg class="w-full h-full absolute inset-0" preserveaspectratio="none" viewbox="0 0 400 200">
+<!-- Brahmaputra River Curve in Northern side -->
+<path d="M-10,35 Q90,50 180,25 T380,40 L420,30 L420,0 L-10,0 Z" fill="#15263d" stroke="#254d79" stroke-width="1.5"></path>
+<text fill="#45BFEA" font-family="monospace" font-size="8" letter-spacing="1" x="140" y="22">BRAHMAPUTRA RIVER CORRIDOR</text>
+<!-- NH-27 Corridor (Transit Route) -->
+<path d="M10,180 Q150,140 260,130 T410,120" fill="none" stroke="#263449" stroke-dasharray="2 2" stroke-width="4"></path>
+<path d="M10,180 Q150,140 260,130 T410,120" fill="none" opacity="0.7" stroke="#f59e0b" stroke-width="1.5"></path>
+<text fill="#94a3b8" font-family="monospace" font-size="7" x="280" y="142">NH-27 ARTERIAL BYPASS</text>
+<!-- Zone 01: North Guwahati Marker -->
+<circle cx="110" cy="40" fill="#f07171" fill-opacity="0.3" r="5" stroke="#f07171" stroke-width="1.5"></circle>
+<text fill="#f87171" font-family="sans-serif" font-size="7" x="120" y="43">Zone 01 (North Guwahati)</text>
+<!-- Zone 02: Bharalumukh Sluice Risk Zone -->
+<circle cx="160" cy="85" fill="#f08a42" fill-opacity="0.25" r="8" stroke="#f08a42" stroke-width="1.5"></circle>
+<circle cx="160" cy="85" fill="#f08a42" r="2"></circle>
+<text fill="#fb923c" font-size="8" font-weight="bold" x="175" y="88">Zone 02 (Bharalumukh Basin)</text>
+<!-- Dispatch Route Line from Sarusajai to Zone 02 -->
+<path d="M220,135 L165,90" fill="none" stroke="#20bfa5" stroke-dasharray="3 3" stroke-width="2"></path>
+<!-- Sarusajai Central Depot Landmark Pin -->
+<rect fill="#20BFA5" fill-opacity="0.2" height="22" rx="4" stroke="#20BFA5" stroke-width="1.5" width="22" x="210" y="125"></rect>
+<circle cx="221" cy="136" fill="#20BFA5" r="3.5"></circle>
+<text fill="#20bfa5" font-size="9" font-weight="bold" x="238" y="139">DEPOT 01 (Sarusajai Hub)</text>
+<!-- Distance marker -->
+<rect fill="#101A2A" height="12" rx="2" stroke="#263449" width="38" x="185" y="103"></rect>
+<text fill="#94a3b8" font-family="monospace" font-size="7" x="188" y="112">8.4 km / 18m</text>
+</svg>
+<!-- Map Overlay Badges -->
+<div class="absolute bottom-2 left-2 flex gap-1.5">
+<span class="text-[9px] px-1.5 py-0.5 rounded bg-brand-sidebar/90 border border-brand-border text-slate-300 font-mono">
+                  Dispatch Bay A: <span class="text-brand-green font-medium">Ready (VH-01)</span>
+</span>
+<span class="text-[9px] px-1.5 py-0.5 rounded bg-brand-sidebar/90 border border-brand-border text-slate-400 font-mono">
+                  Loading Bay B: Idle
+                </span>
+</div>
+</div>
+<div class="px-3 py-1.5 bg-brand-sidebar/80 border-t border-brand-border text-[10px] text-slate-400 flex items-center justify-between font-mono">
+<span>Geo-fence: Sarusajai Complex [26.115° N, 91.758° E]</span>
+<span class="text-slate-500">Live GPS Corridor</span>
+</div>
+</div>
+<!-- Recent Stock Movement Activity Feed -->
+<div class="bg-brand-card border border-brand-border rounded-lg p-3.5 space-y-2.5">
+<div class="flex items-center justify-between border-b border-brand-border/60 pb-1.5">
+<span class="font-semibold text-xs text-slate-100">Recent Movement Log</span>
+<span class="text-[10px] text-slate-400 font-mono">Real-time Gate Feed</span>
+</div>
+<div class="space-y-2 text-xs">
+<!-- Log Item 1: Inbound Rice -->
+<div class="flex items-start gap-2 p-1.5 rounded hover:bg-brand-sidebar/50 transition">
+<div class="w-5 h-5 rounded bg-brand-green/20 text-brand-green flex items-center justify-center flex-shrink-0 text-xs font-bold font-mono">
+                  ↓
+                </div>
+<div class="flex-1 leading-tight">
+<div class="flex items-center justify-between">
+<span class="font-semibold text-slate-200">Inbound: +1,000 kg Rice Grain</span>
+<span class="text-[10px] font-mono text-slate-500">11:15 IST</span>
+</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Received from FCI Borjhar Buffer Depot • Batch #FCI-889</div>
+</div>
+</div>
+<!-- Log Item 2: Outbound to Zone 02 -->
+<div class="flex items-start gap-2 p-1.5 rounded hover:bg-brand-sidebar/50 transition">
+<div class="w-5 h-5 rounded bg-brand-orange/20 text-brand-orange flex items-center justify-center flex-shrink-0 text-xs font-bold font-mono">
+                  ↑
+                </div>
+<div class="flex-1 leading-tight">
+<div class="flex items-center justify-between">
+<span class="font-semibold text-slate-200">Outbound: -450 kg Dry Rations</span>
+<span class="text-[10px] font-mono text-slate-500">13:45 IST</span>
+</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Dispatched to Shelter 01 (Kamrup Girls College) via VH-03</div>
+</div>
+</div>
+<!-- Log Item 3: Staging Transfer -->
+<div class="flex items-start gap-2 p-1.5 rounded hover:bg-brand-sidebar/50 transition">
+<div class="w-5 h-5 rounded bg-brand-blue/20 text-brand-blue flex items-center justify-center flex-shrink-0 text-xs font-bold font-mono">
+                  ↔
+                </div>
+<div class="flex-1 leading-tight">
+<div class="flex items-center justify-between">
+<span class="font-semibold text-slate-200">Internal: 300 L Potable Water</span>
+<span class="text-[10px] font-mono text-slate-500">14:02 IST</span>
+</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Moved from Main Stash to Rapid Staging Dock Bay A</div>
+</div>
+</div>
+</div>
+<div class="pt-1 text-center">
+<a class="text-xs text-brand-teal hover:underline font-medium inline-flex items-center gap-1" href="#">
+                View Complete Logistics Dispatch Ledger →
+              </a>
+</div>
+</div>
+</section>
+<!-- END: RightDepotOverviewPanel -->
+</div>
+<!-- END: MainTwoColumnWorkspace -->
+<!-- BEGIN: BottomDataTransparencyStrip -->
+<footer class="bg-brand-card/70 border border-brand-border rounded-lg p-3 text-xs space-y-2 text-slate-400" data-purpose="provenance-audit-strip">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-brand-border/60 pb-2">
+<div class="flex items-center gap-2 text-slate-300 font-medium">
+<svg class="w-4 h-4 text-brand-teal" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Data Provenance &amp; Cross-Agency Stock Pipeline Verification</span>
+</div>
+<div class="font-mono text-[11px] text-slate-500">
+            SYSTEM HASH: <span class="text-slate-400">9c48b-kamrup-inv-prod</span> • SYNC FREQUENCY: 180s
+          </div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-[11px]">
+<div>
+<div class="font-semibold text-slate-300">ASDMA Depot Inventory Register</div>
+<div class="text-slate-500">Physical Stock Count Verified at 13:30 IST today</div>
+</div>
+<div>
+<div class="font-semibold text-slate-300">Food Corporation of India (FCI)</div>
+<div class="text-slate-500">Guwahati Buffer Stock link active • Quota 12,000 kg</div>
+</div>
+<div>
+<div class="font-semibold text-slate-300">PHED Water Testing Laboratory</div>
+<div class="text-slate-500">Water quality purity certification ref: W-4029-A</div>
+</div>
+<div>
+<div class="font-semibold text-slate-300">Open-Meteo Road Transit Feed</div>
+<div class="text-slate-500">NH-27 bypass clear; Bharalumukh MG Road restricted</div>
+</div>
+</div>
+<div class="pt-1 flex items-center gap-1.5 text-[10px] text-slate-500 font-mono">
+<svg class="w-3 h-3 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Human-in-the-loop inventory management protocol: Physical dispatch requires authorized ASDMA Disaster Operations Officer biometric or digital seal signature prior to gate release.
+        </div>
+</footer>
+<!-- END: BottomDataTransparencyStrip -->
+</main>
+<!-- END: MainScrollableContent -->
+</div>
+<!-- END: MainContentWrapper -->
+</body></html>

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-low":"#0e1d2c","on-secondary":"#003545","on-tertiary":"#650713","on-surface-variant":"#bbcac4","secondary":"#61d4ff","outline-variant":"#3c4a46","secondary-fixed":"#bce9ff","surface-variant":"#283646","surface-container":"#122130","on-error-container":"#ffdad6","primary-fixed-dim":"#4ddcc1","on-background":"#d5e4f9","surface-tint":"#4ddcc1","inverse-primary":"#006b5b","on-tertiary-fixed-variant":"#852127","on-secondary-fixed":"#001f29","on-tertiary-container":"#7a1920","surface":"#051423","on-primary-container":"#00483c","primary":"#4ddcc1","on-primary":"#00382e","inverse-on-surface":"#233241","on-secondary-container":"#00313f","background":"#051423","error":"#ffb4ab","on-error":"#690005","on-primary-fixed":"#00201a","surface-container-highest":"#283646","secondary-container":"#01a0c9","on-tertiary-fixed":"#410007","inverse-surface":"#d5e4f9","tertiary-fixed-dim":"#ffb3b1","surface-container-lowest":"#010f1e","primary-container":"#20bfa5","tertiary":"#ffb3b1","tertiary-fixed":"#ffdad8","primary-fixed":"#6ff9dd","outline":"#85948f","tertiary-container":"#ff8786","surface-bright":"#2c3a4b","surface-container-high":"#1d2b3b","error-container":"#93000a","on-secondary-fixed-variant":"#004d63","surface-dim":"#051423","on-surface":"#d5e4f9","on-primary-fixed-variant":"#005144","secondary-fixed-dim":"#61d4ff"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-xl":"1.5rem","space-xs":"0.25rem","space-sm":"0.375rem","margin-lg":"1.25rem",gutter:"0.75rem","space-lg":"1rem","space-md":"0.75rem","gutter-lg":"1rem",margin:"0.75rem"},fontFamily:{"body-sm":["Inter"],"headline-lg":["Inter"],"headline-sm":["Inter"],"label-md":["Inter"],"display-lg":["Inter"],"body-md":["Inter"],"mono-data":["Inter"],"body-lg":["Inter"],"label-sm":["Inter"]},fontSize:{"body-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.01em",fontWeight:"400"}],"headline-lg":["1.25rem",{lineHeight:"1.75rem",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-sm":["1rem",{lineHeight:"1.5rem",letterSpacing:"0em",fontWeight:"600"}],"label-md":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.03em",fontWeight:"500"}],"display-lg":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["0.8125rem",{lineHeight:"1.25rem",letterSpacing:"0em",fontWeight:"400"}],"mono-data":["0.8125rem",{lineHeight:"1.125rem",letterSpacing:"-0.01em",fontWeight:"500"}],"body-lg":["0.9375rem",{lineHeight:"1.375rem",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["0.6875rem",{lineHeight:"0.875rem",letterSpacing:"0.06em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[250px] bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-lowest"><img alt="Brand logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WoqSveSUjtwcRq3Ng5DMl-ndlaVTHaPwTZ9YR1bMyjeOz1I52m1bXqelBg2BQxYBKTvu0nKDhlbrPuilzlTigX3-Rmm4kQU-cNb4UVGnVL3W8K5ESpJHx3Ta8h-6eAs2gTIuPF7uuxs7QceJOnb_SVQm1-xM34l6cFAn1XkibgCG8cbR_xhVULdzLWIE7WN3qEnKE4fUNjEXO6JFYwnSNzM2d7qORWvgaVCs2xjb2MUboJe3BXuXc00ig"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">RELIEFOS Lite</span><span class="font-label-sm text-label-sm text-on-surface-variant">Flood Ops • Kamrup Metro</span></div></div><nav class="flex-1 overflow-y-auto px-space-xs py-space-sm space-y-space-xs" data-active-classes="bg-surface-container-highest text-primary font-semibold border-l-[3px] border-primary-container"><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="operations-overview" href="#">Operations Overview</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="live-flood-map" href="#">Live Flood Map</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="zones-and-risk" href="#">Zones &amp; Risk</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="resource-inventory" href="#">Resource Inventory</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="demand-management" href="#">Demand Management</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="relief-allocation" href="#">Relief Allocation</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="route-optimization" href="#">Route Optimization</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="simulation-and-reports" href="#">Simulation &amp; Reports</a><a aria-current="page" class="flex items-center px-space-md py-space-sm rounded-lg transition-colors bg-surface-container-highest text-primary font-semibold border-l-[3px] border-primary-container" data-path="data-sources" href="#">Data Sources</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="settings" href="#">Settings</a></nav></div><div class="p-space-sm space-y-space-xs bg-surface-container-lowest"><div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm font-semibold text-primary flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> ONLINE • TELEMETRY OK</span></div><div class="font-mono-data text-mono-data text-on-surface-variant">MODE: DEMO (SIMULATED)</div></div><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container"><div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-semibold"><span class="material-symbols-outlined text-[18px]">shield_person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface truncate">Insp. S. Sharma</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Disaster Ops, ASDMA</span></div><span class="material-symbols-outlined text-on-surface-variant text-[16px]">more_vert</span></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-low/95 backdrop-blur-md z-40 px-space-md flex items-center justify-between shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex items-center gap-space-md"><img alt="Brand logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WoqSveSUjtwcRq3Ng5DMl-ndlaVTHaPwTZ9YR1bMyjeOz1I52m1bXqelBg2BQxYBKTvu0nKDhlbrPuilzlTigX3-Rmm4kQU-cNb4UVGnVL3W8K5ESpJHx3Ta8h-6eAs2gTIuPF7uuxs7QceJOnb_SVQm1-xM34l6cFAn1XkibgCG8cbR_xhVULdzLWIE7WN3qEnKE4fUNjEXO6JFYwnSNzM2d7qORWvgaVCs2xjb2MUboJe3BXuXc00ig"/><nav class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md"><span class="text-on-surface-variant">Operations</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="text-on-surface font-semibold">Data Sources</span></nav><div class="hidden lg:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg text-on-surface font-body-sm text-body-sm"><span class="material-symbols-outlined text-primary text-[16px]">location_on</span><span>Kamrup Metropolitan, Guwahati, Assam</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">arrow_drop_down</span></div></div><div class="flex items-center gap-space-md"><div class="bg-surface-variant px-space-sm py-space-xs rounded-full flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span><span class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider font-semibold">SIMULATED DATA</span></div><div class="hidden md:flex items-center gap-space-xs text-on-surface-variant font-mono-data text-mono-data"><span class="material-symbols-outlined text-[16px]">schedule</span><span>Sync: 14:42:10 IST</span></div><button class="relative p-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error-container text-on-error-container text-[10px] flex items-center justify-center font-bold">4</span></button><button class="p-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help</span></button><div class="hidden sm:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg font-label-sm text-label-sm font-semibold text-primary"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span><span>On Duty</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-space-lg py-space-lg"><div class="flex flex-col w-full space-y-gutter-lg">
+<!-- TOP HEADER & CONTEXT STRIP -->
+<section class="flex flex-col space-y-space-md">
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="bg-surface-container-high text-primary px-space-sm py-0.5 rounded-DEFAULT font-mono-data text-label-sm tracking-wider uppercase">
+            PIPELINE ENGINE V2.4
+          </span>
+<span class="bg-surface-container-high text-secondary px-space-sm py-0.5 rounded-DEFAULT font-mono-data text-label-sm tracking-wider uppercase">
+            ASDMA DATA HIGHWAY
+          </span>
+<span class="bg-surface-variant text-on-surface-variant px-space-sm py-0.5 rounded-DEFAULT font-mono-data text-label-sm tracking-wider uppercase">
+            SIMULATED FEEDS AUDITED
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+          Data Sources &amp; Ingestion Operations
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-4xl">
+          Monitor real-time hydrologic telemetry, meteorological feeds, satellite inundation rasters, road network graphs, and depot logistics ledgers feeding Kamrup Metro operational models.
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm self-start xl:self-center">
+<button class="flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface px-space-md py-space-sm rounded-lg transition-colors font-label-md text-label-md" id="btn-refresh-all">
+<span class="material-symbols-outlined text-[16px] text-secondary">sync</span>
+<span>Refresh All Feeds</span>
+</button>
+<button class="flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface px-space-md py-space-sm rounded-lg transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">network_check</span>
+<span>Test Handshakes</span>
+</button>
+<button class="flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface px-space-md py-space-sm rounded-lg transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">download</span>
+<span>Export Audit</span>
+</button>
+<button class="flex items-center gap-space-xs bg-primary-container hover:brightness-110 text-on-primary-container px-space-md py-space-sm rounded-lg transition-all font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span>Configure Pipeline</span>
+</button>
+</div>
+</div>
+<!-- Telemetry Status Ribbon -->
+<div class="bg-surface-container-low px-space-md py-space-sm rounded-xl flex flex-wrap items-center justify-between gap-space-sm text-on-surface-variant font-mono-data text-label-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">hub</span>
+<span class="text-on-surface-variant font-semibold">Data Highway:</span>
+<span class="text-on-surface font-mono-data">Kamrup Metro Regional Gateway (Node-GHY-04)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-on-surface font-semibold">06 Operational</span>
+<span class="text-on-surface-variant">/</span>
+<span class="text-tertiary-fixed-dim font-semibold">01 Degraded</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-secondary">update</span>
+<span class="text-on-surface-variant">Cadence:</span>
+<span class="text-on-surface font-mono-data">15m Polling &amp; Webhooks</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">security</span>
+<span class="text-on-surface-variant">Safeguard:</span>
+<span class="text-primary font-mono-data font-semibold">Stale Feed Fallback Active</span>
+</div>
+</div>
+</section>
+<!-- TOP METRIC CARDS (5 HORIZONTAL CARDS) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
+<!-- Card 1 -->
+<div class="bg-surface-container p-space-md rounded-xl flex flex-col justify-between space-y-space-xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Active Feeds</span>
+<span class="material-symbols-outlined text-[18px] text-primary">sensors</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">07</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Ingested</span>
+</div>
+<div class="flex items-center gap-space-xs font-mono-data text-label-sm text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>6 Healthy</span>
+<span class="text-on-surface-variant">•</span>
+<span class="text-tertiary-fixed-dim">1 Warning</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container p-space-md rounded-xl flex flex-col justify-between space-y-space-xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Throughput</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">speed</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">1.42</span>
+<span class="font-label-md text-label-md text-on-surface-variant">MB/s</span>
+</div>
+<div class="flex items-center gap-space-xs font-mono-data text-label-sm text-on-surface-variant">
+<span>Latency: 42ms avg</span>
+<span>•</span>
+<span class="text-primary font-semibold">99.8% SLA</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container p-space-md rounded-xl flex flex-col justify-between space-y-space-xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Freshness Target</span>
+<span class="material-symbols-outlined text-[18px] text-primary">timer</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-primary">94.2%</span>
+<span class="font-label-md text-label-md text-on-surface-variant">compliant</span>
+</div>
+<div class="flex items-center gap-space-xs font-mono-data text-label-sm text-on-surface-variant">
+<span>Threshold: &lt;15m window</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container p-space-md rounded-xl flex flex-col justify-between space-y-space-xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Degraded / Stale</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">warning</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-tertiary-fixed-dim">01</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Feed</span>
+</div>
+<div class="font-mono-data text-label-sm text-on-surface-variant truncate">
+        Sentinel-1 SAR (4h mesh)
+      </div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container p-space-md rounded-xl flex flex-col justify-between space-y-space-xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Integrity Gate</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">verified_user</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">SHA-256</span>
+<span class="font-label-md text-label-md text-primary font-semibold">VALID</span>
+</div>
+<div class="font-mono-data text-label-sm text-on-surface-variant">
+        100% Vector topology match
+      </div>
+</div>
+</section>
+<!-- MAIN WORKSPACE: TWO-COLUMN LAYOUT -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-md">
+<!-- LEFT COLUMN: LEDGER & GOVERNANCE (~68% = 8 cols) -->
+<div class="xl:col-span-8 flex flex-col space-y-space-md">
+<!-- FILTER & SEARCH BAR -->
+<div class="bg-surface-container p-space-md rounded-xl flex flex-col space-y-space-md">
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm">
+<!-- Search input -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low pl-10 pr-space-md py-space-sm rounded-lg text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-lowest transition-all" id="feed-search" placeholder="Search by source ID, telemetry type, protocol, or provider..." type="text"/>
+</div>
+<!-- Bulk actions -->
+<div class="flex items-center gap-space-sm font-label-md text-label-md text-on-surface-variant">
+<label class="flex items-center gap-space-xs cursor-pointer select-none bg-surface-container-low px-space-sm py-space-xs rounded-lg hover:text-on-surface">
+<input checked="" class="accent-primary rounded" type="checkbox"/>
+<span>Auto-poll (30s)</span>
+</label>
+<label class="flex items-center gap-space-xs cursor-pointer select-none bg-surface-container-low px-space-sm py-space-xs rounded-lg hover:text-on-surface">
+<input checked="" class="accent-primary rounded" type="checkbox"/>
+<span>Sparklines</span>
+</label>
+</div>
+</div>
+<!-- Filter category tags -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1" id="category-tabs">
+<button class="px-space-sm py-1 rounded-DEFAULT bg-primary text-on-primary font-label-sm text-label-sm font-semibold whitespace-nowrap">All Feeds (7)</button>
+<button class="px-space-sm py-1 rounded-DEFAULT bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-sm text-label-sm whitespace-nowrap">Hydrology (2)</button>
+<button class="px-space-sm py-1 rounded-DEFAULT bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-sm text-label-sm whitespace-nowrap">Meteorology (1)</button>
+<button class="px-space-sm py-1 rounded-DEFAULT bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-sm text-label-sm whitespace-nowrap">Satellite EO (1)</button>
+<button class="px-space-sm py-1 rounded-DEFAULT bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-sm text-label-sm whitespace-nowrap">Road Graph (1)</button>
+<button class="px-space-sm py-1 rounded-DEFAULT bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-sm text-label-sm whitespace-nowrap">Depot ERP (1)</button>
+<button class="px-space-sm py-1 rounded-DEFAULT bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-sm text-label-sm whitespace-nowrap">Field Ops (1)</button>
+</div>
+</div>
+<!-- PRIMARY DATA FEEDS LEDGER TABLE -->
+<div class="bg-surface-container rounded-xl overflow-hidden shadow-sm">
+<div class="px-space-md py-space-sm bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">table_chart</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Ingested Stream Registry</span>
+</div>
+<span class="font-mono-data text-label-sm text-on-surface-variant">Sorted by criticality rank</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<tr>
+<th class="py-space-sm px-space-md font-semibold">Feed Identity &amp; Source</th>
+<th class="py-space-sm px-space-md font-semibold">Authority</th>
+<th class="py-space-sm px-space-md font-semibold">Class / Type</th>
+<th class="py-space-sm px-space-md font-semibold">Protocol</th>
+<th class="py-space-sm px-space-md font-semibold">Cadence</th>
+<th class="py-space-sm px-space-md font-semibold">Last Ingest</th>
+<th class="py-space-sm px-space-md font-semibold">Health</th>
+<th class="py-space-sm px-space-md font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-sm" id="feeds-table-body">
+<!-- Row 1: CWC -->
+<tr class="hover:bg-surface-bright/40 transition-colors cursor-pointer group bg-surface-container-high/30" onclick="selectFeed('CWC-HYD-01')">
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-data text-label-sm text-primary font-bold">CWC-HYD-01</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+</div>
+<span class="font-headline-sm text-body-lg font-semibold text-on-surface group-hover:text-primary transition-colors">Brahmaputra Gauges (DC Court &amp; Pandu)</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">Real-time water level &amp; discharge rate</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-mono-data text-body-sm">
+                  Central Water Commission (CWC)
+                </td>
+<td class="py-space-md px-space-md">
+<span class="bg-primary/10 text-primary px-space-xs py-0.5 rounded-DEFAULT font-mono-data text-label-sm font-semibold">
+                    OBSERVED
+                  </span>
+</td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm text-on-surface-variant">
+                  MQTT / GeoJSON
+                </td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm">
+                  Every 15 min
+                </td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col font-mono-data text-label-sm">
+<span class="text-on-surface">14:40 IST</span>
+<span class="text-primary text-[10px]">2m ago • 24ms</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 text-primary bg-primary/10 px-2 py-0.5 rounded-full font-mono-data text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 99.9%
+                  </span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-primary transition-colors" title="Trigger Polling">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-secondary transition-colors" title="View Payload Logs">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: IMD Doppler -->
+<tr class="hover:bg-surface-bright/40 transition-colors cursor-pointer group" onclick="selectFeed('MET-RAD-02')">
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-data text-label-sm text-secondary font-bold">MET-RAD-02</span>
+</div>
+<span class="font-headline-sm text-body-lg font-semibold text-on-surface group-hover:text-secondary transition-colors">IMD Doppler Radar &amp; Open-Meteo GFS</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">Borjhar Radar reflectivity &amp; 24h precip model</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-mono-data text-body-sm">
+                  IMD RMC Borjhar / Open-Meteo
+                </td>
+<td class="py-space-md px-space-md">
+<span class="bg-secondary/10 text-secondary px-space-xs py-0.5 rounded-DEFAULT font-mono-data text-label-sm font-semibold">
+                    FORECAST
+                  </span>
+</td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm text-on-surface-variant">
+                  REST / NetCDF-4
+                </td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm">
+                  Hourly
+                </td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col font-mono-data text-label-sm">
+<span class="text-on-surface">14:00 IST</span>
+<span class="text-on-surface-variant text-[10px]">42m ago • 110ms</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 text-primary bg-primary/10 px-2 py-0.5 rounded-full font-mono-data text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 98.4%
+                  </span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: SAR Inundation (DEGRADED) -->
+<tr class="hover:bg-surface-bright/40 transition-colors cursor-pointer group bg-surface-container-high/20" onclick="selectFeed('SAT-SAR-03')">
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-data text-label-sm text-tertiary-fixed-dim font-bold">SAT-SAR-03</span>
+<span class="bg-tertiary-container/30 text-tertiary-fixed-dim px-1.5 rounded text-[10px] uppercase font-mono-data font-semibold">DEGRADED</span>
+</div>
+<span class="font-headline-sm text-body-lg font-semibold text-on-surface group-hover:text-tertiary-fixed-dim transition-colors">Copernicus Sentinel-1 SAR Extent</span>
+<span class="font-mono-data text-label-sm text-tertiary-fixed-dim">Next pass 16:15 IST • Spline hydrodynamic back-cast active</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-mono-data text-body-sm">
+                  ESA / NRSC Disaster Watch
+                </td>
+<td class="py-space-md px-space-md">
+<span class="bg-tertiary-container/20 text-tertiary-fixed-dim px-space-xs py-0.5 rounded-DEFAULT font-mono-data text-label-sm font-semibold">
+                    ESTIMATED
+                  </span>
+</td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm text-on-surface-variant">
+                  WMS / GeoTIFF COG
+                </td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm">
+                  6-Hour Orbit
+                </td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col font-mono-data text-label-sm">
+<span class="text-tertiary-fixed-dim font-bold">10:30 IST</span>
+<span class="text-tertiary-fixed-dim text-[10px]">4h 12m ago • Replaced</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 text-tertiary-fixed-dim bg-tertiary-container/20 px-2 py-0.5 rounded-full font-mono-data text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span> 88.5%
+                  </span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 hover:bg-surface-container-high rounded text-tertiary-fixed-dim transition-colors" title="Force Satellite Poll">
+<span class="material-symbols-outlined text-[16px]">sync_problem</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-secondary transition-colors" title="View Fallback Grid">
+<span class="material-symbols-outlined text-[16px]">history_edu</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: GIS Roads -->
+<tr class="hover:bg-surface-bright/40 transition-colors cursor-pointer group" onclick="selectFeed('GIS-RDS-04')">
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-data text-label-sm text-primary font-bold">GIS-RDS-04</span>
+</div>
+<span class="font-headline-sm text-body-lg font-semibold text-on-surface group-hover:text-primary transition-colors">Kamrup Metro Road Network &amp; Bridge Graph</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">OSRM routing mesh with dynamic flood cut-off attributes</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-mono-data text-body-sm">
+                  OSM Assam / PWD Roads
+                </td>
+<td class="py-space-md px-space-md">
+<span class="bg-surface-variant text-on-surface-variant px-space-xs py-0.5 rounded-DEFAULT font-mono-data text-label-sm font-semibold">
+                    STATIC + SENSOR
+                  </span>
+</td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm text-on-surface-variant">
+                  gRPC / Protobuf
+                </td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm">
+                  Continuous
+                </td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col font-mono-data text-label-sm">
+<span class="text-on-surface">14:38 IST</span>
+<span class="text-primary text-[10px]">4m ago • 18ms</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 text-primary bg-primary/10 px-2 py-0.5 rounded-full font-mono-data text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 100%
+                  </span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Sarusajai ERP -->
+<tr class="hover:bg-surface-bright/40 transition-colors cursor-pointer group" onclick="selectFeed('ERP-DPT-05')">
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-data text-label-sm text-primary font-bold">ERP-DPT-05</span>
+</div>
+<span class="font-headline-sm text-body-lg font-semibold text-on-surface group-hover:text-primary transition-colors">Sarusajai Depot Inventory Ledger</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">Rations, medical kits, inflatable dinghies, fuel drums</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-mono-data text-body-sm">
+                  ASDMA Logistics ERP
+                </td>
+<td class="py-space-md px-space-md">
+<span class="bg-surface-variant text-on-surface-variant px-space-xs py-0.5 rounded-DEFAULT font-mono-data text-label-sm font-semibold">
+                    MANUAL AUDIT
+                  </span>
+</td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm text-on-surface-variant">
+                  SQL Webhook / JSON
+                </td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm">
+                  Every 30 min
+                </td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col font-mono-data text-label-sm">
+<span class="text-on-surface">14:15 IST</span>
+<span class="text-on-surface-variant text-[10px]">27m ago • 35ms</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 text-primary bg-primary/10 px-2 py-0.5 rounded-full font-mono-data text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 99.5%
+                  </span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6: SDRF Field -->
+<tr class="hover:bg-surface-bright/40 transition-colors cursor-pointer group" onclick="selectFeed('FLD-OBS-06')">
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-data text-label-sm text-secondary font-bold">FLD-OBS-06</span>
+</div>
+<span class="font-headline-sm text-body-lg font-semibold text-on-surface group-hover:text-secondary transition-colors">Zonal SDRF 4th Bn Incident Stream</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">Live field rescue SOS reports, embankment breach pings</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-mono-data text-body-sm">
+                  SDRF Assam Quick Response
+                </td>
+<td class="py-space-md px-space-md">
+<span class="bg-primary/10 text-primary px-space-xs py-0.5 rounded-DEFAULT font-mono-data text-label-sm font-semibold">
+                    MANUAL OBSERVED
+                  </span>
+</td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm text-on-surface-variant">
+                  TETRA / Mobile App
+                </td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm">
+                  Event-driven
+                </td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col font-mono-data text-label-sm">
+<span class="text-on-surface">14:28 IST</span>
+<span class="text-primary text-[10px]">14m ago</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 text-primary bg-primary/10 px-2 py-0.5 rounded-full font-mono-data text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 96.0%
+                  </span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 7: Population Exposure -->
+<tr class="hover:bg-surface-bright/40 transition-colors cursor-pointer group" onclick="selectFeed('DEM-EST-07')">
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-data text-label-sm text-on-surface-variant font-bold">DEM-EST-07</span>
+</div>
+<span class="font-headline-sm text-body-lg font-semibold text-on-surface group-hover:text-primary transition-colors">Population Exposure &amp; Demand Model</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">Ward census grid combined with water-depth vulnerability</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-mono-data text-body-sm">
+                  Census / GIS Grid v2.4
+                </td>
+<td class="py-space-md px-space-md">
+<span class="bg-surface-variant text-on-surface-variant px-space-xs py-0.5 rounded-DEFAULT font-mono-data text-label-sm font-semibold">
+                    SIMULATED
+                  </span>
+</td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm text-on-surface-variant">
+                  RPC / JSON
+                </td>
+<td class="py-space-md px-space-md font-mono-data text-label-sm">
+                  On-demand snap
+                </td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col font-mono-data text-label-sm">
+<span class="text-on-surface">14:30 IST</span>
+<span class="text-on-surface-variant text-[10px]">Snapshot-1430</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 text-primary bg-primary/10 px-2 py-0.5 rounded-full font-mono-data text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 99.1%
+                  </span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- PROVENANCE CLASSIFICATION MATRIX & GOVERNANCE FRAMEWORK -->
+<div class="bg-surface-container p-space-md rounded-xl space-y-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">account_tree</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Data Provenance &amp; Verification Protocol</h2>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant px-space-sm py-0.5 rounded-DEFAULT">
+            ISO-19115 GIS Standard
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          To maintain zero-confusion operational reliability during flash inundation emergencies in Kamrup Metropolitan, every upstream attribute fed into the allocation solvers is tagged with one of six provenance classes:
+        </p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm">
+<!-- Class 1 -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm font-bold text-primary">1. OBSERVED</span>
+<span class="material-symbols-outlined text-primary text-[14px]">sensors</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Direct physical gauge or sensor telemetry (e.g., CWC Pandu stage reading).</p>
+</div>
+<!-- Class 2 -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm font-bold text-secondary">2. FORECAST</span>
+<span class="material-symbols-outlined text-secondary text-[14px]">cloud</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Numerical weather prediction runs &amp; projected rainfall accumulation (IMD).</p>
+</div>
+<!-- Class 3 -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm font-bold text-tertiary-fixed-dim">3. ESTIMATED</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[14px]">insights</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Algorithmic derivations, SAR surface thresholding, and zonal demand models.</p>
+</div>
+<!-- Class 4 -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm font-bold text-on-surface">4. MANUAL</span>
+<span class="material-symbols-outlined text-on-surface text-[14px]">how_to_reg</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Disaster officer certified field audits, bridge closure reports &amp; depot logs.</p>
+</div>
+<!-- Class 5 -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm font-bold text-secondary-fixed">5. SIMULATED</span>
+<span class="material-symbols-outlined text-secondary-fixed text-[14px]">model_training</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Synthetic stress-test configurations and artificial dam-release scenarios.</p>
+</div>
+<!-- Class 6 -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm font-bold text-error">6. STALE / FALLBACK</span>
+<span class="material-symbols-outlined text-error text-[14px]">history</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Telemetry exceeding safe freshness TTL, actively substituted with certified baselines.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: FEED INSPECTOR & TOPOLOGY (~32% = 4 cols) -->
+<div class="xl:col-span-4 flex flex-col space-y-space-md">
+<!-- SELECTED FEED INSPECTOR -->
+<div class="bg-surface-container p-space-md rounded-xl space-y-space-md shadow-sm" id="feed-inspector-panel">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Live Inspector</span>
+</div>
+<span class="font-mono-data text-label-sm bg-primary/10 text-primary px-space-xs py-0.5 rounded-DEFAULT">
+            CWC-HYD-01
+          </span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Stream Identity</span>
+<span class="font-mono-data text-label-sm text-primary font-bold">ACTIVE TELEMETRY</span>
+</div>
+<div class="font-body-lg text-body-lg text-on-surface font-semibold">
+            Brahmaputra River Gauges
+          </div>
+<div class="font-mono-data text-label-sm text-on-surface-variant break-all">
+            wss://telemetry.cwc.gov.in/assam/kamrup/v2/stream
+          </div>
+</div>
+<!-- Real-time Gauge Metrics -->
+<div class="space-y-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">Live Hydrologic Readings</span>
+<div class="bg-surface-container-high p-space-sm rounded-lg flex items-center justify-between">
+<div>
+<div class="font-mono-data text-label-sm text-on-surface font-semibold">DC Court Station (GHY)</div>
+<div class="font-label-sm text-label-sm text-tertiary-fixed-dim font-mono-data">Danger Level: 49.68m</div>
+</div>
+<div class="text-right">
+<div class="font-headline-lg text-headline-lg font-bold text-tertiary-fixed-dim">49.88m</div>
+<div class="font-label-sm text-label-sm text-tertiary-fixed-dim font-mono-data">+0.20m (Rising 2.1cm/h)</div>
+</div>
+</div>
+<div class="bg-surface-container-high p-space-sm rounded-lg flex items-center justify-between">
+<div>
+<div class="font-mono-data text-label-sm text-on-surface font-semibold">Pandu Port Gauge</div>
+<div class="font-label-sm text-label-sm text-tertiary-fixed-dim font-mono-data">Danger Level: 48.98m</div>
+</div>
+<div class="text-right">
+<div class="font-headline-lg text-headline-lg font-bold text-tertiary-fixed-dim">49.12m</div>
+<div class="font-label-sm text-label-sm text-tertiary-fixed-dim font-mono-data">+0.14m (High Flood)</div>
+</div>
+</div>
+</div>
+<!-- Telemetry Health Gauges -->
+<div class="space-y-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">Ingestion Channel Health</span>
+<div class="grid grid-cols-2 gap-space-xs text-center font-mono-data text-label-sm">
+<div class="bg-surface-container-high p-space-xs rounded">
+<div class="text-on-surface-variant text-[10px]">PACKET LOSS</div>
+<div class="text-primary font-bold">0.01%</div>
+</div>
+<div class="bg-surface-container-high p-space-xs rounded">
+<div class="text-on-surface-variant text-[10px]">ROUNDTRIP</div>
+<div class="text-primary font-bold">24ms</div>
+</div>
+<div class="bg-surface-container-high p-space-xs rounded">
+<div class="text-on-surface-variant text-[10px]">BUFFER LOAD</div>
+<div class="text-secondary font-bold">12 / 1024</div>
+</div>
+<div class="bg-surface-container-high p-space-xs rounded">
+<div class="text-on-surface-variant text-[10px]">CHECKSUM</div>
+<div class="text-primary font-bold">PASSED</div>
+</div>
+</div>
+</div>
+<!-- Downstream Consuming Modules -->
+<div class="space-y-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">Downstream Consumers</span>
+<div class="flex flex-wrap gap-1">
+<span class="bg-surface-container-low text-on-surface-variant font-mono-data text-label-sm px-2 py-0.5 rounded">Live Flood Map</span>
+<span class="bg-surface-container-low text-on-surface-variant font-mono-data text-label-sm px-2 py-0.5 rounded">Zones &amp; Risk</span>
+<span class="bg-surface-container-low text-on-surface-variant font-mono-data text-label-sm px-2 py-0.5 rounded">Relief Allocation</span>
+<span class="bg-surface-container-low text-on-surface-variant font-mono-data text-label-sm px-2 py-0.5 rounded">Route Optimization</span>
+</div>
+</div>
+<!-- Diagnostic Actions -->
+<div class="pt-space-xs flex flex-col gap-space-xs font-label-md text-label-md">
+<div class="flex items-center gap-space-xs">
+<button class="flex-1 bg-surface-container-high hover:bg-surface-bright text-on-surface py-space-sm rounded-lg flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-primary">network_ping</span>
+<span>Ping Endpoint</span>
+</button>
+<button class="flex-1 bg-surface-container-high hover:bg-surface-bright text-on-surface py-space-sm rounded-lg flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary">vpn_key</span>
+<span>Re-Auth Token</span>
+</button>
+</div>
+<button class="w-full bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface py-space-sm rounded-lg flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">data_object</span>
+<span>Inspect Raw JSON Payload</span>
+</button>
+</div>
+</div>
+<!-- PIPELINE ARCHITECTURE & DATA FLOW TOPOLOGY -->
+<div class="bg-surface-container p-space-md rounded-xl space-y-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">schema</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Data Highway Topology</h3>
+</div>
+<span class="font-mono-data text-label-sm text-primary font-bold">100% ONLINE</span>
+</div>
+<!-- Flow Visualizer -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col space-y-space-sm font-mono-data text-label-sm">
+<!-- Step 1 -->
+<div class="flex items-center justify-between bg-surface-container-high p-space-xs rounded">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">cloud_download</span>
+<span class="text-on-surface font-semibold">1. Upstream Feeds</span>
+</div>
+<span class="text-primary text-[11px]">CWC, IMD, ESA, SDRF</span>
+</div>
+<div class="flex justify-center text-on-surface-variant -my-1">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+</div>
+<!-- Step 2 -->
+<div class="flex items-center justify-between bg-surface-container-high p-space-xs rounded">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">filter_alt</span>
+<span class="text-on-surface font-semibold">2. Gateway Normalizer</span>
+</div>
+<span class="text-secondary text-[11px]">GeoJSON &amp; NetCDF Parser</span>
+</div>
+<div class="flex justify-center text-on-surface-variant -my-1">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+</div>
+<!-- Step 3 -->
+<div class="flex items-center justify-between bg-surface-container-high p-space-xs rounded">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+<span class="text-on-surface font-semibold">3. Checksum &amp; QA Gates</span>
+</div>
+<span class="text-primary text-[11px]">SHA-256 Validated</span>
+</div>
+<div class="flex justify-center text-on-surface-variant -my-1">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+</div>
+<!-- Step 4 -->
+<div class="flex items-center justify-between bg-surface-container-high p-space-xs rounded">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">database</span>
+<span class="text-on-surface font-semibold">4. Spatial Cache (Redis)</span>
+</div>
+<span class="text-secondary text-[11px]">PostGIS Hydro Contours</span>
+</div>
+<div class="flex justify-center text-on-surface-variant -my-1">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+</div>
+<!-- Step 5 -->
+<div class="flex items-center justify-between bg-surface-container-high p-space-xs rounded">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">psychology</span>
+<span class="text-on-surface font-semibold">5. MILP &amp; OSRM Solvers</span>
+</div>
+<span class="text-primary text-[11px]">Disaster Optimization</span>
+</div>
+</div>
+</div>
+<!-- INGESTION ALERTS & ANOMALIES -->
+<div class="bg-surface-container p-space-md rounded-xl space-y-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[18px]">crisis_alert</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Live Pipeline Alerts</h3>
+</div>
+<span class="font-mono-data text-label-sm text-tertiary-fixed-dim font-bold">3 ACTIVE</span>
+</div>
+<div class="space-y-space-xs font-body-sm text-body-sm">
+<!-- Alert 1 -->
+<div class="p-space-sm rounded-lg bg-tertiary-container/15 flex flex-col space-y-0.5">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm text-tertiary-fixed-dim font-bold">WARNING • SAR OVERPASS DELAY</span>
+<span class="font-mono-data text-[10px] text-tertiary-fixed-dim">4h ago</span>
+</div>
+<p class="text-on-surface text-body-sm">
+              Copernicus Sentinel-1 SAR delay. Inundation mesh fallback actively engaged to calibrated hydrodynamic back-cast spline.
+            </p>
+</div>
+<!-- Alert 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-high flex flex-col space-y-0.5">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm text-primary font-bold">NOTICE • DANGER STAGE EXCEEDED</span>
+<span class="font-mono-data text-[10px] text-on-surface-variant">12:15 IST</span>
+</div>
+<p class="text-on-surface-variant text-body-sm">
+              CWC DC Court gauge exceeded 49.68m Danger Mark. Threshold webhook dispatched automatically to Zones 01 &amp; 02.
+            </p>
+</div>
+<!-- Alert 3 -->
+<div class="p-space-sm rounded-lg bg-surface-container-high flex flex-col space-y-0.5">
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm text-secondary font-bold">OPTIMIZED • ROAD MESH UPDATED</span>
+<span class="font-mono-data text-[10px] text-on-surface-variant">14:38 IST</span>
+</div>
+<p class="text-on-surface-variant text-body-sm">
+              OSRM Kamrup Vector Graph successfully ingested road severance flags for the submerged MG Road corridor.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM STATUTORY & PROVENANCE FOOTER -->
+<footer class="bg-surface-container-low p-space-md rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-data text-label-sm text-on-surface-variant">
+<div class="flex flex-col space-y-1">
+<div class="flex items-center gap-space-xs text-on-surface font-semibold">
+<span class="material-symbols-outlined text-primary text-[16px]">verified</span>
+<span>Data Highway Provenance Authorities</span>
+</div>
+<div>
+        CWC Guwahati Hydro Division • IMD Regional Meteorological Centre Borjhar • Copernicus Open Access Hub • ASDMA Flood Hazard Atlas v2.4 • OpenStreetMap Kamrup Community
+      </div>
+</div>
+<div class="max-w-md text-left md:text-right">
+<span class="text-on-surface font-semibold">Operational Guardrail:</span>
+      RELIEFOS Lite pipelines maintain strict human-in-the-loop authorization before committing simulated resource dispatches.
+    </div>
+</footer>
+</div>
+<!-- INTERACTIVE BEHAVIORS FOR OPERATIONAL CONSOLE -->
+<script>
+  function selectFeed(feedId) {
+    const inspector = document.getElementById('feed-inspector-panel');
+    if (!inspector) return;
+    
+    // Quick highlight effect to show active selection
+    inspector.classList.add('brightness-125');
+    setTimeout(() => {
+      inspector.classList.remove('brightness-125');
+    }, 200);
+
+    // Switch inspector view depending on selected feed
+    if (feedId === 'SAT-SAR-03') {
+      inspector.querySelector('.font-body-lg').innerText = 'Copernicus Sentinel-1 SAR Extent';
+      inspector.querySelector('.font-mono-data.text-label-sm.text-primary.font-bold').innerText = 'DEGRADED / FALLBACK ACTIVE';
+      inspector.querySelector('.font-mono-data.text-label-sm.text-primary.font-bold').className = 'font-mono-data text-label-sm text-tertiary-fixed-dim font-bold';
+      inspector.querySelector('.break-all').innerText = 'https://catalogue.dataspace.copernicus.eu/resto/api/collections/Sentinel1';
+    } else if (feedId === 'MET-RAD-02') {
+      inspector.querySelector('.font-body-lg').innerText = 'IMD Doppler Radar & Forecast';
+      inspector.querySelector('.font-mono-data.text-label-sm.text-primary.font-bold, .font-mono-data.text-label-sm.text-tertiary-fixed-dim.font-bold').innerText = 'FORECAST MODEL HOURLY';
+      inspector.querySelector('.break-all').innerText = 'https://rmcborjhar.imd.gov.in/api/v1/radar/reflectivity';
+    } else {
+      inspector.querySelector('.font-body-lg').innerText = 'Brahmaputra River Gauges';
+      const statusLabel = inspector.querySelector('.font-mono-data.text-label-sm.text-primary.font-bold, .font-mono-data.text-label-sm.text-tertiary-fixed-dim.font-bold');
+      if (statusLabel) {
+        statusLabel.innerText = 'ACTIVE TELEMETRY';
+        statusLabel.className = 'font-mono-data text-label-sm text-primary font-bold';
+      }
+      inspector.querySelector('.break-all').innerText = 'wss://telemetry.cwc.gov.in/assam/kamrup/v2/stream';
+    }
+  }
+
+  // Search filter functionality
+  const searchInput = document.getElementById('feed-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('#feeds-table-body tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+      });
+    });
+  }
+
+  // Refresh pulse simulation
+  const refreshBtn = document.getElementById('btn-refresh-all');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', function() {
+      const icon = this.querySelector('.material-symbols-outlined');
+      icon.classList.add('animate-spin');
+      setTimeout(() => {
+        icon.classList.remove('animate-spin');
+      }, 1000);
+    });
+  }
+</script></main></div></body></html>

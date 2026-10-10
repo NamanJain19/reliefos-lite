@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #051423;
+    color: #d5e4f9;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-feature-settings: "cv05" 1, "cv11" 1, "tnum" 1, "ss01" 1;
+    font-variant-numeric: tabular-nums;
+    overscroll-behavior: none;
+  }
+
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+  }
+
+  /* Accessible smooth focus ring */
+  *:focus-visible {
+    outline: 2px solid #4ddcc1;
+    outline-offset: 1px;
+  }
+}
+
+@layer utilities {
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .font-mono-data {
+    font-family: 'Inter', monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  /* Standardized Tactical Command Card */
+  .tactical-card {
+    @apply bg-surface-container-low rounded-xl border border-outline-variant/30 shadow-sm transition-all;
+  }
+
+  /* Standardized Table Styling */
+  .tactical-table {
+    @apply w-full text-left border-collapse text-body-md;
+  }
+  .tactical-table th {
+    @apply font-semibold uppercase tracking-wider text-outline text-[11px] px-3 py-2.5 bg-surface-container-lowest border-b border-outline-variant/30 select-none;
+  }
+  .tactical-table td {
+    @apply px-3 py-2.5 border-b border-outline-variant/20 text-on-surface text-[12px] align-middle;
+  }
+  .tactical-table tr:hover td {
+    @apply bg-surface-container/50;
+  }
+
+  /* Standardized Input */
+  .tactical-input {
+    @apply h-8.5 bg-surface-container text-on-surface placeholder:text-outline/70 border border-outline-variant/40 rounded px-2.5 text-[13px] focus:outline-none focus:border-primary transition-colors;
+  }
+
+  /* Standardized Buttons */
+  .btn-tactical-primary {
+    @apply h-8 px-3 rounded bg-primary-container text-on-primary-container text-[12px] font-semibold inline-flex items-center justify-center gap-1.5 hover:brightness-110 active:brightness-95 transition-all shadow-sm;
+  }
+  .btn-tactical-secondary {
+    @apply h-8 px-3 rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 text-on-surface text-[12px] font-medium inline-flex items-center justify-center gap-1.5 transition-colors;
+  }
+}
+
+/* Custom sleek scrollbar for tactical dashboard panels */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0e1d2c;
+}
+::-webkit-scrollbar-thumb {
+  background: #263449;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3c4a46;
+}
+
+/* Material symbols outlined styling */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+/* Leaflet dark custom theme adjustments */
+.leaflet-container {
+  background-color: #051423 !important;
+  font-family: 'Inter', sans-serif !important;
+  isolation: isolate;
+  z-index: 0;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #122130 !important;
+  color: #d5e4f9 !important;
+  border: 1px solid #263449 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 16px -2px rgba(3, 7, 18, 0.65) !important;
+}
+
+.leaflet-popup-tip {
+  background: #122130 !important;
+}
+
+/* OpenStreetMap Tactical Dark Canvas Filter - conforms strictly to OSM Tile Policy while matching Stitch dark UI */
+.dark-map-tiles {
+  filter: brightness(0.62) invert(1) contrast(3.0) hue-rotate(200deg) saturate(0.35);
+}

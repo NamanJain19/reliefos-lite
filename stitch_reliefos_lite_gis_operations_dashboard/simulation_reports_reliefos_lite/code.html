@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-low":"#0e1d2c","on-secondary":"#003545","on-tertiary":"#650713","on-surface-variant":"#bbcac4","secondary":"#61d4ff","outline-variant":"#3c4a46","secondary-fixed":"#bce9ff","surface-variant":"#283646","surface-container":"#122130","on-error-container":"#ffdad6","primary-fixed-dim":"#4ddcc1","on-background":"#d5e4f9","surface-tint":"#4ddcc1","inverse-primary":"#006b5b","on-tertiary-fixed-variant":"#852127","on-secondary-fixed":"#001f29","on-tertiary-container":"#7a1920","surface":"#051423","on-primary-container":"#00483c","primary":"#4ddcc1","on-primary":"#00382e","inverse-on-surface":"#233241","on-secondary-container":"#00313f","background":"#051423","error":"#ffb4ab","on-error":"#690005","on-primary-fixed":"#00201a","surface-container-highest":"#283646","secondary-container":"#01a0c9","on-tertiary-fixed":"#410007","inverse-surface":"#d5e4f9","tertiary-fixed-dim":"#ffb3b1","surface-container-lowest":"#010f1e","primary-container":"#20bfa5","tertiary":"#ffb3b1","tertiary-fixed":"#ffdad8","primary-fixed":"#6ff9dd","outline":"#85948f","tertiary-container":"#ff8786","surface-bright":"#2c3a4b","surface-container-high":"#1d2b3b","error-container":"#93000a","on-secondary-fixed-variant":"#004d63","surface-dim":"#051423","on-surface":"#d5e4f9","on-primary-fixed-variant":"#005144","secondary-fixed-dim":"#61d4ff"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-xl":"1.5rem","space-xs":"0.25rem","space-sm":"0.375rem","margin-lg":"1.25rem",gutter:"0.75rem","space-lg":"1rem","space-md":"0.75rem","gutter-lg":"1rem",margin:"0.75rem"},fontFamily:{"body-sm":["Inter"],"headline-lg":["Inter"],"headline-sm":["Inter"],"label-md":["Inter"],"display-lg":["Inter"],"body-md":["Inter"],"mono-data":["Inter"],"body-lg":["Inter"],"label-sm":["Inter"]},fontSize:{"body-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.01em",fontWeight:"400"}],"headline-lg":["1.25rem",{lineHeight:"1.75rem",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-sm":["1rem",{lineHeight:"1.5rem",letterSpacing:"0em",fontWeight:"600"}],"label-md":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.03em",fontWeight:"500"}],"display-lg":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["0.8125rem",{lineHeight:"1.25rem",letterSpacing:"0em",fontWeight:"400"}],"mono-data":["0.8125rem",{lineHeight:"1.125rem",letterSpacing:"-0.01em",fontWeight:"500"}],"body-lg":["0.9375rem",{lineHeight:"1.375rem",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["0.6875rem",{lineHeight:"0.875rem",letterSpacing:"0.06em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[250px] bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-lowest"><img alt="Brand logo. - Primary color: #20bfa5
+- Font: inter
+- Mode: dark
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WoqSveSUjtwcRq3Ng5DMl-ndlaVTHaPwTZ9YR1bMyjeOz1I52m1bXqelBg2BQxYBKTvu0nKDhlbrPuilzlTigX3-Rmm4kQU-cNb4UVGnVL3W8K5ESpJHx3Ta8h-6eAs2gTIuPF7uuxs7QceJOnb_SVQm1-xM34l6cFAn1XkibgCG8cbR_xhVULdzLWIE7WN3qEnKE4fUNjEXO6JFYwnSNzM2d7qORWvgaVCs2xjb2MUboJe3BXuXc00ig"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">RELIEFOS Lite</span><span class="font-label-sm text-label-sm text-on-surface-variant">Flood Ops • Kamrup Metro</span></div></div><nav class="flex-1 overflow-y-auto px-space-xs py-space-sm space-y-space-xs" data-active-classes="bg-surface-container-highest text-primary font-semibold"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="operations-overview" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Operations Overview</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="live-flood-map" href="#"><span class="material-symbols-outlined text-[18px]">map</span><span>Live Flood Map</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="zones-and-risk" href="#"><span class="material-symbols-outlined text-[18px]">warning</span><span>Zones & Risk</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="resource-inventory" href="#"><span class="material-symbols-outlined text-[18px]">inventory_2</span><span>Resource Inventory</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="demand-management" href="#"><span class="material-symbols-outlined text-[18px]">assignment_late</span><span>Demand Management</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="relief-allocation" href="#"><span class="material-symbols-outlined text-[18px]">hub</span><span>Relief Allocation</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="route-optimization" href="#"><span class="material-symbols-outlined text-[18px]">alt_route</span><span>Route Optimization</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="simulation-and-reports" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Simulation & Reports</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="data-sources" href="#"><span class="material-symbols-outlined text-[18px]">sensors</span><span>Data Sources</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Settings</span></a></nav></div><div class="p-space-sm space-y-space-xs bg-surface-container-lowest"><div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm font-semibold text-primary flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> ONLINE • TELEMETRY OK</span></div><div class="font-mono-data text-mono-data text-on-surface-variant">MODE: DEMO (SIMULATED)</div></div><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container"><div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-semibold"><span class="material-symbols-outlined text-[18px]">shield_person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface truncate">Insp. S. Sharma</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Disaster Ops, ASDMA</span></div><span class="material-symbols-outlined text-on-surface-variant text-[16px]">more_vert</span></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-low/95 backdrop-blur-md z-40 px-space-md flex items-center justify-between shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex items-center gap-space-md"><img alt="Brand logo. - Primary color: #20bfa5
+- Font: inter
+- Mode: dark
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WoqSveSUjtwcRq3Ng5DMl-ndlaVTHaPwTZ9YR1bMyjeOz1I52m1bXqelBg2BQxYBKTvu0nKDhlbrPuilzlTigX3-Rmm4kQU-cNb4UVGnVL3W8K5ESpJHx3Ta8h-6eAs2gTIuPF7uuxs7QceJOnb_SVQm1-xM34l6cFAn1XkibgCG8cbR_xhVULdzLWIE7WN3qEnKE4fUNjEXO6JFYwnSNzM2d7qORWvgaVCs2xjb2MUboJe3BXuXc00ig"/><nav class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md"><span class="text-on-surface-variant">Operations</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="text-on-surface font-semibold">Simulation & Reports</span></nav><div class="hidden lg:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg text-on-surface font-body-sm text-body-sm"><span class="material-symbols-outlined text-primary text-[16px]">location_on</span><span>Kamrup Metropolitan, Guwahati, Assam</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">arrow_drop_down</span></div></div><div class="flex items-center gap-space-md"><div class="bg-surface-variant px-space-sm py-space-xs rounded-full flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span><span class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider font-semibold">SIMULATED DATA</span></div><div class="hidden md:flex items-center gap-space-xs text-on-surface-variant font-mono-data text-mono-data"><span class="material-symbols-outlined text-[16px]">schedule</span><span>Sync: 14:42:10 IST</span></div><button class="relative p-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error-container text-on-error-container text-[10px] flex items-center justify-center font-bold">4</span></button><button class="p-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help</span></button><div class="hidden sm:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg font-label-sm text-label-sm font-semibold text-primary"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span><span>On Duty</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-space-lg py-space-lg"><div class="flex flex-col w-full space-y-gutter-lg">
+<!-- TOP HEADER & CONTEXT STRIP -->
+<div class="flex flex-col gap-space-sm bg-surface-container-low p-space-lg rounded-xl shadow-md relative overflow-hidden">
+<div class="absolute right-0 top-0 translate-x-12 -translate-y-12 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md relative z-10">
+<div class="space-y-space-xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="bg-surface-variant text-primary font-label-sm text-label-sm px-space-sm py-0.5 rounded uppercase tracking-wider font-semibold">
+            SCENARIO SIMULATOR v2.4
+          </span>
+<span class="bg-surface-variant text-secondary font-label-sm text-label-sm px-space-sm py-0.5 rounded uppercase tracking-wider font-semibold">
+            PULP / CBC MILP SOLVER
+          </span>
+<span class="bg-surface-container-high text-on-surface-variant font-mono-data text-mono-data px-space-sm py-0.5 rounded">
+            RUN: #SIM-20241024-08
+          </span>
+<span class="flex items-center gap-1.5 font-label-sm text-label-sm text-primary-container px-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            Deterministic Replay Stable
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">
+          Simulation & Algorithmic Optimization Reports
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-4xl">
+          Evaluate comparative multi-echelon disaster logistics scenarios, audit two-stage Mixed-Integer Linear Programming convergence, and inspect validated operational recommendations for Guwahati metropolitan sectors.
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs self-start xl:self-auto">
+<button class="h-8 px-space-md bg-surface-container-high hover:bg-surface-container-highest text-secondary text-label-md font-label-md rounded flex items-center gap-space-xs transition-colors shadow-sm" id="btn-rerun-sim">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Rerun Pipeline</span>
+</button>
+<button class="h-8 px-space-md bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-label-md font-label-md rounded flex items-center gap-space-xs transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">compare_arrows</span>
+<span>Compare Scenarios</span>
+</button>
+<button class="h-8 px-space-md bg-primary-container hover:brightness-110 text-on-primary-container text-label-md font-label-md font-semibold rounded flex items-center gap-space-xs transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>Export Audit Dossier</span>
+</button>
+</div>
+</div>
+<!-- Context Metadata Bar -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-xs pt-space-xs bg-surface-container-lowest/60 p-space-sm rounded-lg mt-space-xs font-mono-data text-mono-data text-on-surface-variant">
+<div class="flex items-center gap-space-xs truncate">
+<span class="text-secondary font-semibold">SNAPSHOT:</span>
+<span class="text-on-surface truncate" title="Snap-20241024-1430 (Reviewed Demand & Depot Inventory)">Snap-20241024-1430 (Demand/Depot Verified)</span>
+</div>
+<div class="flex items-center gap-space-xs truncate">
+<span class="text-secondary font-semibold">PARAMETERS:</span>
+<span class="text-on-surface truncate">05 Zones • 03 Vehicles (5.0 T) • Sarusajai Hub</span>
+</div>
+<div class="flex items-center gap-space-xs truncate">
+<span class="text-secondary font-semibold">OBJECTIVE:</span>
+<span class="text-primary truncate">Lexicographic: Min Unmet → Min Road Dist</span>
+</div>
+<div class="flex items-center gap-space-xs truncate text-tertiary">
+<span class="material-symbols-outlined text-[15px]">verified_user</span>
+<span class="truncate">Decision Support Safeguard Active</span>
+</div>
+</div>
+</div>
+<!-- TOP SUMMARY METRICS (5 Compact KPI Panels) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-gutter">
+<!-- Metric 1 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col justify-between space-y-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Active Solver</span>
+<span class="material-symbols-outlined text-[18px] text-primary">psychology</span>
+</div>
+<div class="space-y-0.5">
+<div class="font-display-lg text-display-lg font-semibold text-on-surface tracking-tight">Lexico-MILP</div>
+<div class="font-mono-data text-mono-data text-primary">CBC v2.10.8 • 184ms</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary"></span>
+        Global Optimal (Gap 0.00%)
+      </div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col justify-between space-y-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Unmet Demand Penalty</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">balance</span>
+</div>
+<div class="space-y-0.5">
+<div class="font-display-lg text-display-lg font-semibold text-on-surface tracking-tight">9,120 <span class="font-label-md text-label-md text-on-surface-variant font-normal">pts</span></div>
+<div class="font-mono-data text-mono-data text-primary font-semibold">-50.6% vs Baseline</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant truncate">
+        Base Heuristic: 18,450 pts
+      </div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col justify-between space-y-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Fleet Road Travel</span>
+<span class="material-symbols-outlined text-[18px] text-primary">route</span>
+</div>
+<div class="space-y-0.5">
+<div class="font-display-lg text-display-lg font-semibold text-on-surface tracking-tight">61.8 <span class="font-label-md text-label-md text-on-surface-variant font-normal">km</span></div>
+<div class="font-mono-data text-mono-data text-primary font-semibold">-22.4 km (-26.6%)</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant truncate">
+        Avoided 2 Submerged Links
+      </div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col justify-between space-y-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Critical Need Covered</span>
+<span class="material-symbols-outlined text-[18px] text-primary">emergency_home</span>
+</div>
+<div class="space-y-0.5">
+<div class="font-display-lg text-display-lg font-semibold text-primary font-semibold tracking-tight">100.0%</div>
+<div class="font-mono-data text-mono-data text-on-surface">Zones 01 & 02 Safe</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant truncate">
+        Zero Critical Starvation
+      </div>
+</div>
+<!-- Metric 5 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col justify-between space-y-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Resource Efficiency</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">eco</span>
+</div>
+<div class="space-y-0.5">
+<div class="font-display-lg text-display-lg font-semibold text-on-surface tracking-tight">7.4 <span class="font-label-md text-label-md text-on-surface-variant font-normal">L saved</span></div>
+<div class="font-mono-data text-mono-data text-secondary">19.8 kg CO2e Abated</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant truncate">
+        -27.9% Fleet Burn Rate
+      </div>
+</div>
+</div>
+<!-- MAIN SIMULATION WORKSPACE: TWO COLUMNS (65% / 35%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-start">
+<!-- LEFT COLUMN: ENGINE CONTROLS, BENCHMARK MATRIX, FULFILLMENT BREAKDOWN -->
+<div class="lg:col-span-8 flex flex-col space-y-gutter-lg min-w-0">
+<!-- A. SCENARIO CONFIGURATION & SOLVER CONTROLS -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+              Scenario Selection & Solver Hyperparameters
+            </h2>
+</div>
+<div class="font-mono-data text-mono-data text-on-surface-variant bg-surface-container px-space-sm py-0.5 rounded">
+            PRNG SEED: <span class="text-primary font-semibold">42918</span> (Deterministic)
+          </div>
+</div>
+<!-- Scenario Pills Selector -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-xs bg-surface-container-lowest p-1 rounded-lg">
+<button class="flex flex-col p-space-sm rounded-lg bg-surface-container-high text-left transition-all shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-primary">SCENARIO A</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+<span class="font-body-md text-body-md font-semibold text-on-surface mt-0.5">Baseline Flood</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Current 5-Zone Inundation GIS Map</span>
+</button>
+<button class="flex flex-col p-space-sm rounded-lg hover:bg-surface-container text-left transition-all opacity-70 hover:opacity-100">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface-variant">SCENARIO B</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
+</div>
+<span class="font-body-md text-body-md font-semibold text-on-surface mt-0.5">Embankment Breach</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">+0.5m Surge, Bharalu Sluice Overtopped</span>
+</button>
+<button class="flex flex-col p-space-sm rounded-lg hover:bg-surface-container text-left transition-all opacity-70 hover:opacity-100">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface-variant">SCENARIO C</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
+</div>
+<span class="font-body-md text-body-md font-semibold text-on-surface mt-0.5">Fleet Degradation</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">2 of 3 Trucks Active (10 T Total Cap)</span>
+</button>
+</div>
+<!-- Hyperparameter Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md pt-space-xs">
+<div class="bg-surface-container p-space-sm rounded-lg space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Stage 1 Priority Multipliers</span>
+<div class="font-mono-data text-mono-data text-on-surface flex justify-between pt-0.5">
+<span>α (Crit) = <strong class="text-tertiary">10.0</strong></span>
+<span>β (High) = <strong class="text-secondary">5.0</strong></span>
+</div>
+<div class="font-mono-data text-mono-data text-on-surface flex justify-between">
+<span>γ (Mod) = 2.0</span>
+<span>δ (Low) = 1.0</span>
+</div>
+</div>
+<div class="bg-surface-container p-space-sm rounded-lg space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Stage 2 Epsilon Tolerance (ε)</span>
+<div class="font-mono-data text-mono-data text-primary pt-0.5 font-semibold">0.00% (Strict Lexicographic)</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-tight">
+              Route minimization can never increase unmet demand penalties by >0.
+            </p>
+</div>
+<div class="bg-surface-container p-space-sm rounded-lg space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Hydro-Severance Threshold</span>
+<div class="font-mono-data text-mono-data text-tertiary pt-0.5 font-semibold">Water Depth > 0.35m</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-tight">
+              MG Road severed • Reroutes via G.S. Road flyover network.
+            </p>
+</div>
+</div>
+</div>
+<!-- B. ALGORITHMIC BENCHMARK: BASELINE HEURISTIC VS LEXICOGRAPHIC MILP -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="space-y-0.5">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+              Algorithmic Benchmark: Baseline Greedy vs. Lexicographic MILP
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Rigorous comparative verification of two-stage optimization versus traditional greedy dispatch.
+            </p>
+</div>
+<span class="bg-surface-variant text-on-surface-variant font-mono-data text-mono-data px-space-sm py-0.5 rounded self-start sm:self-auto">
+            Δ Pareto Advantage: +38.4%
+          </span>
+</div>
+<!-- Comparative Chart Representation (SVG Data Viz) -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg space-y-space-sm">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>OBJECTIVE TRADEOFF VISUALIZATION</span>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1"><span class="w-3 h-2 rounded-sm bg-surface-variant inline-block"></span> Baseline Greedy</span>
+<span class="flex items-center gap-1"><span class="w-3 h-2 rounded-sm bg-primary-container inline-block"></span> Lexicographic MILP</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Chart 1: Weighted Penalty -->
+<div class="space-y-1">
+<div class="flex justify-between font-mono-data text-mono-data">
+<span class="text-on-surface-variant">Weighted Unmet Penalty (pts)</span>
+<span class="text-primary font-semibold">50.6% Reduction</span>
+</div>
+<div class="space-y-1.5 pt-1">
+<div class="flex items-center gap-2">
+<span class="font-mono-data text-mono-data w-16 text-on-surface-variant">Greedy</span>
+<div class="flex-1 bg-surface-container rounded-sm h-5 overflow-hidden flex items-center px-2">
+<div class="bg-surface-variant h-3 rounded-sm" style="width: 100%"></div>
+<span class="font-mono-data text-mono-data ml-2 text-on-surface">18,450</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono-data text-mono-data w-16 text-primary font-semibold">MILP</span>
+<div class="flex-1 bg-surface-container rounded-sm h-5 overflow-hidden flex items-center px-2">
+<div class="bg-primary-container h-3 rounded-sm" style="width: 49.4%"></div>
+<span class="font-mono-data text-mono-data ml-2 text-primary font-semibold">9,120</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chart 2: Fleet Travel Distance -->
+<div class="space-y-1">
+<div class="flex justify-between font-mono-data text-mono-data">
+<span class="text-on-surface-variant">Fleet Road Travel (km)</span>
+<span class="text-secondary font-semibold">26.6% Distance Saved</span>
+</div>
+<div class="space-y-1.5 pt-1">
+<div class="flex items-center gap-2">
+<span class="font-mono-data text-mono-data w-16 text-on-surface-variant">Greedy</span>
+<div class="flex-1 bg-surface-container rounded-sm h-5 overflow-hidden flex items-center px-2">
+<div class="bg-surface-variant h-3 rounded-sm" style="width: 100%"></div>
+<span class="font-mono-data text-mono-data ml-2 text-on-surface">84.2 km</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono-data text-mono-data w-16 text-secondary font-semibold">MILP</span>
+<div class="flex-1 bg-surface-container rounded-sm h-5 overflow-hidden flex items-center px-2">
+<div class="bg-secondary-container h-3 rounded-sm" style="width: 73.4%"></div>
+<span class="font-mono-data text-mono-data ml-2 text-secondary font-semibold">61.8 km</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Comparative Benchmark Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2.5 px-3 rounded-l">Metric Dimension</th>
+<th class="py-2.5 px-3">Baseline Heuristic</th>
+<th class="py-2.5 px-3">Lexicographic MILP</th>
+<th class="py-2.5 px-3">Variance (Δ)</th>
+<th class="py-2.5 px-3 rounded-r">Operational Assessment</th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data divide-y divide-surface-container-highest/30">
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-2.5 px-3 text-on-surface font-sans font-medium">Total Allocated Stock</td>
+<td class="py-2.5 px-3 text-on-surface-variant">4,800 kg</td>
+<td class="py-2.5 px-3 text-on-surface">4,800 kg</td>
+<td class="py-2.5 px-3 text-on-surface-variant">0.0%</td>
+<td class="py-2.5 px-3 text-on-surface-variant font-sans">Full stock utilization achieved in both</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-2.5 px-3 text-on-surface font-sans font-medium">Weighted Priority Penalty</td>
+<td class="py-2.5 px-3 text-on-surface-variant">18,450 pts</td>
+<td class="py-2.5 px-3 text-primary font-bold">9,120 pts</td>
+<td class="py-2.5 px-3 text-primary font-bold">-50.6%</td>
+<td class="py-2.5 px-3 text-primary font-sans font-semibold">Diverts supplies to Critical Tier 1 zones</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-2.5 px-3 text-on-surface font-sans font-medium">Critical Demand Starvation</td>
+<td class="py-2.5 px-3 text-tertiary">1,200 kg unserved</td>
+<td class="py-2.5 px-3 text-primary font-bold">0 kg shortfall</td>
+<td class="py-2.5 px-3 text-primary font-bold">-100.0%</td>
+<td class="py-2.5 px-3 text-primary font-sans">100% life-critical demand satisfied</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-2.5 px-3 text-on-surface font-sans font-medium">Total Fleet Transit Travel</td>
+<td class="py-2.5 px-3 text-on-surface-variant">84.2 km</td>
+<td class="py-2.5 px-3 text-secondary font-bold">61.8 km</td>
+<td class="py-2.5 px-3 text-secondary font-bold">-26.6%</td>
+<td class="py-2.5 px-3 text-on-surface-variant font-sans">Stage 2 MTZ subtour elimination applied</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-2.5 px-3 text-on-surface font-sans font-medium">Max Single Vehicle Tour</td>
+<td class="py-2.5 px-3 text-on-surface-variant">3h 12m</td>
+<td class="py-2.5 px-3 text-on-surface">1h 42m</td>
+<td class="py-2.5 px-3 text-primary">-1h 30m</td>
+<td class="py-2.5 px-3 text-on-surface-variant font-sans">Reduced driver exhaustion in waterlogged terrain</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-2.5 px-3 text-on-surface font-sans font-medium">Submerged Road Crossings</td>
+<td class="py-2.5 px-3 text-tertiary font-bold">2 hazard points</td>
+<td class="py-2.5 px-3 text-primary font-bold">0 violations</td>
+<td class="py-2.5 px-3 text-primary font-bold">-100.0%</td>
+<td class="py-2.5 px-3 text-primary font-sans">Rigid depth ≤ 0.35m clearance enforce</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-2.5 px-3 text-on-surface font-sans font-medium">Computational Time</td>
+<td class="py-2.5 px-3 text-on-surface-variant">8 ms</td>
+<td class="py-2.5 px-3 text-secondary">184 ms</td>
+<td class="py-2.5 px-3 text-on-surface-variant">+176 ms</td>
+<td class="py-2.5 px-3 text-on-surface-variant font-sans">Acceptable for real-time dispatch cycle</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- C. ZONE-LEVEL ALLOCATION & FULFILLMENT BREAKDOWN -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">dataset</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+              Zone-Level Allocation & Deficit Audit
+            </h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5 OF 5 WARDS AUDITED</span>
+</div>
+<div class="space-y-space-sm">
+<!-- Zone 1 -->
+<div class="bg-surface-container p-space-sm rounded-lg space-y-1">
+<div class="flex flex-wrap items-center justify-between gap-space-xs font-mono-data text-mono-data">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded text-xs font-bold bg-error-container text-on-error-container">Z-01</span>
+<span class="text-on-surface font-sans font-medium">North Guwahati (Majgaon Embankment)</span>
+<span class="text-tertiary font-label-sm text-label-sm">[Critical • w=10]</span>
+</div>
+<div class="text-right">
+<span class="text-primary font-semibold">1,500 kg</span> / <span class="text-on-surface-variant">2,100 kg</span>
+<span class="ml-2 text-on-surface-variant">(71.4% fulfilled)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full" style="width: 71.4%"></div>
+<div class="bg-error-container/40 h-full" style="width: 28.6%"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant pt-0.5">
+<span>Shortfall: 600 kg (Non-food/Hygiene deferred)</span>
+<span class="text-primary font-medium">Life-saving water & ration: 100% satisfied</span>
+</div>
+</div>
+<!-- Zone 2 -->
+<div class="bg-surface-container p-space-sm rounded-lg space-y-1">
+<div class="flex flex-wrap items-center justify-between gap-space-xs font-mono-data text-mono-data">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded text-xs font-bold bg-error-container text-on-error-container">Z-02</span>
+<span class="text-on-surface font-sans font-medium">Bharalumukh (Sluice Basin)</span>
+<span class="text-tertiary font-label-sm text-label-sm">[Critical • w=10]</span>
+</div>
+<div class="text-right">
+<span class="text-primary font-semibold">1,100 kg</span> / <span class="text-on-surface-variant">1,700 kg</span>
+<span class="ml-2 text-on-surface-variant">(64.7% fulfilled)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full" style="width: 64.7%"></div>
+<div class="bg-error-container/40 h-full" style="width: 35.3%"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant pt-0.5">
+<span>Shortfall: 600 kg</span>
+<span class="text-primary font-medium">Priority medical packs: 100% delivered</span>
+</div>
+</div>
+<!-- Zone 3 -->
+<div class="bg-surface-container p-space-sm rounded-lg space-y-1">
+<div class="flex flex-wrap items-center justify-between gap-space-xs font-mono-data text-mono-data">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded text-xs font-bold bg-surface-variant text-secondary">Z-03</span>
+<span class="text-on-surface font-sans font-medium">Uzan Bazar (Ghat Ward)</span>
+<span class="text-secondary font-label-sm text-label-sm">[High • w=5]</span>
+</div>
+<div class="text-right">
+<span class="text-on-surface font-semibold">900 kg</span> / <span class="text-on-surface-variant">1,400 kg</span>
+<span class="ml-2 text-on-surface-variant">(64.3% fulfilled)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden flex">
+<div class="bg-secondary-container h-full" style="width: 64.3%"></div>
+<div class="bg-surface-container-highest h-full" style="width: 35.7%"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant pt-0.5">
+<span>Shortfall: 500 kg dry rations</span>
+<span class="text-on-surface-variant">Water purification tabs covered</span>
+</div>
+</div>
+<!-- Zone 4 -->
+<div class="bg-surface-container p-space-sm rounded-lg space-y-1">
+<div class="flex flex-wrap items-center justify-between gap-space-xs font-mono-data text-mono-data">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded text-xs font-bold bg-surface-variant text-on-surface">Z-04</span>
+<span class="text-on-surface font-sans font-medium">Basistha (Foothills Canal)</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">[Moderate • w=2]</span>
+</div>
+<div class="text-right">
+<span class="text-on-surface font-semibold">700 kg</span> / <span class="text-on-surface-variant">1,200 kg</span>
+<span class="ml-2 text-on-surface-variant">(58.3% fulfilled)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden flex">
+<div class="bg-surface-bright h-full" style="width: 58.3%"></div>
+<div class="bg-surface-container-highest h-full" style="width: 41.7%"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant pt-0.5">
+<span>Shortfall: 500 kg</span>
+<span class="text-on-surface-variant">Wave 2 allocation scheduled</span>
+</div>
+</div>
+<!-- Zone 5 -->
+<div class="bg-surface-container p-space-sm rounded-lg space-y-1">
+<div class="flex flex-wrap items-center justify-between gap-space-xs font-mono-data text-mono-data">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded text-xs font-bold bg-surface-variant text-on-surface-variant">Z-05</span>
+<span class="text-on-surface font-sans font-medium">Dispur (Capital Complex Shelter)</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">[Low • w=1]</span>
+</div>
+<div class="text-right">
+<span class="text-on-surface font-semibold">600 kg</span> / <span class="text-on-surface-variant">800 kg</span>
+<span class="ml-2 text-on-surface-variant">(75.0% fulfilled)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden flex">
+<div class="bg-surface-bright h-full" style="width: 75%"></div>
+<div class="bg-surface-container-highest h-full" style="width: 25%"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant pt-0.5">
+<span>Shortfall: 200 kg</span>
+<span class="text-on-surface-variant">Accessible by auxiliary civil van</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: INSPECTOR, SENSITIVITY TESTER & AUDIT DOSSIER -->
+<div class="lg:col-span-4 flex flex-col space-y-gutter-lg min-w-0">
+<!-- A. SELECTED SIMULATION RUN INSPECTOR -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">science</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Run Inspector</h2>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-mono-data">STATUS: OPTIMAL</span>
+</div>
+<div class="space-y-space-xs bg-surface-container-lowest p-space-sm rounded-lg font-mono-data text-mono-data">
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">Run Identifier</span>
+<span class="text-on-surface">#SIM-20241024-08</span>
+</div>
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">Timestamp</span>
+<span class="text-on-surface">14:38:12 IST</span>
+</div>
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">Operator Session</span>
+<span class="text-on-surface">Insp. S. Sharma (Ops)</span>
+</div>
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">Solver Backend</span>
+<span class="text-primary truncate">CBC v2.10.8 (PuLP 2.8)</span>
+</div>
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">Branch-and-Bound</span>
+<span class="text-on-surface">42 nodes / 312 iterations</span>
+</div>
+</div>
+<!-- Mathematical Formulation Summary Card -->
+<div class="bg-surface-container p-space-sm rounded-lg space-y-space-xs">
+<span class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider">
+            Mathematical Formulation
+          </span>
+<div class="p-space-xs bg-surface-container-lowest rounded font-mono-data text-[11px] leading-tight text-on-surface-variant space-y-1 overflow-x-auto">
+<div class="text-primary font-medium">Stage 1 Objective:</div>
+<div>min ∑ w_z • (Dem_z - Alloc_z)</div>
+<div class="text-on-surface-variant/80">s.t. ∑ Alloc_z ≤ Cap_Stock, Alloc_z ≤ Dem_z</div>
+<div class="text-secondary font-medium pt-1">Stage 2 Objective:</div>
+<div>min ∑ Dist(Route_v)</div>
+<div class="text-on-surface-variant/80">s.t. Obj_1 ≤ Opt_1, MTZ Subtour, Depth ≤ 0.35m</div>
+</div>
+</div>
+</div>
+<!-- B. SENSITIVITY & STRESS TESTING SANDBOX -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">troubleshoot</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Stress Sandbox</h2>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">WHAT-IF TEST</span>
+</div>
+<div class="space-y-space-sm">
+<!-- Slider 1 -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Depot Stock Buffer</span>
+<span class="font-mono-data text-on-surface font-semibold" id="val-stock">5,500 kg (100%)</span>
+</div>
+<input class="w-full accent-primary bg-surface-container rounded-lg h-1.5 cursor-pointer" max="8000" min="3000" step="250" type="range" value="5500"/>
+</div>
+<!-- Slider 2 -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Inundation Surge Factor</span>
+<span class="font-mono-data text-tertiary font-semibold" id="val-surge">1.0x (Nominal)</span>
+</div>
+<input class="w-full accent-secondary bg-surface-container rounded-lg h-1.5 cursor-pointer" max="2.0" min="1.0" step="0.1" type="range" value="1.0"/>
+</div>
+<!-- Slider 3 -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Active Fleet Payload</span>
+<span class="font-mono-data text-on-surface font-semibold" id="val-fleet">3 of 3 Convoys</span>
+</div>
+<input class="w-full accent-primary bg-surface-container rounded-lg h-1.5 cursor-pointer" max="3" min="1" step="1" type="range" value="3"/>
+</div>
+</div>
+<!-- Dynamic Sensitivity Alert Box -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex items-start gap-space-xs text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">info</span>
+<p class="text-on-surface-variant font-label-md text-label-md">
+            At <strong class="text-secondary">+0.2m flood surge</strong>, AT Road clearance falls below margin to <span class="text-tertiary">0.12m</span>. Routing will trigger detours adding <strong class="text-on-surface">+8.4 km</strong> to Fleet Route 2.
+          </p>
+</div>
+</div>
+<!-- C. AUTOMATED AUDIT & COMPLIANCE DOSSIER -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Audit Dossier</h2>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-mono-data">ASDMA STAMPED</span>
+</div>
+<!-- Audit Checkmarks List -->
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs p-space-xs rounded bg-surface-container">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<div class="font-body-sm text-body-sm flex-1 min-w-0">
+<div class="text-on-surface font-medium truncate">Snapshot Immutability</div>
+<div class="font-mono-data text-label-sm text-label-sm text-on-surface-variant truncate">SHA-256: 9f8a4e...3b21</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs p-space-xs rounded bg-surface-container">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<div class="font-body-sm text-body-sm flex-1 min-w-0">
+<div class="text-on-surface font-medium truncate">Lexicographic Non-Degradation</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant truncate">ε = 0.00% Zero-Loss Proof</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs p-space-xs rounded bg-surface-container">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<div class="font-body-sm text-body-sm flex-1 min-w-0">
+<div class="text-on-surface font-medium truncate">Hydrologic Clearance ≤ 0.35m</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant truncate">All 3 Vehicle Vectors Safe</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs p-space-xs rounded bg-surface-container">
+<span class="material-symbols-outlined text-primary text-[18px]">gavel</span>
+<div class="font-body-sm text-body-sm flex-1 min-w-0">
+<div class="text-on-surface font-medium truncate">Human-in-the-Loop Gate</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant truncate">Requires Incident Commander Sign-off</div>
+</div>
+</div>
+</div>
+<!-- Dossier Download Actions -->
+<div class="space-y-space-xs pt-space-xs">
+<button class="w-full h-8 px-space-md bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md rounded flex items-center justify-between transition-colors shadow-sm">
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">description</span>
+<span>Form 8B Statutory Dispatch Manifest</span>
+</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">download</span>
+</button>
+<button class="w-full h-8 px-space-md bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md rounded flex items-center justify-between transition-colors shadow-sm">
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">data_object</span>
+<span>Simulation Execution Telemetry (JSON)</span>
+</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM SECTION: SIMULATION RUN HISTORY & COMPARATIVE RUN AUDIT -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="space-y-0.5">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+          Simulation Run History & Comparative Registry
+        </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Historical log of mathematical runs across distinct hydrology snapshots and resource baselines.
+        </p>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">FILTER:</span>
+<button class="px-space-sm py-0.5 rounded bg-surface-container text-primary font-label-sm text-label-sm font-semibold">All Models</button>
+<button class="px-space-sm py-0.5 rounded hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm">MILP Only</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2.5 px-3 rounded-l">Run ID & Time</th>
+<th class="py-2.5 px-3">Scenario Description</th>
+<th class="py-2.5 px-3">Model Type</th>
+<th class="py-2.5 px-3">Allocated / Stock</th>
+<th class="py-2.5 px-3">Penalty Score</th>
+<th class="py-2.5 px-3">Fleet Travel</th>
+<th class="py-2.5 px-3">Runtime</th>
+<th class="py-2.5 px-3">Status</th>
+<th class="py-2.5 px-3 rounded-r text-right">Operational Actions</th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data divide-y divide-surface-container-highest/30">
+<!-- Row 1: Active Run -->
+<tr class="bg-surface-container/60 hover:bg-surface-container transition-colors">
+<td class="py-3 px-3">
+<div class="text-primary font-semibold">#SIM-08 (Active)</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm">14:38:12 IST</div>
+</td>
+<td class="py-3 px-3 font-sans text-on-surface">Baseline Wave 1 (5 Zones)</td>
+<td class="py-3 px-3 text-secondary font-medium">Lexicographic MILP</td>
+<td class="py-3 px-3 text-on-surface">4,800 / 5,500 kg</td>
+<td class="py-3 px-3 text-primary font-bold">9,120 pts</td>
+<td class="py-3 px-3 text-on-surface">61.8 km</td>
+<td class="py-3 px-3 text-on-surface-variant">184 ms</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm font-semibold bg-surface-variant text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Optimal
+              </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm text-label-sm rounded transition-colors">
+                View Log
+              </button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-3 px-3">
+<div class="text-on-surface font-medium">#SIM-07</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm">13:15:40 IST</div>
+</td>
+<td class="py-3 px-3 font-sans text-on-surface">Embankment Breach Test (+0.5m)</td>
+<td class="py-3 px-3 text-secondary font-medium">Lexicographic MILP</td>
+<td class="py-3 px-3 text-on-surface">5,000 / 5,500 kg</td>
+<td class="py-3 px-3 text-secondary font-bold">12,400 pts</td>
+<td class="py-3 px-3 text-on-surface">74.2 km</td>
+<td class="py-3 px-3 text-on-surface-variant">210 ms</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm font-semibold bg-surface-variant text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Optimal
+              </span>
+</td>
+<td class="py-3 px-3 text-right space-x-1">
+<button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm text-label-sm rounded transition-colors">
+                Diff Δ
+              </button>
+<button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-secondary font-label-sm text-label-sm rounded transition-colors">
+                Replay
+              </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-3 px-3">
+<div class="text-on-surface font-medium">#SIM-06</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm">11:02:18 IST</div>
+</td>
+<td class="py-3 px-3 font-sans text-on-surface">Unconstrained Heuristic Benchmark</td>
+<td class="py-3 px-3 text-on-surface-variant font-medium">Greedy Distance First</td>
+<td class="py-3 px-3 text-on-surface">4,800 / 5,500 kg</td>
+<td class="py-3 px-3 text-tertiary font-bold">18,450 pts</td>
+<td class="py-3 px-3 text-on-surface">84.2 km</td>
+<td class="py-3 px-3 text-on-surface-variant">8 ms</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm font-semibold bg-surface-variant text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                Sub-optimal
+              </span>
+</td>
+<td class="py-3 px-3 text-right space-x-1">
+<button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm text-label-sm rounded transition-colors">
+                Diff Δ
+              </button>
+<button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm rounded transition-colors">
+                Inspect
+              </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container/40 transition-colors">
+<td class="py-3 px-3">
+<div class="text-on-surface font-medium">#SIM-05</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm">09:40:05 IST</div>
+</td>
+<td class="py-3 px-3 font-sans text-on-surface">Single Convoy Stress (10 T)</td>
+<td class="py-3 px-3 text-on-surface-variant font-medium">Genetic Algorithm v1</td>
+<td class="py-3 px-3 text-on-surface">4,200 / 5,500 kg</td>
+<td class="py-3 px-3 text-on-surface-variant font-bold">14,800 pts</td>
+<td class="py-3 px-3 text-on-surface">91.0 km</td>
+<td class="py-3 px-3 text-on-surface-variant">840 ms</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm font-semibold bg-surface-variant text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
+                Approx
+              </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm rounded transition-colors">
+                Inspect
+              </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- STATUTORY TRANSPARENCY & DATA PROVENANCE FOOTER -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl space-y-space-xs text-on-surface-variant font-mono-data text-mono-data">
+<div class="flex flex-wrap items-center justify-between gap-space-xs text-label-sm text-label-sm border-b border-surface-container-highest/20 pb-space-xs">
+<div class="flex items-center gap-space-md">
+<span>ENGINE: <strong>PuLP 2.8.0 / COIN-OR CBC</strong></span>
+<span>HYDRO TELEMETRY: <strong>CWC Guwahati Brahmaputra Gauges</strong></span>
+<span>SPATIAL ATLAS: <strong>ASDMA Flood Hazard v2.4</strong></span>
+<span>ROUTING: <strong>OSRM Kamrup Vector Net</strong></span>
+</div>
+<div class="text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+<span>AUDIT TRAIL SECURED</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant/80 pt-space-xs leading-relaxed">
+<strong>STATUTORY NOTICE:</strong> RELIEFOS Lite simulation results are mathematical decision-support projections calculated via deterministic multi-objective integer optimization models. Executing or completing a simulation run does <em>not</em> trigger autonomous physical dispatch of NDRF/SDRF vehicles, release civil depot inventories, or supersede manual field authorizations by the District Disaster Management Authority (DDMA) Kamrup Metropolitan Incident Commander.
+    </p>
+</div>
+</div>
+<script>
+  // Simple interactive toast / feedback for simulation controls
+  const btnRerun = document.getElementById('btn-rerun-sim');
+  if (btnRerun) {
+    btnRerun.addEventListener('click', function() {
+      const origHtml = this.innerHTML;
+      this.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span><span>Solving MILP...</span>';
+      this.classList.add('opacity-80');
+      setTimeout(() => {
+        this.innerHTML = '<span class="material-symbols-outlined text-[16px] text-primary">done</span><span>Converged (184ms)</span>';
+        setTimeout(() => {
+          this.innerHTML = origHtml;
+          this.classList.remove('opacity-80');
+        }, 1800);
+      }, 750);
+    });
+  }
+</script></main></div></body></html>

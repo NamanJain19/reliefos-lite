@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-low":"#0e1d2c","on-secondary":"#003545","on-tertiary":"#650713","on-surface-variant":"#bbcac4","secondary":"#61d4ff","outline-variant":"#3c4a46","secondary-fixed":"#bce9ff","surface-variant":"#283646","surface-container":"#122130","on-error-container":"#ffdad6","primary-fixed-dim":"#4ddcc1","on-background":"#d5e4f9","surface-tint":"#4ddcc1","inverse-primary":"#006b5b","on-tertiary-fixed-variant":"#852127","on-secondary-fixed":"#001f29","on-tertiary-container":"#7a1920","surface":"#051423","on-primary-container":"#00483c","primary":"#4ddcc1","on-primary":"#00382e","inverse-on-surface":"#233241","on-secondary-container":"#00313f","background":"#051423","error":"#ffb4ab","on-error":"#690005","on-primary-fixed":"#00201a","surface-container-highest":"#283646","secondary-container":"#01a0c9","on-tertiary-fixed":"#410007","inverse-surface":"#d5e4f9","tertiary-fixed-dim":"#ffb3b1","surface-container-lowest":"#010f1e","primary-container":"#20bfa5","tertiary":"#ffb3b1","tertiary-fixed":"#ffdad8","primary-fixed":"#6ff9dd","outline":"#85948f","tertiary-container":"#ff8786","surface-bright":"#2c3a4b","surface-container-high":"#1d2b3b","error-container":"#93000a","on-secondary-fixed-variant":"#004d63","surface-dim":"#051423","on-surface":"#d5e4f9","on-primary-fixed-variant":"#005144","secondary-fixed-dim":"#61d4ff"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-xl":"1.5rem","space-xs":"0.25rem","space-sm":"0.375rem","margin-lg":"1.25rem",gutter:"0.75rem","space-lg":"1rem","space-md":"0.75rem","gutter-lg":"1rem",margin:"0.75rem"},fontFamily:{"body-sm":["Inter"],"headline-lg":["Inter"],"headline-sm":["Inter"],"label-md":["Inter"],"display-lg":["Inter"],"body-md":["Inter"],"mono-data":["Inter"],"body-lg":["Inter"],"label-sm":["Inter"]},fontSize:{"body-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.01em",fontWeight:"400"}],"headline-lg":["1.25rem",{lineHeight:"1.75rem",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-sm":["1rem",{lineHeight:"1.5rem",letterSpacing:"0em",fontWeight:"600"}],"label-md":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.03em",fontWeight:"500"}],"display-lg":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["0.8125rem",{lineHeight:"1.25rem",letterSpacing:"0em",fontWeight:"400"}],"mono-data":["0.8125rem",{lineHeight:"1.125rem",letterSpacing:"-0.01em",fontWeight:"500"}],"body-lg":["0.9375rem",{lineHeight:"1.375rem",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["0.6875rem",{lineHeight:"0.875rem",letterSpacing:"0.06em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[250px] bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-lowest"><img alt="Brand logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WoqSveSUjtwcRq3Ng5DMl-ndlaVTHaPwTZ9YR1bMyjeOz1I52m1bXqelBg2BQxYBKTvu0nKDhlbrPuilzlTigX3-Rmm4kQU-cNb4UVGnVL3W8K5ESpJHx3Ta8h-6eAs2gTIuPF7uuxs7QceJOnb_SVQm1-xM34l6cFAn1XkibgCG8cbR_xhVULdzLWIE7WN3qEnKE4fUNjEXO6JFYwnSNzM2d7qORWvgaVCs2xjb2MUboJe3BXuXc00ig"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">RELIEFOS Lite</span><span class="font-label-sm text-label-sm text-on-surface-variant">Flood Ops • Kamrup Metro</span></div></div><nav class="flex-1 overflow-y-auto px-space-xs py-space-sm space-y-space-xs" data-active-classes="bg-surface-container-highest text-primary font-semibold border-l-[3px] border-primary-container"><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="operations-overview" href="#">Operations Overview</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="live-flood-map" href="#">Live Flood Map</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="zones-and-risk" href="#">Zones &amp; Risk</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="resource-inventory" href="#">Resource Inventory</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="demand-management" href="#">Demand Management</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="relief-allocation" href="#">Relief Allocation</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="route-optimization" href="#">Route Optimization</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="simulation-and-reports" href="#">Simulation &amp; Reports</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="data-sources" href="#">Data Sources</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-label-md text-label-md bg-surface-container-highest text-primary font-semibold border-l-[3px] border-primary-container" data-path="settings" href="#">Settings</a></nav></div><div class="p-space-sm space-y-space-xs bg-surface-container-lowest"><div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm font-semibold text-primary flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> ONLINE • TELEMETRY OK</span></div><div class="font-mono-data text-mono-data text-on-surface-variant">MODE: DEMO (SIMULATED)</div></div><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container"><div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-semibold"><span class="material-symbols-outlined text-[18px]">shield_person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface truncate">Insp. S. Sharma</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Disaster Ops, ASDMA</span></div><span class="material-symbols-outlined text-on-surface-variant text-[16px]">more_vert</span></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-low/95 backdrop-blur-md z-40 px-space-md flex items-center justify-between shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex items-center gap-space-md"><img alt="Brand logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WoqSveSUjtwcRq3Ng5DMl-ndlaVTHaPwTZ9YR1bMyjeOz1I52m1bXqelBg2BQxYBKTvu0nKDhlbrPuilzlTigX3-Rmm4kQU-cNb4UVGnVL3W8K5ESpJHx3Ta8h-6eAs2gTIuPF7uuxs7QceJOnb_SVQm1-xM34l6cFAn1XkibgCG8cbR_xhVULdzLWIE7WN3qEnKE4fUNjEXO6JFYwnSNzM2d7qORWvgaVCs2xjb2MUboJe3BXuXc00ig"/><nav class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md"><span class="text-on-surface-variant">RELIEFOS Lite</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="text-on-surface font-semibold">Settings</span></nav><div class="hidden lg:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg text-on-surface font-body-sm text-body-sm"><span class="material-symbols-outlined text-primary text-[16px]">location_on</span><span>Kamrup Metropolitan, Guwahati, Assam</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">arrow_drop_down</span></div></div><div class="flex items-center gap-space-md"><div class="bg-surface-variant px-space-sm py-space-xs rounded-full flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span><span class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider font-semibold">SIMULATED DATA</span></div><div class="hidden md:flex items-center gap-space-xs text-on-surface-variant font-mono-data text-mono-data"><span class="material-symbols-outlined text-[16px]">schedule</span><span>Sync: 14:42:10 IST</span></div><button class="relative p-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error-container text-on-error-container text-[10px] flex items-center justify-center font-bold">4</span></button><button class="p-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help</span></button><div class="hidden sm:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg font-label-sm text-label-sm font-semibold text-primary"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span><span>On Duty</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-space-lg py-space-lg"><div class="flex flex-col w-full space-y-space-md text-on-surface">
+<!-- PAGE HEADER -->
+<div class="flex flex-col gap-space-sm bg-surface-container-low p-space-md rounded-xl shadow-md">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<h1 class="font-display-lg text-display-lg font-bold text-on-surface tracking-tight">System Settings</h1>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider bg-surface-variant text-secondary-fixed-dim font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>
+            PROTOTYPE CONFIGURATION MODE
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+          Configure workspace preferences, regional planning bounds, optimization objectives, and operational governance.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-1.5 bg-surface-container px-space-sm py-1.5 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-bright transition-colors shadow-sm" id="btn-export-json">
+<span class="material-symbols-outlined text-[16px] text-secondary">file_download</span>
+          Export Config (JSON)
+        </button>
+<button class="flex items-center gap-1.5 bg-surface-container px-space-sm py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant hover:text-error transition-colors shadow-sm" id="btn-reset-defaults">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+          Reset Defaults
+        </button>
+</div>
+</div>
+<!-- CONTEXT BANNER STRIP -->
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 px-space-sm py-2 rounded-lg bg-surface-container font-mono-data text-mono-data text-on-surface-variant shadow-inner">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[15px]">warehouse</span>
+        1 Depot (Sarusajai)
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-secondary">grid_view</span>
+        5 Operational Zones
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-primary">local_shipping</span>
+        3 Relief Vehicles
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-tertiary">night_shelter</span>
+        2 Shelters
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-primary">model_training</span>
+        Two-Stage Lexicographic Optimization (OR-Tools CP-SAT)
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-primary-fixed">
+<span class="material-symbols-outlined text-[15px]">verified_user</span>
+        Human-in-the-Loop Decision Support
+      </span>
+</div>
+</div>
+<!-- TWO-COLUMN WORKSPACE -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-md items-start pb-20">
+<!-- LEFT COLUMN: CATEGORY NAVIGATION -->
+<div class="xl:col-span-3 flex flex-col gap-space-sm bg-surface-container-low p-space-sm rounded-xl shadow-md sticky top-20">
+<div class="px-space-xs py-1">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Configuration Subsystems</span>
+</div>
+<nav class="flex flex-col gap-1" id="settings-nav">
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors bg-surface-container text-primary font-semibold shadow-sm" data-target="panel-general">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>General &amp; UI</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-planning">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">map</span>
+<span>Region &amp; Planning</span>
+</div>
+<span class="font-mono-data text-[10px] text-outline">5 ZONES</span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-resources">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+<span>Resources &amp; Units</span>
+</div>
+<span class="font-mono-data text-[10px] text-primary">ACTIVE</span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-optimization">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">flowsheet</span>
+<span>Optimization (OR-Tools)</span>
+</div>
+<span class="font-mono-data text-[10px] text-secondary">CP-SAT</span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-data-sources">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">hub</span>
+<span>Data Sources</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-governance">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+<span>Users &amp; Governance</span>
+</div>
+<span class="font-mono-data text-[10px] text-outline">ASDMA</span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-audit">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">history_toggle_off</span>
+<span>Audit Logs &amp; Integrity</span>
+</div>
+<span class="font-mono-data text-[10px] text-outline">SHA256</span>
+</button>
+</nav>
+<!-- SYSTEM ENVIRONMENT INDICATOR WIDGET -->
+<div class="mt-4 p-space-sm rounded-lg bg-surface-container space-y-1.5 shadow-inner">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Instance Topology</span>
+<span class="material-symbols-outlined text-[14px]">dns</span>
+</div>
+<div class="font-mono-data text-mono-data text-on-surface font-semibold">DEMO_SANDBOX</div>
+<div class="text-[11px] font-mono-data text-on-surface-variant flex flex-col gap-0.5">
+<span>NODE: NODE-GHY-04 (Assam DDMA)</span>
+<span>STORAGE: PostgreSQL 16 (In-Mem Spatially Partitioned)</span>
+<span class="text-primary flex items-center gap-1 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            GIS Telemetry Bridge: OK
+          </span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: MAIN SETTINGS CANVAS -->
+<div class="xl:col-span-9 flex flex-col gap-space-md">
+<!-- A. GENERAL SETTINGS GROUP -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-general">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">General Settings &amp; Tactical Workspace</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline-variant font-mono-data">SYS.SCOPE: WORKSPACE_BASE</span>
+</div>
+<!-- Workspace Information Fields -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant">Workspace System Name</label>
+<input class="h-9 px-3 rounded-lg bg-surface-container text-on-surface font-mono-data text-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="RELIEFOS Lite"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant">Application Operational Subtitle</label>
+<input class="h-9 px-3 rounded-lg bg-surface-container text-on-surface font-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="Flood Monitoring &amp; Disaster Relief Decision Support"/>
+</div>
+<div class="flex flex-col gap-1.5 md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Authorizing Jurisdiction / Lead Organization</label>
+<input class="h-9 px-3 rounded-lg bg-surface-container text-on-surface font-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="Assam State Disaster Management Authority (ASDMA) - Kamrup Metro DDMA"/>
+</div>
+</div>
+<!-- Localization and Units Matrix -->
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-space-sm bg-surface-container p-space-sm rounded-lg">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline">Language</span>
+<select class="h-8 px-2 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary">
+<option selected="">English (IN)</option>
+<option>Assamese (অসমীয়া - Planned)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline">Timezone</span>
+<select class="h-8 px-2 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary">
+<option selected="">Asia/Kolkata (IST, +05:30)</option>
+<option>UTC (Coordinated Universal)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline">Date Format</span>
+<div class="h-8 px-2 rounded-lg bg-surface-container-high text-on-surface flex items-center font-mono-data text-body-sm">
+              DD MMM YYYY
+            </div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline">Time Format</span>
+<div class="h-8 px-2 rounded-lg bg-surface-container-high text-on-surface flex items-center font-mono-data text-body-sm">
+              24-Hour (HH:mm IST)
+            </div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline">Standard Units</span>
+<div class="h-8 px-2 rounded-lg bg-surface-container-high text-primary flex items-center font-mono-data text-body-sm font-semibold">
+              Metric (kg, km, m, L)
+            </div>
+</div>
+</div>
+<!-- Display & Tactical UI Preferences -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Display &amp; Tactical UI Preferences</span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Theme Mode</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Optimized for low-light Emergency Operations Centers (EOC)</span>
+</div>
+<span class="px-2 py-1 rounded bg-surface-bright text-primary font-mono-data text-label-sm font-semibold">TACTICAL DARK</span>
+</div>
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Default Landing View</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Immediate operational triage post-authentication</span>
+</div>
+<select class="h-8 px-2 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none">
+<option selected="">Operations Overview</option>
+<option>Live Flood Map (GIS Fullscreen)</option>
+<option>Demand &amp; Allocation Workbench</option>
+</select>
+</div>
+</div>
+<!-- Toggles Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-sm mt-1">
+<!-- Toggle 1 -->
+<label class="flex items-start justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-bright/50 cursor-pointer transition-colors">
+<div class="flex flex-col pr-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Compact Data Tables</span>
+<span class="text-[11px] text-on-surface-variant">Higher data density for multi-zone tabular inspection</span>
+</div>
+<input checked="" class="mt-1 w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
+</label>
+<!-- Toggle 2 -->
+<label class="flex items-start justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-bright/50 cursor-pointer transition-colors">
+<div class="flex flex-col pr-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Data Provenance Badges</span>
+<span class="text-[11px] text-on-surface-variant">Display ISO-19115 observed/forecast/simulated flags</span>
+</div>
+<input checked="" class="mt-1 w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
+</label>
+<!-- Toggle 3 -->
+<label class="flex items-start justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-bright/50 cursor-pointer transition-colors">
+<div class="flex flex-col pr-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Safety Confirmation Prompts</span>
+<span class="text-[11px] text-on-surface-variant">Mandatory double-confirmation for solver dispatch</span>
+</div>
+<input checked="" class="mt-1 w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
+</label>
+</div>
+</div>
+</section>
+<!-- B. REGION & PLANNING SCOPE PARAMETERS -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-planning">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">travel_explore</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Region &amp; Planning Scope Parameters</h2>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-mono-data text-label-sm">KAMRUP_METRO_V2</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Left: Jurisdiction & Spatial Anchor -->
+<div class="lg:col-span-6 flex flex-col gap-space-sm bg-surface-container p-space-sm rounded-lg">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Operational Spatial Anchor</span>
+<div class="space-y-2 text-body-sm font-body-sm">
+<div class="flex justify-between items-center py-1 border-b border-surface-container-high">
+<span class="text-on-surface-variant">Administrative Region</span>
+<span class="font-medium text-on-surface">Kamrup Metropolitan (Assam)</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-surface-container-high">
+<span class="text-on-surface-variant">Primary Urban Center</span>
+<span class="font-medium text-on-surface">Guwahati Urban Agglomeration</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-surface-container-high">
+<span class="text-on-surface-variant">GIS Bounding Center</span>
+<span class="font-mono-data text-primary">26.1445° N, 91.7362° E (EPSG:4326)</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-surface-container-high">
+<span class="text-on-surface-variant">Default GIS Zoom Level</span>
+<span class="font-mono-data text-secondary">12.5x (Tactical Basin Scale)</span>
+</div>
+<div class="flex justify-between items-center py-1">
+<span class="text-on-surface-variant">Active Boundary Shapefile</span>
+<span class="font-mono-data text-xs px-2 py-0.5 rounded bg-surface-bright text-on-surface">asdma_kamrup_metro_v2.geojson</span>
+</div>
+</div>
+<!-- Mini Spatial Vector Graphic Preview -->
+<div class="mt-1 p-2 rounded bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">polyline</span>
+<span class="font-label-sm text-label-sm text-on-surface">Vector Polygons Synchronized</span>
+</div>
+<span class="font-mono-data text-[11px] text-outline">5 Zonal Geometries</span>
+</div>
+</div>
+<!-- Right: MVP Architecture Overview -->
+<div class="lg:col-span-6 flex flex-col justify-between gap-space-sm bg-surface-container p-space-sm rounded-lg">
+<div>
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">MVP Operational Footprint</span>
+<div class="grid grid-cols-2 gap-2 mt-2">
+<div class="p-2 rounded bg-surface-container-high">
+<div class="font-label-sm text-label-sm text-outline">Operational Zones</div>
+<div class="font-mono-data text-headline-sm font-bold text-on-surface">05 Sectors</div>
+<div class="text-[11px] text-on-surface-variant truncate">Z01 N-Ghy to Z05 Dispur</div>
+</div>
+<div class="p-2 rounded bg-surface-container-high">
+<div class="font-label-sm text-label-sm text-outline">Logistics Hub</div>
+<div class="font-mono-data text-headline-sm font-bold text-primary">01 Primary</div>
+<div class="text-[11px] text-on-surface-variant truncate">Sarusajai Depot (DEPOT-01)</div>
+</div>
+<div class="p-2 rounded bg-surface-container-high">
+<div class="font-label-sm text-label-sm text-outline">Relief Fleet</div>
+<div class="font-mono-data text-headline-sm font-bold text-secondary">03 Vehicles</div>
+<div class="text-[11px] text-on-surface-variant truncate">Tata 407, AL 4x4, Bolero</div>
+</div>
+<div class="p-2 rounded bg-surface-container-high">
+<div class="font-label-sm text-label-sm text-outline">Staging Shelters</div>
+<div class="font-mono-data text-headline-sm font-bold text-tertiary">02 Active</div>
+<div class="text-[11px] text-on-surface-variant truncate">Amingaon, Kamrup Girls HS</div>
+</div>
+</div>
+</div>
+<div class="p-2 rounded bg-surface-bright/40 text-[11px] text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+<span>Multi-depot topology and cross-district scaling unlocked in ASDMA Enterprise Cluster v3.0.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- C. RESOURCES & UNITS CONFIGURATION + INVENTORY FLOW -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-resources">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">layers</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Resource Taxonomy &amp; Physical Inventory Decoupling</h2>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono-data text-label-sm">LEDGER_ISOLATION_PASS</span>
+</div>
+<!-- Resource Definitions Table -->
+<div class="overflow-x-auto rounded-lg bg-surface-container shadow-inner">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-high font-label-sm text-label-sm uppercase tracking-wider text-outline">
+<tr>
+<th class="px-3 py-2">Resource Class</th>
+<th class="px-3 py-2">Payload Unit</th>
+<th class="px-3 py-2">Equivalence / Density Reference</th>
+<th class="px-3 py-2">Allocation Scope</th>
+<th class="px-3 py-2 text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="px-3 py-2 font-medium text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">rice_bowl</span>
+                  Food Ration Kits (Dry Bulk)
+                </td>
+<td class="px-3 py-2 font-mono-data text-primary">kg</td>
+<td class="px-3 py-2 text-on-surface-variant font-mono-data">1 Standard Ration = 1.0 kg (Normalized)</td>
+<td class="px-3 py-2 text-on-surface">Per-Capita Demand (Sphere Standards)</td>
+<td class="px-3 py-2 text-right">
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-label-sm font-semibold">ACTIVE</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="px-3 py-2 font-medium text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">water_drop</span>
+                  Potable Drinking Water
+                </td>
+<td class="px-3 py-2 font-mono-data text-secondary">kg (Weight Equivalent)</td>
+<td class="px-3 py-2 text-on-surface-variant font-mono-data">1.0 L ≈ 1.0 kg (Water Density at 20°C)</td>
+<td class="px-3 py-2 text-on-surface">3.0 L / person / day Base Threshold</td>
+<td class="px-3 py-2 text-right">
+<span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-mono-data text-label-sm font-semibold">ACTIVE</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright/30 transition-colors opacity-60">
+<td class="px-3 py-2 font-medium text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">medical_services</span>
+                  Non-Food Items (Tarps, First-Aid Kits)
+                </td>
+<td class="px-3 py-2 font-mono-data text-outline">Units / Bundles</td>
+<td class="px-3 py-2 text-on-surface-variant font-mono-data">Weight Varies (Not factored in MILP v2)</td>
+<td class="px-3 py-2 text-on-surface">Shelter Staging Points Only</td>
+<td class="px-3 py-2 text-right">
+<span class="px-2 py-0.5 rounded bg-surface-variant text-outline font-mono-data text-label-sm">PLANNED (LOCKED)</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Visual Data Flow Architecture Diagram (Horizontal Stepper) -->
+<div class="flex flex-col gap-2 bg-surface-container p-space-sm rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Human-in-the-Loop Safe Allocation Pipeline</span>
+<span class="font-mono-data text-xs text-primary-fixed">STATELESS IN-MEMORY SOLVER PIPELINE</span>
+</div>
+<!-- Stepper Diagram -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-2 my-2">
+<!-- Step 1 -->
+<div class="flex flex-col p-2.5 rounded-lg bg-surface-container-high border-l-2 border-primary">
+<span class="font-mono-data text-[10px] text-outline">STAGE 01</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold mt-0.5">Physical Stock</span>
+<span class="text-[11px] text-on-surface-variant">Sarusajai Depot Ledger</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col p-2.5 rounded-lg bg-surface-container-high border-l-2 border-secondary">
+<span class="font-mono-data text-[10px] text-outline">STAGE 02</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold mt-0.5">Reserved Buffer</span>
+<span class="text-[11px] text-on-surface-variant">15% Disaster Reserve</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col p-2.5 rounded-lg bg-surface-container-high border-l-2 border-primary-fixed">
+<span class="font-mono-data text-[10px] text-outline">STAGE 03</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold mt-0.5">Solver Proposal</span>
+<span class="text-[11px] text-on-surface-variant">In-Memory MILP Draft</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col p-2.5 rounded-lg bg-surface-container-high border-l-2 border-tertiary">
+<span class="font-mono-data text-[10px] text-outline">STAGE 04</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold mt-0.5">Human Approval</span>
+<span class="text-[11px] text-on-surface-variant">ASDMA Operator Sign-off</span>
+</div>
+<!-- Step 5 -->
+<div class="flex flex-col p-2.5 rounded-lg bg-surface-container-high border-l-2 border-primary">
+<span class="font-mono-data text-[10px] text-outline">STAGE 05</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold mt-0.5">Dispatch Manifest</span>
+<span class="text-[11px] text-on-surface-variant">Fleet Gate Pass Issued</span>
+</div>
+</div>
+<div class="p-2.5 rounded bg-surface-container-lowest text-[11px] text-on-surface-variant flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0 mt-0.5">verified</span>
+<p>
+<strong class="text-on-surface">Decision-Support Isolation Guarantee:</strong> Automated simulations and draft allocations operate strictly in memory cache. At no point does an algorithmic run modify authoritative warehouse inventory ledgers until explicit human validation is authenticated.
+            </p>
+</div>
+</div>
+</section>
+<!-- D. OPTIMIZATION ENGINE & SOLVER GUARDRAILS (OR-TOOLS CP-SAT) -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-optimization">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">smart_toy</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Optimization Engine &amp; Solver Guardrails (Google OR-Tools CP-SAT)</h2>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-mono-data text-label-sm">LEXICOGRAPHIC_EPSILON_0.00</span>
+</div>
+<!-- Objective Hierarchy Breakdown -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Priority 1 Card -->
+<div class="flex flex-col gap-2 p-space-sm rounded-lg bg-surface-container border-l-4 border-primary">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-bold tracking-wider">PRIMARY OBJECTIVE (STAGE 1 MILP)</span>
+<span class="font-mono-data text-[11px] text-outline">DOMINANT GOAL</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-semibold">Minimize Priority-Weighted Unmet Demand</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Zones categorized as Critical Risk (Z02 Bharalumukh &amp; Z01 North Guwahati) receive disproportionately heavy penalty weightings. Solvers enforce maximum possible demand satisfaction before route length is considered.
+            </p>
+<div class="mt-1 font-mono-data text-[11px] text-primary bg-surface-container-high p-1.5 rounded">
+              minimize ∑ (w_zone × unmet_ration_kg)
+            </div>
+</div>
+<!-- Priority 2 Card -->
+<div class="flex flex-col gap-2 p-space-sm rounded-lg bg-surface-container border-l-4 border-secondary">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-bold tracking-wider">SECONDARY OBJECTIVE (STAGE 2 LEXICOGRAPHIC)</span>
+<span class="font-mono-data text-[11px] text-outline">ε = 0.00% TOLERANCE</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-semibold">Minimize Total Fleet Transit Distance</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Once maximum relief throughput is locked, the solver re-runs to optimize vehicle traversal distance across accessible road networks without conceding even 1 kg of allocated relief.
+            </p>
+<div class="mt-1 font-mono-data text-[11px] text-secondary bg-surface-container-high p-1.5 rounded">
+              minimize ∑ (dist_km) subject to unmet ≤ unmet_optimal
+            </div>
+</div>
+</div>
+<!-- Vehicle & Routing Constraints Form -->
+<div class="flex flex-col gap-space-sm bg-surface-container p-space-sm rounded-lg">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Vehicle &amp; Hydro-Routing Constraints</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<div class="p-2.5 rounded bg-surface-container-high flex flex-col gap-1">
+<span class="text-on-surface-variant text-[11px]">Fleet Gross Capacity Limit</span>
+<span class="font-mono-data text-body-lg font-bold text-on-surface">5,000 kg</span>
+<span class="text-[10px] text-outline">Combined Payload (3 Trucks)</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-high flex flex-col gap-1">
+<span class="text-on-surface-variant text-[11px]">Severance Depth Threshold</span>
+<span class="font-mono-data text-body-lg font-bold text-error">0.35 m (35 cm)</span>
+<span class="text-[10px] text-error-container">Inundation Closes Road Edge</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-high flex flex-col gap-1">
+<span class="text-on-surface-variant text-[11px]">Depot Loop Closure</span>
+<span class="font-mono-data text-body-lg font-bold text-primary">Mandatory</span>
+<span class="text-[10px] text-outline">All routes return to Sarusajai</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-high flex flex-col gap-1">
+<span class="text-on-surface-variant text-[11px]">Dispatch Wave Mode</span>
+<span class="font-mono-data text-body-lg font-bold text-secondary">Single-Wave</span>
+<span class="text-[10px] text-outline">Multi-trip scheduled in v3</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Active Road Severance Simulation: <span class="text-on-surface font-semibold">MG Road (Bharalumukh) marked impassable due to Brahmaputra backflow.</span></span>
+<button class="px-2.5 py-1 rounded bg-surface-bright text-secondary font-label-md text-label-md hover:bg-surface-variant transition-colors">
+              Inspect Edge Matrix
+            </button>
+</div>
+</div>
+</section>
+<!-- E. DATA QUALITY, PROVENANCE, & EXTERNAL FEEDS -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-data-sources">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">sensors</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Data Sources, Provenance &amp; Polling Health</h2>
+</div>
+<button class="flex items-center gap-1 text-primary hover:underline font-label-md text-label-md">
+<span>Open Ingestion Console</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<!-- Feed 1 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">air</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Open-Meteo GFS / IMD Radar</span>
+<span class="text-[11px] text-on-surface-variant">Precipitation &amp; Catchment Inflow</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-mono-data text-[10px] font-bold">FORECAST • 110ms</span>
+<span class="text-[10px] font-mono-data text-outline">Hourly Sync (14:00 IST)</span>
+</div>
+</div>
+<!-- Feed 2 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">water</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">CWC Hydrological River Gauges</span>
+<span class="text-[11px] text-on-surface-variant">DC Court &amp; Pandu Ghat Stations</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-[10px] font-bold">OBSERVED • 24ms</span>
+<span class="text-[10px] font-mono-data text-outline">15m Polling (14:40 IST)</span>
+</div>
+</div>
+<!-- Feed 3 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">satellite_alt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Copernicus Sentinel-1 SAR</span>
+<span class="text-[11px] text-on-surface-variant">Inundation Extent Backscatter</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded bg-tertiary-container/20 text-tertiary font-mono-data text-[10px] font-bold">ESTIMATED • FALLBACK</span>
+<span class="text-[10px] font-mono-data text-outline">Orbit: 6h Interval</span>
+</div>
+</div>
+<!-- Feed 4 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">inventory</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Sarusajai ERP Warehouse Ledger</span>
+<span class="text-[11px] text-on-surface-variant">Internal Logistics Inventory Store</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded bg-surface-bright text-on-surface font-mono-data text-[10px] font-bold">MANUAL AUDIT • PASS</span>
+<span class="text-[10px] font-mono-data text-outline">30m Polling (14:15 IST)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- F. USERS, GOVERNANCE, & AUDIT OVERVIEW -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-governance">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">shield_person</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Operator Governance &amp; Cryptographic Audit Trail</h2>
+</div>
+<span class="font-mono-data text-xs text-outline">RBAC: LEVEL_3_ACTIVE</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Active Operator Dossier -->
+<div class="lg:col-span-6 flex flex-col gap-space-sm bg-surface-container p-space-sm rounded-lg">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Active Authenticated Operator</span>
+<div class="flex items-center gap-3 p-2 rounded bg-surface-container-high">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-lg">
+                SS
+              </div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Insp. S. Sharma</span>
+<span class="font-label-md text-label-md text-primary font-medium">Operations Planner • ASDMA Disaster Ops</span>
+<span class="font-mono-data text-[10px] text-outline">ID: ASDMA-EMP-8841-KAMRUP</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 text-body-sm font-body-sm text-on-surface-variant">
+<span class="text-outline font-label-sm text-label-sm">Authorized Tactical Permissions:</span>
+<div class="flex flex-wrap gap-1.5 mt-1">
+<span class="px-2 py-0.5 rounded bg-surface-bright text-on-surface text-[11px] font-mono-data">DEMAND_OVERRIDE</span>
+<span class="px-2 py-0.5 rounded bg-surface-bright text-on-surface text-[11px] font-mono-data">OR_TOOLS_SOLVER_RUN</span>
+<span class="px-2 py-0.5 rounded bg-surface-bright text-on-surface text-[11px] font-mono-data">ALLOCATION_DRAFT</span>
+<span class="px-2 py-0.5 rounded bg-surface-bright text-on-surface text-[11px] font-mono-data">DISPATCH_SIGN_OFF</span>
+</div>
+</div>
+</div>
+<!-- Governance Matrix and Audit Stats -->
+<div class="lg:col-span-6 flex flex-col justify-between gap-space-sm bg-surface-container p-space-sm rounded-lg">
+<div class="space-y-2">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">System Role Hierarchy</span>
+<div class="space-y-1.5 font-body-sm text-body-sm">
+<div class="flex justify-between items-center px-2 py-1 rounded bg-surface-container-high">
+<span class="text-on-surface font-medium">ASDMA Administrator</span>
+<span class="text-outline font-mono-data text-xs">Full System &amp; Boundary Write</span>
+</div>
+<div class="flex justify-between items-center px-2 py-1 rounded bg-surface-bright/50">
+<span class="text-primary font-medium">Operations Planner (Current)</span>
+<span class="text-on-surface-variant font-mono-data text-xs">Solver Trigger &amp; Allocation</span>
+</div>
+<div class="flex justify-between items-center px-2 py-1 rounded bg-surface-container-high">
+<span class="text-on-surface font-medium">Field Dispatch Officer</span>
+<span class="text-outline font-mono-data text-xs">Read-Only Manifest Execution</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-variant">
+<div class="flex items-center gap-1.5 text-primary text-body-sm">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>SHA-256 Session Chain Intact</span>
+</div>
+<button class="px-2 py-1 rounded bg-surface-bright text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-colors">
+                Export Audit CSV
+              </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- G. PERSISTENT FLOATING BOTTOM ACTION DOCK -->
+<aside aria-label="Settings Action Dock" class="fixed bottom-3 left-4 right-4 sm:left-[270px] sm:right-6 bg-surface-container-high/95 backdrop-blur-md p-space-sm rounded-xl shadow-xl z-30 flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary animate-spin text-[20px]">sync</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Unsaved Configuration Changes</span>
+<span class="text-[11px] text-on-surface-variant">Modified: Default GIS Zoom (12.5x) • Table Density (Compact)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="hidden md:inline font-mono-data text-[11px] text-outline pr-2">
+        Statutory Notice: Local session scope only.
+      </span>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-error hover:bg-surface-variant font-label-md text-label-md transition-colors shadow-sm" id="dock-btn-discard">
+        Discard Changes
+      </button>
+<button class="px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:brightness-110 active:scale-[0.98] transition-all flex items-center gap-1.5 shadow-md" id="dock-btn-save">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+        Save Configuration
+      </button>
+</div>
+</aside>
+</div>
+<script>
+  // Simple tab-like smooth scroll focus for settings panels
+  document.querySelectorAll('.settings-nav-item').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.settings-nav-item').forEach(b => {
+        b.classList.remove('bg-surface-container', 'text-primary', 'font-semibold', 'shadow-sm');
+        b.classList.add('text-on-surface-variant');
+      });
+      button.classList.add('bg-surface-container', 'text-primary', 'font-semibold', 'shadow-sm');
+      button.classList.remove('text-on-surface-variant');
+
+      const targetId = button.getAttribute('data-target');
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Micro-interactions for save/export actions
+  const saveBtn = document.getElementById('dock-btn-save');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      saveBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span> Storing State...';
+      saveBtn.classList.add('opacity-80');
+      setTimeout(() => {
+        saveBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">done_all</span> Configuration Synced';
+        saveBtn.classList.remove('opacity-80');
+        setTimeout(() => {
+          saveBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> Save Configuration';
+        }, 2500);
+      }, 700);
+    });
+  }
+
+  const exportBtn = document.getElementById('btn-export-json');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      const originalText = exportBtn.innerHTML;
+      exportBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-primary">download_done</span> JSON Exported';
+      setTimeout(() => {
+        exportBtn.innerHTML = originalText;
+      }, 2000);
+    });
+  }
+</script></main></div></body></html>

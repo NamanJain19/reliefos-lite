@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-error-container":"#ffdad6","surface-bright":"#2c3a4b","on-secondary":"#003545","background":"#051423","outline":"#85948f","error-container":"#93000a","on-background":"#d5e4f9","on-tertiary":"#650713","on-surface":"#d5e4f9","surface-container":"#122130","surface-dim":"#051423","on-primary-fixed-variant":"#005144","tertiary-fixed":"#ffdad8","on-secondary-fixed-variant":"#004d63","secondary-container":"#01a0c9","surface":"#051423","on-tertiary-container":"#7a1920","surface-container-low":"#0e1d2c","surface-container-lowest":"#010f1e","on-primary-fixed":"#00201a","on-primary-container":"#00483c","on-tertiary-fixed":"#410007","primary":"#4ddcc1","surface-container-highest":"#283646","secondary-fixed":"#bce9ff","secondary-fixed-dim":"#61d4ff","tertiary":"#ffb3b1","on-primary":"#00382e","on-secondary-fixed":"#001f29","tertiary-fixed-dim":"#ffb3b1","tertiary-container":"#ff8786","outline-variant":"#3c4a46","on-surface-variant":"#bbcac4","primary-fixed":"#6ff9dd","on-secondary-container":"#00313f","inverse-on-surface":"#233241","primary-fixed-dim":"#4ddcc1","on-error":"#690005","primary-container":"#20bfa5","surface-container-high":"#1d2b3b","on-tertiary-fixed-variant":"#852127","inverse-primary":"#006b5b","inverse-surface":"#d5e4f9","surface-variant":"#283646","surface-tint":"#4ddcc1","error":"#ffb4ab","secondary":"#61d4ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"0.75rem","space-lg":"1rem","space-xs":"0.25rem","space-sm":"0.375rem","space-xl":"1.5rem","gutter":"0.75rem","margin-lg":"1.25rem","gutter-lg":"1rem","margin":"0.75rem"},"fontFamily":{"body-lg":["Inter"],"body-sm":["Inter"],"display-lg":["Inter"],"body-md":["Inter"],"headline-lg":["Inter"],"mono-data":["Inter"],"label-md":["Inter"],"headline-sm":["Inter"],"label-sm":["Inter"]},"fontSize":{"body-lg":["0.9375rem",{"lineHeight":"1.375rem","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.01em","fontWeight":"400"}],"display-lg":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["0.8125rem",{"lineHeight":"1.25rem","letterSpacing":"0em","fontWeight":"400"}],"headline-lg":["1.25rem",{"lineHeight":"1.75rem","letterSpacing":"-0.01em","fontWeight":"600"}],"mono-data":["0.8125rem",{"lineHeight":"1.125rem","letterSpacing":"-0.01em","fontWeight":"500"}],"label-md":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.03em","fontWeight":"500"}],"headline-sm":["1rem",{"lineHeight":"1.5rem","letterSpacing":"0em","fontWeight":"600"}],"label-sm":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.06em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-[250px] bg-surface-container-low border-r border-outline-variant/30 z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-md border-b border-outline-variant/30 flex items-center gap-space-sm bg-surface-container-lowest"><img alt="RELIEFOS Lite Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1XX9vy8vgKrWoXV5zO-nZ6YbJuOB44cRbwKAr4KMO8r0M9yNyRu27Piwj18W_UrbXMjAzuzSzxIiw4-F67Q-WE1wYizdzvajNMNh2p5k3Jur7_07BolXZhc6a_DZY_Cw-FyQFM2OPIHMbrBv2JeEu8c1Z6_yBdYkFx7aD-X3RIc-TpyyLKSKaJ3rDEvBh40PtA6Gm62p1fvDgfbB-enNREu2upzKKXw94W-cko12tRacYhS6FprbaAGkvo"/><div class="flex flex-col min-w-0 leading-tight"><span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight truncate">RELIEFOS Lite</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Flood Ops • Kamrup Metro</span></div></div><div class="px-space-md py-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold px-space-xs py-space-xs block">Operational Matrix</span></div><nav class="flex flex-col space-y-0.5 px-space-xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold border-l-2 border-primary-container"><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="operations-overview" href="#">Operations Overview</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="live-flood-map" href="#">Live Flood Map</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="zones-and-risk" href="#">Zones &amp; Risk</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="resource-inventory" href="#">Resource Inventory</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="demand-management" href="#">Demand Management</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="relief-allocation" href="#">Relief Allocation</a><a class="flex items-center px-space-md py-2 rounded bg-surface-container-high text-on-surface font-semibold border-l-2 border-primary-container transition-colors font-body-md text-body-md" data-path="route-optimization" href="#">Route Optimization</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="simulation-and-reports" href="#">Simulation &amp; Reports</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="data-sources" href="#">Data Sources</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#">Settings</a></nav></div><div class="flex flex-col border-t border-outline-variant/30 bg-surface-container-lowest p-space-md space-y-space-sm"><div class="flex items-center justify-between px-space-xs"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-mono-data text-mono-data text-primary uppercase">ONLINE • TELEMETRY OK</span></div></div><div class="bg-surface-container px-space-sm py-1 rounded border border-outline-variant/30 flex items-center justify-center"><span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider text-center">MODE: DEMO (SIMULATED)</span></div><div class="flex items-center gap-space-sm pt-space-xs border-t border-outline-variant/20"><div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-[18px]">shield_person</span></div><div class="flex flex-col min-w-0 leading-tight"><span class="font-label-md text-label-md font-semibold text-on-surface truncate">Insp. S. Sharma</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Disaster Ops, ASDMA</span></div></div></div></aside><div class="pl-[250px] flex flex-col min-h-screen"><header class="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-low/95 backdrop-blur border-b border-outline-variant/30 z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md"><span class="font-mono-data text-mono-data text-outline">Operations</span><span class="text-outline">/</span><span class="text-on-surface font-semibold">Route Optimization</span></div><div class="h-4 w-px bg-outline-variant/50"></div><div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded border border-outline-variant/30"><span class="material-symbols-outlined text-[16px] text-secondary">location_on</span><span class="font-label-md text-label-md text-on-surface font-medium">Kamrup Metropolitan, Guwahati, Assam</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">arrow_drop_down</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded border border-tertiary-container/40 bg-surface-container"><span class="material-symbols-outlined text-[14px] text-tertiary">warning</span><span class="font-label-sm text-label-sm text-tertiary font-medium uppercase tracking-wide">SIMULATED DATA</span></div><span class="font-mono-data text-mono-data text-outline hidden lg:inline-block">Last Sync: 14:42:10 IST</span><div class="h-4 w-px bg-outline-variant/50 hidden lg:inline-block"></div><button class="relative p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-3.5 h-3.5 bg-error text-on-error rounded-full font-label-sm text-[9px] flex items-center justify-center font-bold">4</span></button><button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help</span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col text-left leading-none"><span class="font-label-sm text-label-sm text-primary font-semibold">On Duty</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-64px)] flex-1"><div class="flex flex-col w-full">
+<!-- TOP BREADCRUMB & CONTEXT HEADER STRIP -->
+<div class="px-gutter-lg pt-space-md pb-space-sm bg-surface-container-lowest/80 border-b border-outline-variant/30">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Route Optimization</span>
+<span class="px-space-xs py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-mono-data text-label-sm tracking-wider uppercase">
+            ILLUSTRATIVE ROUTING SCENARIO • DECISION SUPPORT
+          </span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high border border-outline-variant/40 text-secondary font-mono-data text-label-sm">
+            STAGE 2 VRP • SOLVER CBC
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-4xl">
+          Assign relief allocations to fleet vehicles, solve multi-stop transit under flood inundation constraints, and review turn-by-turn routing telemetry across the Brahmaputra south-bank corridors.
+        </p>
+</div>
+<!-- Quick Action Controls -->
+<div class="flex items-center gap-space-sm">
+<button class="h-8 px-space-md bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/50 rounded flex items-center gap-space-xs transition-colors font-label-md text-label-md" id="btn-recalculate">
+<span class="material-symbols-outlined text-[16px] text-primary">autorenew</span>
+<span>Recalculate Routes</span>
+</button>
+<button class="h-8 px-space-md bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/50 rounded flex items-center gap-space-xs transition-colors font-label-md text-label-md" id="btn-compare">
+<span class="material-symbols-outlined text-[16px] text-secondary">compare_arrows</span>
+<span>Baseline vs Optimized</span>
+</button>
+<button class="h-8 px-space-md bg-primary-container text-on-primary font-semibold rounded flex items-center gap-space-xs hover:brightness-110 active:brightness-95 transition-all font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Export Manifest (PDF/CSV)</span>
+</button>
+</div>
+</div>
+<!-- Active Operational Context Bar -->
+<div class="mt-space-md py-1.5 px-space-md bg-surface-container rounded border border-outline-variant/30 flex flex-wrap items-center justify-between text-label-sm font-mono-data text-on-surface-variant gap-y-1">
+<div class="flex items-center gap-space-md flex-wrap">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="text-outline">Planning Depot:</span>
+<span class="text-on-surface font-semibold">Sarusajai Central Depot (DEPOT-GAU-01)</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1.5">
+<span class="text-outline">Active Vehicles:</span>
+<span class="text-secondary font-semibold">03 Fleet (5.0 T Total Cap)</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1.5">
+<span class="text-outline">Target Waypoints:</span>
+<span class="text-on-surface">05 Delivery Zones + 02 Shelters</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1.5">
+<span class="text-outline">Active Inundations:</span>
+<span class="text-error font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">dangerous</span> 01 Severed (MG Road 0.40m)
+          </span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs text-outline">
+<span>Solver Pipeline:</span>
+<span class="text-primary font-medium">OSRM Routing + OR-Tools VRP / Lexicographic Stage 2</span>
+</div>
+</div>
+</div>
+<!-- ROUTE PLANNING METRIC KPIS (5 TILES) -->
+<div class="px-gutter-lg py-space-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md bg-surface">
+<!-- Card 1 -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 hover:border-primary/40 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-medium">Total Transit Distance</span>
+<span class="material-symbols-outlined text-primary text-[18px]">straighten</span>
+</div>
+<div class="mt-1 flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface font-mono-data">61.8</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-mono-data">km</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-primary font-mono-data font-semibold">-26.6% vs 84.2km baseline</span>
+<span class="text-outline truncate">3-Vehicle Tour</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 hover:border-secondary/40 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-medium">Fleet Tour Duration</span>
+<span class="material-symbols-outlined text-secondary text-[18px]">timer</span>
+</div>
+<div class="mt-1 flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface font-mono-data">2h 48m</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-secondary font-mono-data">Includes offload stops</span>
+<span class="text-outline">Max: VH-01 1h 42m</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 hover:border-primary/40 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-medium">Payload Utilization</span>
+<span class="material-symbols-outlined text-primary text-[18px]">local_shipping</span>
+</div>
+<div class="mt-1 flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface font-mono-data">4,800</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-mono-data">/ 5,000 kg</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-label-sm text-label-sm">
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 96%"></div>
+</div>
+<span class="text-primary font-mono-data font-semibold">96.0% Allocated</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 hover:border-error/40 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-medium">Inundations Evaded</span>
+<span class="material-symbols-outlined text-error text-[18px]">water_do</span>
+</div>
+<div class="mt-1 flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-error font-mono-data">01</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Chokepoint Active</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-primary font-mono-data flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> 100% Rerouted
+        </span>
+<span class="text-outline truncate">AT Road Detour</span>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 hover:border-primary/40 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-medium">Dispatch Readiness</span>
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+</div>
+<div class="mt-1 flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface font-mono-data">02 / 03</span>
+<span class="font-label-md text-label-md text-secondary">Vehicles Staged</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-secondary font-mono-data">VH-03 Pre-check (8m)</span>
+<span class="text-outline">Wave 1 Gate: 15:15</span>
+</div>
+</div>
+</div>
+<!-- PRIMARY ROUTING WORKSPACE: 65% MAP & SOLVER / 35% FLEET INSPECTOR -->
+<div class="px-gutter-lg py-space-xs grid grid-cols-1 xl:grid-cols-12 gap-space-md items-start">
+<!-- LEFT COLUMN: SOLVER STRATEGY & GIS MAP (xl:col-span-8 ~66%) -->
+<div class="xl:col-span-8 flex flex-col gap-space-md">
+<!-- Solver Strategy & Constraint Controls Strip -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">tune</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface uppercase tracking-wider">Solver Optimization Engine</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded border border-outline-variant/30 text-outline text-label-sm font-mono-data">
+              CBC v2.10.8 • 184ms
+            </span>
+</div>
+<div class="flex items-center gap-2 text-label-sm font-mono-data text-on-surface-variant">
+<span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span>Feasible Optimal Solution: Active</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-sm">
+<label class="flex items-center gap-space-xs p-2 rounded bg-surface-container-high border border-primary/50 cursor-pointer">
+<input checked="" class="text-primary accent-primary bg-surface-container-lowest" name="solver_mode" type="radio"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-primary truncate">Lexicographic Stage 2</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Min. Distance | Preserve Priority Zones</span>
+</div>
+</label>
+<label class="flex items-center gap-space-xs p-2 rounded bg-surface-container-lowest/60 border border-outline-variant/30 hover:border-outline-variant cursor-pointer">
+<input class="text-primary accent-primary bg-surface-container-lowest" name="solver_mode" type="radio"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-on-surface truncate">Baseline Heuristic</span>
+<span class="font-label-sm text-label-sm text-outline truncate">Single-Vehicle Greedy Nearest-Neighbor</span>
+</div>
+</label>
+<label class="flex items-center gap-space-xs p-2 rounded bg-surface-container-lowest/60 border border-outline-variant/30 hover:border-outline-variant cursor-pointer">
+<input class="text-primary accent-primary bg-surface-container-lowest" name="solver_mode" type="radio"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-on-surface truncate">Unconstrained Path</span>
+<span class="font-label-sm text-label-sm text-outline truncate">Ignored Depth (Simulates Inundation Trap)</span>
+</div>
+</label>
+</div>
+<!-- Constraint Toggles -->
+<div class="pt-space-xs border-t border-outline-variant/20 flex flex-wrap items-center justify-between gap-space-md font-label-sm text-label-sm">
+<div class="flex flex-wrap items-center gap-space-md">
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="accent-primary rounded bg-surface-container-high w-3.5 h-3.5" type="checkbox"/>
+<span class="text-on-surface font-medium">Submerged Road Hard Closures (MG Rd &gt; 0.35m)</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="accent-primary rounded bg-surface-container-high w-3.5 h-3.5" type="checkbox"/>
+<span class="text-on-surface font-medium">Strict Fleet GVW ≤ Max Vehicle Cap</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="accent-primary rounded bg-surface-container-high w-3.5 h-3.5" type="checkbox"/>
+<span class="text-on-surface font-medium">Zone Priority Time Windows (&lt; 17:00 IST)</span>
+</label>
+</div>
+<button class="text-primary hover:underline flex items-center gap-1 font-mono-data">
+<span class="material-symbols-outlined text-[14px]">tune</span> Solver Params
+          </button>
+</div>
+</div>
+<!-- Main GIS Interactive Tactical Routing Map Canvas -->
+<div class="relative bg-surface-container-lowest rounded border border-outline-variant/40 overflow-hidden shadow-xl" style="height: 620px;">
+<!-- Top Map HUD Overlay -->
+<div class="absolute top-3 left-3 right-3 z-30 flex items-center justify-between pointer-events-none">
+<div class="flex items-center gap-2 pointer-events-auto">
+<div class="bg-surface-container-low/90 backdrop-blur px-2.5 py-1.5 rounded border border-outline-variant/40 flex items-center gap-2 text-label-sm font-mono-data">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span class="text-on-surface font-semibold">GIS VIEWPORT: GUWAHATI / KAMRUP METRO</span>
+<span class="text-outline">|</span>
+<span class="text-secondary">EPSG:4326</span>
+<span class="text-outline">26° 11' 06" N, 91° 44' 49" E</span>
+</div>
+<div class="bg-surface-container-low/90 backdrop-blur px-2.5 py-1.5 rounded border border-outline-variant/40 flex items-center gap-2 text-label-sm font-mono-data text-outline">
+<span>RIVER STAGE: <strong class="text-error font-semibold">49.88m</strong> (+0.20m Danger)</span>
+</div>
+</div>
+<!-- Map Layer Switches -->
+<div class="flex items-center gap-1 pointer-events-auto bg-surface-container-low/90 backdrop-blur p-1 rounded border border-outline-variant/40 text-label-sm font-mono-data">
+<button class="px-2 py-1 rounded bg-surface-container-high text-primary font-semibold border border-primary/30">Convoy Vectors</button>
+<button class="px-2 py-1 rounded hover:bg-surface-container-high text-on-surface-variant">Inundation Contours</button>
+<button class="px-2 py-1 rounded hover:bg-surface-container-high text-on-surface-variant">Depot &amp; Zones</button>
+<button class="p-1 rounded hover:bg-surface-container-high text-on-surface" title="Expand GIS Layers">
+<span class="material-symbols-outlined text-[16px]">layers</span>
+</button>
+</div>
+</div>
+<!-- Left Vertical Navigation & Zoom HUD -->
+<div class="absolute top-16 left-3 z-30 flex flex-col gap-1 pointer-events-auto">
+<div class="bg-surface-container-low/90 backdrop-blur rounded border border-outline-variant/40 flex flex-col p-1 text-on-surface-variant">
+<button class="p-1.5 hover:bg-surface-container-high hover:text-on-surface rounded text-center transition-colors" title="Zoom In">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+<div class="h-px bg-outline-variant/30 my-0.5"></div>
+<button class="p-1.5 hover:bg-surface-container-high hover:text-on-surface rounded text-center transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<div class="h-px bg-outline-variant/30 my-0.5"></div>
+<button class="p-1.5 hover:bg-surface-container-high hover:text-on-surface rounded text-center transition-colors" title="Recenter Viewport">
+<span class="material-symbols-outlined text-[18px]">filter_center_focus</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-high hover:text-on-surface rounded text-center transition-colors" title="Measure Distance">
+<span class="material-symbols-outlined text-[18px]">straighten</span>
+</button>
+</div>
+<!-- Mini Legend Overlay -->
+<div class="bg-surface-container-low/95 backdrop-blur p-2.5 rounded border border-outline-variant/40 text-label-sm font-mono-data flex flex-col gap-1.5 mt-2">
+<span class="text-outline uppercase text-[10px] tracking-wider font-semibold">Active Fleet Routes</span>
+<div class="flex items-center gap-2">
+<span class="w-3 h-1 rounded bg-[#20BFA5]"></span>
+<span class="text-on-surface">VH-01 (Saraighat/North)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-1 rounded bg-[#45BFEA]"></span>
+<span class="text-on-surface">VH-02 (Bharalu/AT Rd)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-1 rounded bg-[#A78BFA]"></span>
+<span class="text-on-surface">VH-03 (Basistha/Dispur)</span>
+</div>
+<div class="flex items-center gap-2 pt-1 border-t border-outline-variant/20">
+<span class="w-3 h-1 bg-[#F07171] border border-dashed border-[#F07171]"></span>
+<span class="text-error font-semibold">Submerged (MG Rd)</span>
+</div>
+</div>
+</div>
+<!-- SVG Map Vector Canvas Representation of Guwahati Relief Network -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg">
+<!-- Background Grid lines -->
+<defs>
+<pattern height="40" id="tactical-grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#152233" stroke-width="0.75"></path>
+</pattern>
+<lineargradient id="brahmaputraGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#08233D" stop-opacity="0.85"></stop>
+<stop offset="50%" stop-color="#0E385E" stop-opacity="0.95"></stop>
+<stop offset="100%" stop-color="#071E33" stop-opacity="0.85"></stop>
+</lineargradient>
+<!-- Detour Dashed Animation -->
+<style>
+              .route-flow-1 { stroke-dasharray: 6 4; animation: flowAnim 25s linear infinite; }
+              .route-flow-2 { stroke-dasharray: 6 4; animation: flowAnim 18s linear infinite; }
+              .route-flow-3 { stroke-dasharray: 6 4; animation: flowAnim 22s linear infinite; }
+              @keyframes flowAnim { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+            </style>
+</defs>
+<!-- Grid Background -->
+<rect fill="#071322" height="100%" width="100%"></rect>
+<rect fill="url(#tactical-grid)" height="100%" width="100%"></rect>
+<!-- Brahmaputra River Basin Contour (Flowing East to West across North Guwahati) -->
+<path d="M -50 140 C 180 120, 320 220, 480 170 C 620 125, 780 140, 1050 90 L 1050 0 L -50 0 Z" fill="url(#brahmaputraGrad)"></path>
+<!-- River Label -->
+<text fill="#2E6999" font-family="Inter" font-size="14" font-weight="600" letter-spacing="4" x="560" y="80">BRAHMAPUTRA RIVER (WATER STAGE 49.88m DANGER)</text>
+<!-- Topographic Elevation Ribbons (Guwahati Hills: Narakasur, Nilachal, Basistha) -->
+<path d="M 120 330 Q 180 260 250 310 Q 300 350 240 400 Z" fill="#0E1B2C" stroke="#192C44" stroke-width="1"></path>
+<text fill="#3D5570" font-family="Inter" font-size="9" font-weight="600" x="170" y="340">NILACHAL HILLS</text>
+<path d="M 680 430 Q 780 380 880 440 Q 820 530 710 510 Z" fill="#0E1B2C" stroke="#192C44" stroke-width="1"></path>
+<text fill="#3D5570" font-family="Inter" font-size="9" font-weight="600" x="740" y="470">BASISTHA HIGHLANDS</text>
+<!-- Submerged Inundation Polygons (Along Bharalu Basin & MG Road Frontage) -->
+<ellipse cx="370" cy="210" fill="#F07171" fill-opacity="0.18" rx="90" ry="24" stroke="#F07171" stroke-dasharray="4 2" stroke-width="1"></ellipse>
+<text fill="#FF8786" font-family="Inter" font-size="9" font-weight="600" x="315" y="200">FLOOD DEPTH 0.40m ZONE</text>
+<!-- Standard Arterial Roads (Guwahati Gray Vectors) -->
+<!-- NH-27 South Bypass -->
+<path d="M 80 580 Q 400 520 850 540" fill="none" stroke="#1F334A" stroke-width="4"></path>
+<!-- GS Road Spine -->
+<path d="M 520 520 L 460 380 L 440 280 L 430 220" fill="none" stroke="#1F334A" stroke-width="3"></path>
+<!-- AT Road Arterial -->
+<path d="M 280 320 L 380 290 L 510 260" fill="none" stroke="#1F334A" stroke-width="2.5"></path>
+<!-- Saraighat Bridge Vector -->
+<line stroke="#2B4666" stroke-linecap="round" stroke-width="4" x1="210" x2="210" y1="260" y2="120"></line>
+<text fill="#45BFEA" font-family="Inter" font-size="9" font-weight="500" x="155" y="195">Saraighat Bridge</text>
+<!-- BLOCKED / SUBMERGED ROAD SEGMENT: MG ROAD (RED X-BARRED) -->
+<path d="M 330 220 L 440 215 L 530 210" fill="none" stroke="#F07171" stroke-linecap="round" stroke-width="4"></path>
+<g transform="translate(420, 202)">
+<circle cx="12" cy="12" fill="#690005" r="14" stroke="#F07171" stroke-width="1.5"></circle>
+<path d="M 7 7 L 17 17 M 17 7 L 7 17" stroke="#FFF" stroke-linecap="round" stroke-width="2.5"></path>
+</g>
+<!-- ROUTE 1: VH-01 TATA 407 (TEAL #20BFA5) -> SARUSAJAI TO NORTH GUWAHATI VIA SARAIGHAT -->
+<g>
+<path d="M 520 520 L 330 500 L 220 390 L 210 260 L 210 120 L 290 90 L 360 85" fill="none" id="route1-path" stroke="#20BFA5" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"></path>
+<path class="route-flow-1" d="M 520 520 L 330 500 L 220 390 L 210 260 L 210 120 L 290 90 L 360 85" fill="none" opacity="0.8" stroke="#FFF" stroke-width="1.5"></path>
+</g>
+<!-- ROUTE 2: VH-02 ASHOK LEYLAND (CYAN #45BFEA) -> SARUSAJAI VIA GS ROAD -> AT ROAD DETOUR (AROUND MG RD) -> BHARALUMUKH & UZAN BAZAR -->
+<g>
+<!-- Rerouted along AT Road (bypass) instead of flooded MG Road -->
+<path d="M 520 520 L 470 410 L 410 320 L 330 270 L 330 235 L 400 245 L 540 225 L 580 205" fill="none" id="route2-path" stroke="#45BFEA" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"></path>
+<path class="route-flow-2" d="M 520 520 L 470 410 L 410 320 L 330 270 L 330 235 L 400 245 L 540 225 L 580 205" fill="none" opacity="0.8" stroke="#FFF" stroke-width="1.5"></path>
+</g>
+<!-- ROUTE 3: VH-03 BOLERO (PURPLE/AMBER #A78BFA) -> SARUSAJAI TO BASISTHA & DISPUR LOWLANDS -->
+<g>
+<path d="M 520 520 L 610 500 L 710 460 L 640 370 L 550 420 L 520 520" fill="none" id="route3-path" stroke="#A78BFA" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path class="route-flow-3" d="M 520 520 L 610 500 L 710 460 L 640 370 L 550 420 L 520 520" fill="none" opacity="0.7" stroke="#FFF" stroke-width="1.2"></path>
+</g>
+<!-- GIS NODES / WAYPOINTS MARKERS -->
+<!-- CENTRAL DEPOT: Sarusajai Sports Complex Depot -->
+<g transform="translate(520, 520)">
+<circle cx="0" cy="0" fill="#011F18" r="14" stroke="#20BFA5" stroke-width="2.5"></circle>
+<rect fill="#20BFA5" height="12" rx="2" width="12" x="-6" y="-6"></rect>
+<!-- Label Tag -->
+<g transform="translate(18, -14)">
+<rect fill="#0A1828" height="26" rx="3" stroke="#20BFA5" stroke-width="1" width="180"></rect>
+<text fill="#F4F7FB" font-family="Inter" font-size="10" font-weight="700" x="8" y="17">DEPOT-GAU-01 SARUSAJAI</text>
+</g>
+</g>
+<!-- WAYPOINT 1: North Guwahati (Zone 01) -->
+<g transform="translate(290, 90)">
+<circle cx="0" cy="0" fill="#061F24" r="9" stroke="#20BFA5" stroke-width="2"></circle>
+<circle cx="0" cy="0" fill="#20BFA5" r="4"></circle>
+<g transform="translate(12, -8)">
+<rect fill="#0A1828" height="20" rx="3" stroke="#263449" stroke-width="1" width="138"></rect>
+<text fill="#D5E4F9" font-family="Inter" font-size="9" font-weight="600" x="6" y="14">ZONE 01: North Guwahati</text>
+</g>
+</g>
+<!-- SHELTER 1: Amingaon Relief Camp -->
+<g transform="translate(360, 85)">
+<polygon fill="#20BFA5" points="0,-9 9,6 -9,6" stroke="#00201A" stroke-width="1.5"></polygon>
+<g transform="translate(12, -6)">
+<rect fill="#0A1828" height="20" rx="3" stroke="#20BFA5" stroke-width="1" width="144"></rect>
+<text fill="#20BFA5" font-family="Inter" font-size="9" font-weight="600" x="6" y="14">SHELTER: Amingaon Camp</text>
+</g>
+</g>
+<!-- WAYPOINT 2: Bharalumukh (Zone 02) -->
+<g transform="translate(330, 235)">
+<circle cx="0" cy="0" fill="#07202B" r="9" stroke="#45BFEA" stroke-width="2"></circle>
+<circle cx="0" cy="0" fill="#45BFEA" r="4"></circle>
+<g transform="translate(-165, -8)">
+<rect fill="#0A1828" height="20" rx="3" stroke="#45BFEA" stroke-width="1" width="155"></rect>
+<text fill="#45BFEA" font-family="Inter" font-size="9" font-weight="600" x="6" y="14">ZONE 02: Bharalumukh Drop</text>
+</g>
+</g>
+<!-- SHELTER 2: Kamrup Girls High School -->
+<g transform="translate(400, 245)">
+<polygon fill="#45BFEA" points="0,-9 9,6 -9,6" stroke="#001F29" stroke-width="1.5"></polygon>
+<g transform="translate(10, 4)">
+<rect fill="#0A1828" height="20" rx="3" stroke="#263449" stroke-width="1" width="138"></rect>
+<text fill="#D5E4F9" font-family="Inter" font-size="9" font-weight="600" x="6" y="14">Kamrup Girls HS Shelter</text>
+</g>
+</g>
+<!-- WAYPOINT 3: Uzan Bazar Ghat (Zone 03) -->
+<g transform="translate(580, 205)">
+<circle cx="0" cy="0" fill="#07202B" r="9" stroke="#45BFEA" stroke-width="2"></circle>
+<circle cx="0" cy="0" fill="#45BFEA" r="4"></circle>
+<g transform="translate(12, -8)">
+<rect fill="#0A1828" height="20" rx="3" stroke="#263449" stroke-width="1" width="140"></rect>
+<text fill="#D5E4F9" font-family="Inter" font-size="9" font-weight="600" x="6" y="14">ZONE 03: Uzan Bazar Ghat</text>
+</g>
+</g>
+<!-- WAYPOINT 4: Basistha Stream (Zone 04) -->
+<g transform="translate(710, 460)">
+<circle cx="0" cy="0" fill="#1C182B" r="8" stroke="#A78BFA" stroke-width="2"></circle>
+<circle cx="0" cy="0" fill="#A78BFA" r="3"></circle>
+<g transform="translate(12, -6)">
+<rect fill="#0A1828" height="19" rx="3" stroke="#263449" stroke-width="1" width="135"></rect>
+<text fill="#D5E4F9" font-family="Inter" font-size="9" font-weight="600" x="6" y="13">ZONE 04: Basistha Stream</text>
+</g>
+</g>
+<!-- WAYPOINT 5: Dispur Secretariat Lowlands (Zone 05) -->
+<g transform="translate(640, 370)">
+<circle cx="0" cy="0" fill="#1C182B" r="8" stroke="#A78BFA" stroke-width="2"></circle>
+<circle cx="0" cy="0" fill="#A78BFA" r="3"></circle>
+<g transform="translate(10, -8)">
+<rect fill="#0A1828" height="19" rx="3" stroke="#263449" stroke-width="1" width="140"></rect>
+<text fill="#D5E4F9" font-family="Inter" font-size="9" font-weight="600" x="6" y="13">ZONE 05: Dispur Lowlands</text>
+</g>
+</g>
+<!-- DETOUR CALLOUT BOX OVERLAY (Directly on Map) -->
+<g transform="translate(305, 305)">
+<rect fill="#0F1D2C" height="42" rx="4" stroke="#45BFEA" stroke-width="1" width="170"></rect>
+<text fill="#45BFEA" font-family="Inter" font-size="10" font-weight="700" x="8" y="16">AUTONOMOUS DETOUR</text>
+<text fill="#BBCAC4" font-family="Inter" font-size="9" x="8" y="32">Rerouted via AT Rd (+1.6km / safe)</text>
+</g>
+</svg>
+<!-- Bottom Map Status Bar HUD -->
+<div class="absolute bottom-3 left-3 right-3 z-30 pointer-events-none flex items-center justify-between">
+<div class="bg-surface-container-low/95 backdrop-blur px-3 py-1.5 rounded border border-outline-variant/40 flex items-center gap-space-md text-label-sm font-mono-data pointer-events-auto">
+<span class="text-outline">Scale: 1:35,000</span>
+<div class="w-16 h-1 bg-on-surface-variant/40 rounded flex items-center justify-end">
+<span class="text-[9px] text-outline pr-0.5">2 km</span>
+</div>
+<span class="text-outline">OSRM Profile: Heavy Cargo / 4x4 Off-Road</span>
+</div>
+<div class="bg-surface-container-low/95 backdrop-blur px-3 py-1.5 rounded border border-outline-variant/40 flex items-center gap-space-sm text-label-sm font-mono-data pointer-events-auto">
+<span class="text-outline">Telemetry Feed:</span>
+<span class="text-primary font-semibold">ALL CONVOYS TRACKED (AIS / GPS L1)</span>
+</div>
+</div>
+</div>
+<!-- Turn-by-Turn Visual Elevation & Hazard Profile Bar -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-label-sm">
+<div class="flex items-center gap-1 font-semibold text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">show_chart</span>
+<span>Active Selected Route Profile: Route 2 (Ashok Leyland 4x4 • 19.2 km)</span>
+</div>
+<span class="font-mono-data text-outline">Surface Inundation Clearance &gt; 0.25m throughout detour</span>
+</div>
+<!-- Segment mini-bars indicating road condition across 19.2 km -->
+<div class="w-full bg-surface-container-lowest h-6 rounded flex overflow-hidden border border-outline-variant/30 text-[10px] font-mono-data">
+<div class="bg-primary/25 text-primary flex items-center justify-center border-r border-outline-variant/30" style="width: 44%;" title="Sarusajai to AT Road (8.4 km)">
+            NH-27 / GS Rd (DRY • 50km/h)
+          </div>
+<div class="bg-secondary/30 text-secondary font-semibold flex items-center justify-center border-r border-outline-variant/30" style="width: 15%;" title="AT Road Detour (2.8 km)">
+            AT Rd Bypass (CLEAR)
+          </div>
+<div class="bg-error/30 text-error flex items-center justify-center border-r border-outline-variant/30" style="width: 12%;" title="Bharalumukh Approach (2.2 km)">
+            WATERLOG (0.05m OK)
+          </div>
+<div class="bg-primary/25 text-primary flex items-center justify-center" style="width: 29%;" title="Uzan Bazar &amp; Return (5.8 km)">
+            Uzan Bazar &amp; Return Corridor
+          </div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: FLEET SELECTION & DETAILED WAYBILL MANIFEST (xl:col-span-4 ~34%) -->
+<div class="xl:col-span-4 flex flex-col gap-space-md">
+<!-- Fleet Vehicles Selector Deck -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">rv_hookup</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Fleet Dispatch Deck</span>
+</div>
+<span class="text-label-sm font-mono-data text-secondary">3 Units Assigned</span>
+</div>
+<!-- Vehicle 1 Card -->
+<div class="p-space-sm rounded bg-surface-container-lowest border border-outline-variant/30 hover:border-primary/50 cursor-pointer transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#20BFA5]"></span>
+<span class="font-label-md text-label-md font-bold text-on-surface">VH-01 • Tata 407 (4x4)</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-mono-data text-label-sm font-semibold">
+              STAGED / READY
+            </span>
+</div>
+<div class="mt-2 grid grid-cols-3 gap-1 text-label-sm font-mono-data text-on-surface-variant">
+<div>
+<span class="text-outline block text-[10px]">ROUTE</span>
+<span class="text-on-surface">North Ghy</span>
+</div>
+<div>
+<span class="text-outline block text-[10px]">CAPACITY</span>
+<span class="text-on-surface">1,800/2,000kg</span>
+</div>
+<div>
+<span class="text-outline block text-[10px]">DISTANCE</span>
+<span class="text-on-surface">28.4 km RT</span>
+</div>
+</div>
+<!-- Progress load bar -->
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-2 overflow-hidden">
+<div class="bg-[#20BFA5] h-full" style="width: 90%;"></div>
+</div>
+</div>
+<!-- Vehicle 2 Card (ACTIVE SELECTED) -->
+<div class="p-space-sm rounded bg-surface-container-high border-2 border-[#45BFEA] shadow-md cursor-pointer transition-colors relative">
+<div class="absolute -top-2 right-2 px-1.5 py-0.2 bg-[#45BFEA] text-on-secondary font-mono-data text-[9px] font-bold rounded">
+            INSPECTING MANIFEST
+          </div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#45BFEA]"></span>
+<span class="font-label-md text-label-md font-bold text-on-surface">VH-02 • Ashok Leyland 4x4</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-mono-data text-label-sm font-semibold">
+              STAGED / READY
+            </span>
+</div>
+<div class="mt-2 grid grid-cols-3 gap-1 text-label-sm font-mono-data text-on-surface-variant">
+<div>
+<span class="text-outline block text-[10px]">ROUTE</span>
+<span class="text-on-surface">Bharalumukh</span>
+</div>
+<div>
+<span class="text-outline block text-[10px]">CAPACITY</span>
+<span class="text-secondary font-semibold">1,750/1,800kg</span>
+</div>
+<div>
+<span class="text-outline block text-[10px]">DISTANCE</span>
+<span class="text-secondary font-semibold">19.2 km RT</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-[#45BFEA] h-full" style="width: 97%;"></div>
+</div>
+</div>
+<!-- Vehicle 3 Card -->
+<div class="p-space-sm rounded bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary/50 cursor-pointer transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#A78BFA]"></span>
+<span class="font-label-md text-label-md font-bold text-on-surface">VH-03 • Bolero Camper</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/40 text-secondary font-mono-data text-label-sm">
+              FINAL STAGING
+            </span>
+</div>
+<div class="mt-2 grid grid-cols-3 gap-1 text-label-sm font-mono-data text-on-surface-variant">
+<div>
+<span class="text-outline block text-[10px]">ROUTE</span>
+<span class="text-on-surface">Basistha/Dispur</span>
+</div>
+<div>
+<span class="text-outline block text-[10px]">CAPACITY</span>
+<span class="text-on-surface">1,250/1,200kg*</span>
+</div>
+<div>
+<span class="text-outline block text-[10px]">DISTANCE</span>
+<span class="text-on-surface">14.2 km RT</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-2 overflow-hidden">
+<div class="bg-[#A78BFA] h-full" style="width: 100%;"></div>
+</div>
+<div class="mt-1 text-[10px] text-tertiary font-mono-data">
+            *Exceeds by 50kg: Auto-adjusted payload capped at 1,200kg in Wave 1.
+          </div>
+</div>
+</div>
+<!-- Selected Vehicle Inspection Detail Card (VH-02 Ashok Leyland 4x4) -->
+<div class="bg-surface-container p-space-md rounded border border-outline-variant/30 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-space-xs">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block font-semibold">Active Unit Telemetry</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">VH-02 Operational Dossier</span>
+</div>
+<div class="text-right font-mono-data text-label-sm">
+<span class="text-primary block font-semibold">TRANSIT: 55 MIN</span>
+<span class="text-outline">OFFLOAD: 38 MIN</span>
+</div>
+</div>
+<!-- Crew & Cargo Details -->
+<div class="p-space-sm rounded bg-surface-container-lowest border border-outline-variant/20 grid grid-cols-2 gap-space-sm font-label-sm">
+<div>
+<span class="text-outline block text-[10px] font-mono-data uppercase">Crew Lead / Escort</span>
+<span class="text-on-surface font-semibold">Hav. P. Gogoi</span>
+<span class="text-on-surface-variant text-[11px] block">SDRF 4th Bn Quick Response</span>
+</div>
+<div>
+<span class="text-outline block text-[10px] font-mono-data uppercase">In-Cab Comms</span>
+<span class="text-primary font-mono-data font-semibold">VHF CH-04 / TETRA-8</span>
+<span class="text-on-surface-variant text-[11px] block">GPS Telemetry ID: #8841-A</span>
+</div>
+<div class="col-span-2 pt-1 border-t border-outline-variant/20">
+<span class="text-outline block text-[10px] font-mono-data uppercase">Loaded Relief Inventory (1,750 kg)</span>
+<div class="flex items-center justify-between text-on-surface font-mono-data text-label-sm mt-0.5">
+<span>• Rations (Dry Food Packets FOOD-001/002)</span>
+<strong class="text-secondary">1,050 kg</strong>
+</div>
+<div class="flex items-center justify-between text-on-surface font-mono-data text-label-sm">
+<span>• Potable Water Jerrycans 20L (WATR-001)</span>
+<strong class="text-secondary">700 L (700 kg)</strong>
+</div>
+</div>
+</div>
+<!-- Sequential Waypoint Manifest Table -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Waypoint Sequence (6 Segments)</span>
+<span class="text-[11px] font-mono-data text-secondary">All clearances confirmed</span>
+</div>
+<div class="flex flex-col gap-1.5 max-h-72 overflow-y-auto pr-1">
+<!-- Stop 1 -->
+<div class="p-2 rounded bg-surface-container-high/60 border-l-2 border-primary text-label-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-data font-bold text-on-surface">1. Sarusajai Central Depot [DEPOT-GAU-01]</span>
+<span class="text-on-surface-variant text-[11px]">Departure point. Cargo verified by ASDMA Logistics Officer.</span>
+</div>
+<div class="text-right font-mono-data text-[11px] whitespace-nowrap ml-2">
+<span class="text-primary font-semibold block">00.0 km</span>
+<span class="text-outline">15:00 IST</span>
+</div>
+</div>
+<!-- Stop 2 (Detour Checkpoint) -->
+<div class="p-2 rounded bg-surface-container-high/40 border-l-2 border-secondary text-label-sm flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[14px]">alt_route</span>
+<span class="font-mono-data font-bold text-secondary">2. DETOUR: AT Road Arterial Bypass</span>
+</div>
+<span class="text-on-surface-variant text-[11px]">MG Road inundated (0.40m). Detour via Arya Nagar flyover.</span>
+</div>
+<div class="text-right font-mono-data text-[11px] whitespace-nowrap ml-2">
+<span class="text-secondary font-semibold block">08.4 km</span>
+<span class="text-outline">15:28 IST</span>
+</div>
+</div>
+<!-- Stop 3 (Zone 02 Drop) -->
+<div class="p-2 rounded bg-surface-container-high/60 border-l-2 border-primary text-label-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-data font-bold text-on-surface">3. Zone 02: Bharalumukh Drop Station</span>
+<span class="text-on-surface-variant text-[11px]">Offload: 650 kg Food + 450 L Water. Handover to Circle Inspector.</span>
+</div>
+<div class="text-right font-mono-data text-[11px] whitespace-nowrap ml-2">
+<span class="text-primary font-semibold block">11.2 km</span>
+<span class="text-outline">15:42 IST</span>
+</div>
+</div>
+<!-- Stop 4 (Kamrup Girls School Shelter Drop) -->
+<div class="p-2 rounded bg-surface-container-high/60 border-l-2 border-primary text-label-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-data font-bold text-on-surface">4. Kamrup Girls HS Relief Shelter</span>
+<span class="text-on-surface-variant text-[11px]">Offload: 150 kg Emergency High-Protein Bars + ORS Kits.</span>
+</div>
+<div class="text-right font-mono-data text-[11px] whitespace-nowrap ml-2">
+<span class="text-primary font-semibold block">12.6 km</span>
+<span class="text-outline">16:05 IST</span>
+</div>
+</div>
+<!-- Stop 5 (Zone 03 Drop) -->
+<div class="p-2 rounded bg-surface-container-high/60 border-l-2 border-primary text-label-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-data font-bold text-on-surface">5. Zone 03: Uzan Bazar Ghat Staging</span>
+<span class="text-on-surface-variant text-[11px]">Offload: 250 kg Food + 250 L Water for riverine boat dispatch.</span>
+</div>
+<div class="text-right font-mono-data text-[11px] whitespace-nowrap ml-2">
+<span class="text-primary font-semibold block">15.8 km</span>
+<span class="text-outline">16:30 IST</span>
+</div>
+</div>
+<!-- Stop 6 (Return Depot) -->
+<div class="p-2 rounded bg-surface-container-high/40 border-l-2 border-outline-variant text-label-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-data font-bold text-outline">6. Return to Sarusajai Central Depot</span>
+<span class="text-on-surface-variant text-[11px]">Turnaround for Wave 2 evening replenishment.</span>
+</div>
+<div class="text-right font-mono-data text-[11px] whitespace-nowrap ml-2">
+<span class="text-on-surface font-semibold block">19.2 km</span>
+<span class="text-outline">16:55 IST</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons for Selected Vehicle -->
+<div class="pt-space-xs border-t border-outline-variant/30 flex flex-col gap-2">
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="h-8 px-2 bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 rounded flex items-center justify-center gap-1 font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span>Print Waybill</span>
+</button>
+<button class="h-8 px-2 bg-surface-container-high hover:bg-surface-bright text-secondary border border-secondary/40 rounded flex items-center justify-center gap-1 font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[16px]">cell_tower</span>
+<span>Push to In-Cab GPS</span>
+</button>
+</div>
+<button class="h-8 px-2 bg-surface-container-lowest hover:bg-surface-container-high text-outline hover:text-on-surface border border-outline-variant/30 rounded flex items-center justify-center gap-1 font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<span>Manual Waypoint Re-order</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM MULTI-COLUMN SECTIONS (Comparison Table, Road Safety Audit, Dispatch Stepper) -->
+<div class="px-gutter-lg py-space-md grid grid-cols-1 lg:grid-cols-12 gap-space-md bg-surface">
+<!-- SECTION A: ROUTING STRATEGY COMPARISON (lg:col-span-5) -->
+<div class="lg:col-span-5 bg-surface-container p-space-md rounded border border-outline-variant/30 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">difference</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Baseline vs Lexicographic VRP</span>
+</div>
+<span class="text-label-sm font-mono-data text-primary">AUDITED SAVINGS</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+          Rigorous benchmarking of the active Two-Stage MILP solver vs standard nearest-neighbor dispatching.
+        </p>
+<!-- Comparison Data Table -->
+<div class="mt-space-md overflow-x-auto">
+<table class="w-full text-left font-mono-data text-label-sm border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 text-outline text-[10px] uppercase">
+<th class="py-1.5 px-2">Operational Metric</th>
+<th class="py-1.5 px-2 text-right">Baseline Greedy</th>
+<th class="py-1.5 px-2 text-right text-primary">Two-Stage MILP</th>
+<th class="py-1.5 px-2 text-right">Variance</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-high/40">
+<td class="py-2 px-2 text-on-surface">Total Transit Distance</td>
+<td class="py-2 px-2 text-right text-outline">84.2 km</td>
+<td class="py-2 px-2 text-right text-primary font-bold">61.8 km</td>
+<td class="py-2 px-2 text-right text-primary font-semibold">-22.4 km (-26.6%)</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40">
+<td class="py-2 px-2 text-on-surface">Critical Zone 01/02 ETA</td>
+<td class="py-2 px-2 text-right text-outline">17:45 IST</td>
+<td class="py-2 px-2 text-right text-secondary font-bold">15:42 IST</td>
+<td class="py-2 px-2 text-right text-secondary font-semibold">-2h 03m expedited</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40">
+<td class="py-2 px-2 text-on-surface">Inundation Violations</td>
+<td class="py-2 px-2 text-right text-error font-bold">2 Trapped (MG Rd)</td>
+<td class="py-2 px-2 text-right text-primary font-bold">0 Violations</td>
+<td class="py-2 px-2 text-right text-primary font-semibold">100% compliant</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40">
+<td class="py-2 px-2 text-on-surface">Est. Fleet Fuel Burn</td>
+<td class="py-2 px-2 text-right text-outline">26.5 Liters</td>
+<td class="py-2 px-2 text-right text-on-surface font-bold">19.1 Liters</td>
+<td class="py-2 px-2 text-right text-on-surface-variant font-semibold">-7.4 L (-27.9%)</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40">
+<td class="py-2 px-2 text-on-surface">Computational Latency</td>
+<td class="py-2 px-2 text-right text-outline">&lt; 10ms</td>
+<td class="py-2 px-2 text-right text-on-surface">184 ms (CBC)</td>
+<td class="py-2 px-2 text-right text-outline">Real-time</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="mt-space-md p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex items-center justify-between text-[11px] font-mono-data text-on-surface-variant">
+<span>Lexicographic priority preserved: 100% Critical Needs delivered before 17:00 IST</span>
+<span class="text-primary font-bold">OPTIMAL GAP: 0.00%</span>
+</div>
+</div>
+<!-- SECTION B: ROAD SEGMENT VULNERABILITY AUDIT (lg:col-span-4) -->
+<div class="lg:col-span-4 bg-surface-container p-space-md rounded border border-outline-variant/30 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-error text-[18px]">fmd_bad</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Road Hazard Safety Audit</span>
+</div>
+<span class="text-label-sm font-mono-data text-outline">CWC GAUGE SYNC: 14:40</span>
+</div>
+<div class="mt-space-sm flex flex-col gap-space-sm">
+<!-- Road 1: MG Road Bharalumukh -->
+<div class="p-space-sm rounded bg-surface-container-lowest border-l-4 border-error text-label-sm flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data font-bold text-on-surface">1. MG Road (Bharalumukh Riverfront)</span>
+<span class="px-1.5 py-0.5 rounded bg-error/20 text-error font-mono-data text-[10px] font-bold">IMPASSABLE</span>
+</div>
+<div class="flex items-center justify-between text-[11px] text-on-surface-variant font-mono-data">
+<span>Depth: <strong class="text-error">0.40m</strong> | Flow: 0.8 m/s</span>
+<span class="text-outline">Sector: Central Bank</span>
+</div>
+<p class="text-[11px] text-outline">
+              Brahmaputra backflow into Bharalu sluice gate. Hard road closure enforced by Assam Police. Solver detour active.
+            </p>
+</div>
+<!-- Road 2: Saraighat Approach (NH-27) -->
+<div class="p-space-sm rounded bg-surface-container-lowest border-l-4 border-[#F5B84B] text-label-sm flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data font-bold text-on-surface">2. Saraighat Bridge South Ramp</span>
+<span class="px-1.5 py-0.5 rounded bg-[#F5B84B]/20 text-[#F5B84B] font-mono-data text-[10px] font-bold">CAUTION</span>
+</div>
+<div class="flex items-center justify-between text-[11px] text-on-surface-variant font-mono-data">
+<span>Depth: <strong class="text-[#F5B84B]">0.08m</strong> | High Clearance Pass</span>
+<span class="text-outline">Speed: ≤ 30 km/h</span>
+</div>
+<p class="text-[11px] text-outline">
+              Heavy waterlogging on drainage gutters. Tata 407 (VH-01) permitted; light 2-wheelers restricted.
+            </p>
+</div>
+<!-- Road 3: GS Road Arterial Corridor -->
+<div class="p-space-sm rounded bg-surface-container-lowest border-l-4 border-primary text-label-sm flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-data font-bold text-on-surface">3. GS Road Corridor (Six Mile to Paltan)</span>
+<span class="px-1.5 py-0.5 rounded bg-primary/20 text-primary font-mono-data text-[10px] font-bold">GREEN PASS</span>
+</div>
+<div class="flex items-center justify-between text-[11px] text-on-surface-variant font-mono-data">
+<span>Depth: <strong>0.00m</strong> | Surface Dry</span>
+<span class="text-primary font-semibold">Nominal Transit</span>
+</div>
+<p class="text-[11px] text-outline">
+              Main elevation spine fully dry. Primary relief artery unobstructed from Sarusajai Depot.
+            </p>
+</div>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs border-t border-outline-variant/20 flex items-center justify-between text-[11px] font-mono-data text-outline">
+<span>Dynamic Sensor Polling: 30s interval</span>
+<button class="text-secondary hover:underline flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">refresh</span> Refresh Sensor Grid
+        </button>
+</div>
+</div>
+<!-- SECTION C: DISPATCH SIGN-OFF & EXECUTION STEPPER (lg:col-span-3) -->
+<div class="lg:col-span-3 bg-surface-container p-space-md rounded border border-outline-variant/30 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Dispatch Sign-off</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-secondary/10 text-secondary font-mono-data text-[10px] font-bold">
+            STAGE 4 of 5
+          </span>
+</div>
+<!-- 5-Step Progress Stepper -->
+<div class="mt-space-md flex flex-col gap-2 font-mono-data text-label-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<span class="text-on-surface">1. Allocation Imported</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<span class="text-on-surface">2. Vehicle Load Optimized</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<span class="text-on-surface">3. Hazard Audit Cleared</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary animate-pulse text-[18px]">radio_button_checked</span>
+<span class="text-secondary font-bold">4. Transport Officer Sign-off</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">radio_button_unchecked</span>
+<span class="text-outline">5. Gate Departure (Standby)</span>
+</div>
+</div>
+<!-- Dispatch Notes Input -->
+<div class="mt-space-md flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">
+            Operational Commander Notes
+          </label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded p-2 text-on-surface text-label-sm font-mono-data focus:border-primary focus:outline-none resize-none" placeholder="Convoy escorts instructed: Strictly follow AT Road detour..." rows="2"></textarea>
+</div>
+</div>
+<!-- Final Authorization Button -->
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20 flex flex-col gap-space-xs">
+<button class="w-full h-10 bg-primary hover:bg-primary-container text-on-primary font-bold rounded flex items-center justify-center gap-2 shadow-lg transition-all text-label-md">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+<span>AUTHORIZE WAVE 1 DEPARTURE</span>
+</button>
+<button class="w-full h-8 bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface border border-outline-variant/30 rounded flex items-center justify-center gap-1.5 font-label-sm text-label-sm transition-colors">
+<span class="material-symbols-outlined text-[15px]">picture_as_pdf</span>
+<span>Generate Full Routing Dossier (GeoJSON/PDF)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- STATUTORY TRANSPARENCY & DATA PROVENANCE FOOTER STRIP -->
+<footer class="mt-space-sm px-gutter-lg py-space-sm bg-surface-container-lowest border-t border-outline-variant/30 flex flex-wrap items-center justify-between text-[11px] font-mono-data text-outline gap-y-2">
+<div class="flex items-center gap-space-md flex-wrap">
+<span>Data Provenance:</span>
+<span class="text-on-surface-variant">OSRM Routing Engine v5.27.1</span>
+<span>•</span>
+<span class="text-on-surface-variant">Central Water Commission (CWC) Gauge Telemetry</span>
+<span>•</span>
+<span class="text-on-surface-variant">ASDMA Hydro Depth Grid v2.4</span>
+<span>•</span>
+<span class="text-on-surface-variant">OpenStreetMap Kamrup Road Vectors</span>
+</div>
+<div class="text-right max-w-xl text-[10px] text-outline leading-tight">
+      STATUTORY NOTICE: RELIEFOS Lite route optimization is a non-emergency decision-support planning model. Convoy drivers and incident commanders retain final authority over road transit and water depth assessment.
+    </div>
+</footer>
+</div>
+<!-- INLINE MICRO-INTERACTION SCRIPT -->
+<script>
+  // Simple toast feedback for Recalculate button
+  document.getElementById('btn-recalculate')?.addEventListener('click', function() {
+    const btn = this;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin text-primary">autorenew</span><span>Solving VRP MILP...</span>';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }, 450);
+  });
+
+  // Toggle baseline comparison highlight
+  document.getElementById('btn-compare')?.addEventListener('click', function() {
+    alert("Displaying baseline greedy heuristic overlaid on current map canvas. Red dotted line indicates baseline flooded trap on MG Road.");
+  });
+</script></main></div></body></html>

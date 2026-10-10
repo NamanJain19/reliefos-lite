@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-error-container":"#ffdad6","surface-bright":"#2c3a4b","on-secondary":"#003545","background":"#051423","outline":"#85948f","error-container":"#93000a","on-background":"#d5e4f9","on-tertiary":"#650713","on-surface":"#d5e4f9","surface-container":"#122130","surface-dim":"#051423","on-primary-fixed-variant":"#005144","tertiary-fixed":"#ffdad8","on-secondary-fixed-variant":"#004d63","secondary-container":"#01a0c9","surface":"#051423","on-tertiary-container":"#7a1920","surface-container-low":"#0e1d2c","surface-container-lowest":"#010f1e","on-primary-fixed":"#00201a","on-primary-container":"#00483c","on-tertiary-fixed":"#410007","primary":"#4ddcc1","surface-container-highest":"#283646","secondary-fixed":"#bce9ff","secondary-fixed-dim":"#61d4ff","tertiary":"#ffb3b1","on-primary":"#00382e","on-secondary-fixed":"#001f29","tertiary-fixed-dim":"#ffb3b1","tertiary-container":"#ff8786","outline-variant":"#3c4a46","on-surface-variant":"#bbcac4","primary-fixed":"#6ff9dd","on-secondary-container":"#00313f","inverse-on-surface":"#233241","primary-fixed-dim":"#4ddcc1","on-error":"#690005","primary-container":"#20bfa5","surface-container-high":"#1d2b3b","on-tertiary-fixed-variant":"#852127","inverse-primary":"#006b5b","inverse-surface":"#d5e4f9","surface-variant":"#283646","surface-tint":"#4ddcc1","error":"#ffb4ab","secondary":"#61d4ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"0.75rem","space-lg":"1rem","space-xs":"0.25rem","space-sm":"0.375rem","space-xl":"1.5rem","gutter":"0.75rem","margin-lg":"1.25rem","gutter-lg":"1rem","margin":"0.75rem"},"fontFamily":{"body-lg":["Inter"],"body-sm":["Inter"],"display-lg":["Inter"],"body-md":["Inter"],"headline-lg":["Inter"],"mono-data":["Inter"],"label-md":["Inter"],"headline-sm":["Inter"],"label-sm":["Inter"]},"fontSize":{"body-lg":["0.9375rem",{"lineHeight":"1.375rem","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.01em","fontWeight":"400"}],"display-lg":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["0.8125rem",{"lineHeight":"1.25rem","letterSpacing":"0em","fontWeight":"400"}],"headline-lg":["1.25rem",{"lineHeight":"1.75rem","letterSpacing":"-0.01em","fontWeight":"600"}],"mono-data":["0.8125rem",{"lineHeight":"1.125rem","letterSpacing":"-0.01em","fontWeight":"500"}],"label-md":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.03em","fontWeight":"500"}],"headline-sm":["1rem",{"lineHeight":"1.5rem","letterSpacing":"0em","fontWeight":"600"}],"label-sm":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.06em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-[250px] bg-surface-container-low border-r border-outline-variant/30 z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-md border-b border-outline-variant/30 flex items-center gap-space-sm bg-surface-container-lowest"><img alt="RELIEFOS Lite Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1XX9vy8vgKrWoXV5zO-nZ6YbJuOB44cRbwKAr4KMO8r0M9yNyRu27Piwj18W_UrbXMjAzuzSzxIiw4-F67Q-WE1wYizdzvajNMNh2p5k3Jur7_07BolXZhc6a_DZY_Cw-FyQFM2OPIHMbrBv2JeEu8c1Z6_yBdYkFx7aD-X3RIc-TpyyLKSKaJ3rDEvBh40PtA6Gm62p1fvDgfbB-enNREu2upzKKXw94W-cko12tRacYhS6FprbaAGkvo"/><div class="flex flex-col min-w-0 leading-tight"><span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight truncate">RELIEFOS Lite</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Flood Ops • Kamrup Metro</span></div></div><div class="px-space-md py-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold px-space-xs py-space-xs block">Operational Matrix</span></div><nav class="flex flex-col space-y-0.5 px-space-xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold border-l-2 border-primary-container"><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="operations-overview" href="#">Operations Overview</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="live-flood-map" href="#">Live Flood Map</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="zones-and-risk" href="#">Zones &amp; Risk</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="resource-inventory" href="#">Resource Inventory</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="demand-management" href="#">Demand Management</a><a class="flex items-center px-space-md py-2 rounded bg-surface-container-high text-on-surface font-semibold border-l-2 border-primary-container transition-colors font-body-md text-body-md" data-path="relief-allocation" href="#">Relief Allocation</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="route-optimization" href="#">Route Optimization</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="simulation-and-reports" href="#">Simulation &amp; Reports</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="data-sources" href="#">Data Sources</a><a class="flex items-center px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#">Settings</a></nav></div><div class="flex flex-col border-t border-outline-variant/30 bg-surface-container-lowest p-space-md space-y-space-sm"><div class="flex items-center justify-between px-space-xs"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-mono-data text-mono-data text-primary uppercase">ONLINE • TELEMETRY OK</span></div></div><div class="bg-surface-container px-space-sm py-1 rounded border border-outline-variant/30 flex items-center justify-center"><span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider text-center">MODE: DEMO (SIMULATED)</span></div><div class="flex items-center gap-space-sm pt-space-xs border-t border-outline-variant/20"><div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-[18px]">shield_person</span></div><div class="flex flex-col min-w-0 leading-tight"><span class="font-label-md text-label-md font-semibold text-on-surface truncate">Insp. S. Sharma</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Disaster Ops, ASDMA</span></div></div></div></aside><div class="pl-[250px] flex flex-col min-h-screen"><header class="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-low/95 backdrop-blur border-b border-outline-variant/30 z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md"><span class="font-mono-data text-mono-data text-outline">Operations</span><span class="text-outline">/</span><span class="text-on-surface font-semibold">Relief Allocation</span></div><div class="h-4 w-px bg-outline-variant/50"></div><div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded border border-outline-variant/30"><span class="material-symbols-outlined text-[16px] text-secondary">location_on</span><span class="font-label-md text-label-md text-on-surface font-medium">Kamrup Metropolitan, Guwahati, Assam</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">arrow_drop_down</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded border border-tertiary-container/40 bg-surface-container"><span class="material-symbols-outlined text-[14px] text-tertiary">warning</span><span class="font-label-sm text-label-sm text-tertiary font-medium uppercase tracking-wide">SIMULATED DATA</span></div><span class="font-mono-data text-mono-data text-outline hidden lg:inline-block">Last Sync: 14:42:10 IST</span><div class="h-4 w-px bg-outline-variant/50 hidden lg:inline-block"></div><button class="relative p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-3.5 h-3.5 bg-error text-on-error rounded-full font-label-sm text-[9px] flex items-center justify-center font-bold">4</span></button><button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help</span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col text-left leading-none"><span class="font-label-sm text-label-sm text-primary font-semibold">On Duty</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-64px)] flex-1"><div class="flex flex-col w-full">
+<!-- PAGE HEADER & CONTROLS -->
+<section class="px-space-lg py-space-md bg-surface-container-low">
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">Relief Allocation</h1>
+<span class="inline-flex items-center px-space-xs py-0.5 rounded font-label-sm text-label-sm uppercase tracking-wider text-secondary bg-surface-container border border-outline-variant/30">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary mr-1.5 animate-pulse"></span>
+            Illustrative Allocation Scenario • Draft Stage
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Plan, review, and optimize the distribution of relief resources across affected zones.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors border border-outline-variant/40" id="btn-refresh" type="button">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">sync</span>
+<span>Refresh Inputs</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors border border-outline-variant/40" type="button">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">compare_arrows</span>
+<span>Compare Allocations</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded bg-primary-container hover:bg-primary-container/90 text-on-primary font-label-md text-label-md font-semibold transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span>+ New Allocation Plan</span>
+</button>
+</div>
+</div>
+<!-- CONTEXT PARAMETERS STRIP -->
+<div class="mt-space-md p-space-sm rounded bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-between flex-wrap gap-y-2 text-label-sm font-label-sm">
+<div class="flex items-center gap-x-4 gap-y-1 flex-wrap text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="text-outline">Planning Area:</span>
+<span class="font-mono-data text-on-surface font-medium">Kamrup Metropolitan</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1">
+<span class="text-outline">Depot:</span>
+<span class="font-mono-data text-secondary font-medium">Sarusajai Central Depot (DEPOT-GAU-01)</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1">
+<span class="text-outline">Zones:</span>
+<span class="font-mono-data text-on-surface font-semibold">05</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1">
+<span class="text-outline">Vehicles:</span>
+<span class="font-mono-data text-on-surface font-semibold">03 (5.0 T)</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1">
+<span class="text-outline">Shelters:</span>
+<span class="font-mono-data text-on-surface font-semibold">02 Active</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1">
+<span class="text-outline">Resource Types:</span>
+<span class="font-mono-data text-on-surface font-medium">Ration Packs, Potable Water</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-outline">Planning Status:</span>
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded font-label-sm text-label-sm text-[#F5B84B] bg-[#F5B84B]/10 border border-[#F5B84B]/30 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#F5B84B]"></span>
+          Draft Plan v1.4
+        </span>
+</div>
+</div>
+</section>
+<!-- ALLOCATION SUMMARY METRICS (5 COMPACT CARDS) -->
+<section class="p-space-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
+<!-- Card 1: Available Stock -->
+<div class="p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Available Stock</span>
+<div class="w-7 h-7 rounded bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="font-display-lg text-display-lg font-semibold text-on-surface tracking-tight">5,500 <span class="font-label-sm text-label-sm text-outline font-normal">kg/eq</span></div>
+<div class="mt-1 font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="text-primary font-mono-data">Food 2.5T</span>
+<span class="text-outline">•</span>
+<span class="text-secondary font-mono-data">Water 3.0T</span>
+</div>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full mt-3 overflow-hidden">
+<div class="h-full bg-primary" style="width: 100%;"></div>
+</div>
+</div>
+<!-- Card 2: Total Reviewed Demand -->
+<div class="p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Reviewed Demand</span>
+<div class="w-7 h-7 rounded bg-secondary/10 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">assignment_turned_in</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="font-display-lg text-display-lg font-semibold text-on-surface tracking-tight">7,200 <span class="font-label-sm text-label-sm text-outline font-normal">kg</span></div>
+<div class="mt-1 font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>Across 5 operational zones</span>
+</div>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full mt-3 overflow-hidden">
+<div class="h-full bg-secondary" style="width: 100%;"></div>
+</div>
+</div>
+<!-- Card 3: Proposed Allocation -->
+<div class="p-space-md rounded bg-surface-container border border-primary/40 flex flex-col justify-between relative overflow-hidden shadow-sm">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Proposed Allocation</span>
+<div class="w-7 h-7 rounded bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">local_shipping</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="font-display-lg text-display-lg font-semibold text-primary tracking-tight">4,800 <span class="font-label-sm text-label-sm text-outline font-normal">kg</span></div>
+<div class="mt-1 font-body-sm text-body-sm text-on-surface-variant flex items-center justify-between">
+<span>Coverage ratio</span>
+<span class="font-mono-data text-primary font-semibold">66.7%</span>
+</div>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full mt-3 overflow-hidden">
+<div class="h-full bg-primary" style="width: 66.7%;"></div>
+</div>
+</div>
+<!-- Card 4: Projected Unmet Demand -->
+<div class="p-space-md rounded bg-surface-container border border-[#F08A42]/30 flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-[#F08A42]">Projected Deficit</span>
+<div class="w-7 h-7 rounded bg-[#F08A42]/10 text-[#F08A42] flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="font-display-lg text-display-lg font-semibold text-[#F08A42] tracking-tight">2,400 <span class="font-label-sm text-label-sm text-outline font-normal">kg</span></div>
+<div class="mt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span>Deficit in Wave 1 logistics</span>
+</div>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full mt-3 overflow-hidden">
+<div class="h-full bg-[#F08A42]" style="width: 33.3%;"></div>
+</div>
+</div>
+<!-- Card 5: Pending Review -->
+<div class="p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Sign-Off Pending</span>
+<div class="w-7 h-7 rounded bg-surface-container-high text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+</div>
+<div class="mt-space-sm">
+<div class="font-display-lg text-display-lg font-semibold text-on-surface tracking-tight">02 <span class="font-label-sm text-label-sm text-outline font-normal">Zones</span></div>
+<div class="mt-1 font-body-sm text-body-sm text-on-surface-variant truncate">
+<span>Z01 N. Guwahati &amp; Z04 Basistha</span>
+</div>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full mt-3 overflow-hidden">
+<div class="h-full bg-[#F5B84B]" style="width: 40%;"></div>
+</div>
+</div>
+</section>
+<!-- MAIN ALLOCATION WORKSPACE (~65% LEFT, ~35% RIGHT) -->
+<section class="px-space-lg pb-space-lg grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: PLANNING WORKBENCH & TABLE (8 COLUMNS) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- A. ALLOCATION PLANNING TOOLBAR -->
+<div class="p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col gap-space-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<!-- Segmented Tab Controls -->
+<div class="inline-flex p-0.5 rounded bg-surface-container-lowest border border-outline-variant/30">
+<button class="px-space-md py-1 rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+              Manual Allocation
+            </button>
+<button class="px-space-md py-1 rounded font-label-md text-label-md font-semibold bg-surface-container-high text-primary border border-outline-variant/50 shadow-sm flex items-center gap-1.5" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              Optimized Allocation (Active)
+            </button>
+<button class="px-space-md py-1 rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+              Baseline Comparison
+            </button>
+</div>
+<!-- Solver Action Triggers -->
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors" id="btn-reset" type="button">
+              Reset
+            </button>
+<button class="px-space-md py-1.5 rounded bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 hover:brightness-105 active:scale-[0.98] transition-all" id="btn-solver" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span>Run Two-Stage Solver</span>
+</button>
+</div>
+</div>
+<!-- Planning Parameters Chips -->
+<div class="flex items-center gap-2 flex-wrap pt-space-xs border-t border-outline-variant/20 font-label-sm text-label-sm">
+<span class="text-outline font-mono-data uppercase">Parameters:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/30 text-on-surface-variant font-mono-data">
+            Hub: Sarusajai
+          </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/30 text-on-surface-variant font-mono-data">
+            Demand: Snap-20241024-1430
+          </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/30 text-on-surface-variant font-mono-data">
+            Priority: Lexicographic (Risk + Deficit)
+          </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/30 text-on-surface-variant font-mono-data">
+            Cap: Payload Constraint ≤ 5.0T
+          </span>
+</div>
+<!-- Notice -->
+<div class="p-space-xs px-space-sm rounded bg-surface-container-low border border-outline-variant/20 flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary flex-shrink-0">info</span>
+<span><strong>Decision-Support Notice:</strong> The allocation plan is an algorithmic draft proposal requiring human verification and ASDMA administrative sign-off prior to route dispatch.</span>
+</div>
+</div>
+<!-- B. ALLOCATION BALANCE PROGRESS BAR -->
+<div class="p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-label-md font-label-md">
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-semibold">Wave 1 Inventory Balance</span>
+<span class="text-outline font-mono-data text-label-sm">Total Supply 5,500 kg vs Demand 7,200 kg</span>
+</div>
+<span class="font-mono-data text-primary font-semibold">Allocation Coverage: 66.7%</span>
+</div>
+<!-- Progress multi-segment strip -->
+<div class="w-full h-3 rounded-full bg-surface-container-lowest flex overflow-hidden border border-outline-variant/20">
+<div class="h-full bg-primary" style="width: 66.7%;" title="Proposed Allocation: 4,800 kg"></div>
+<div class="h-full bg-secondary" style="width: 9.7%;" title="Remaining Free Buffer: 700 kg"></div>
+<div class="h-full bg-[#F08A42]/60" style="width: 23.6%; background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(0,0,0,0.3) 4px, rgba(0,0,0,0.3) 8px);" title="Projected Deficit: 2,400 kg"></div>
+</div>
+<!-- Legend -->
+<div class="flex items-center justify-between flex-wrap gap-2 text-label-sm font-label-sm pt-1">
+<div class="flex items-center gap-4 flex-wrap">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-primary"></span>
+<span class="text-on-surface font-mono-data">Proposed Allocation: 4,800 kg</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-secondary"></span>
+<span class="text-on-surface font-mono-data">Free Depot Buffer: 700 kg</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#F08A42]"></span>
+<span class="text-on-surface font-mono-data">Projected Unmet Deficit: 2,400 kg</span>
+</div>
+</div>
+<span class="text-outline font-mono-data">Stock Utilization: 87.3%</span>
+</div>
+</div>
+<!-- C. ZONE ALLOCATION TABLE -->
+<div class="rounded bg-surface-container border border-outline-variant/30 overflow-hidden flex flex-col">
+<!-- Table Toolbar -->
+<div class="p-space-sm bg-surface-container-high border-b border-outline-variant/30 flex items-center justify-between gap-space-sm flex-wrap">
+<div class="flex items-center gap-space-sm flex-1 min-w-[240px]">
+<div class="relative w-full max-w-xs">
+<span class="material-symbols-outlined text-[16px] text-outline absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none">search</span>
+<input class="w-full h-8 pl-8 pr-3 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface placeholder:text-outline text-label-md font-label-md focus:outline-none focus:border-primary" id="zone-search-input" placeholder="Filter by zone name or ID..." type="text"/>
+</div>
+<select class="h-8 px-2 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface text-label-md font-label-md focus:outline-none focus:border-primary">
+<option value="all">All Risk Tiers</option>
+<option value="critical">Critical Only</option>
+<option value="high">High &amp; Above</option>
+</select>
+<select class="h-8 px-2 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface text-label-md font-label-md focus:outline-none focus:border-primary">
+<option value="all">Review: All</option>
+<option value="pending">Pending Sign-Off</option>
+<option value="reviewed">Reviewed</option>
+</select>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-8 px-space-sm rounded bg-surface-container border border-outline-variant/40 hover:bg-surface-bright text-on-surface-variant hover:text-on-surface text-label-sm font-label-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Export CSV</span>
+</button>
+</div>
+</div>
+<!-- Dense Data Table Container -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm border-b border-outline-variant/30">
+<th class="py-2.5 px-3 font-semibold">Zone Identification</th>
+<th class="py-2.5 px-3 font-semibold">Risk Tier</th>
+<th class="py-2.5 px-3 font-semibold text-right">Food Dem (kg)</th>
+<th class="py-2.5 px-3 font-semibold text-right">Water Dem (kg)</th>
+<th class="py-2.5 px-3 font-semibold text-right">Total Dem (kg)</th>
+<th class="py-2.5 px-3 font-semibold text-right text-primary">Alloc Food</th>
+<th class="py-2.5 px-3 font-semibold text-right text-secondary">Alloc Water</th>
+<th class="py-2.5 px-3 font-semibold text-right text-on-surface">Total Alloc</th>
+<th class="py-2.5 px-3 font-semibold text-right text-[#F08A42]">Deficit</th>
+<th class="py-2.5 px-3 font-semibold text-center">Review</th>
+<th class="py-2.5 px-3 font-semibold text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-mono-data" id="zones-table-body">
+<!-- Row 1: Zone 01 (Active Highlighted) -->
+<tr class="bg-surface-container-high/80 hover:bg-surface-bright cursor-pointer transition-colors border-l-4 border-l-primary" data-zone-id="Z01">
+<td class="py-2.5 px-3">
+<div class="font-headline-sm text-body-md font-semibold text-on-surface font-body-md">Zone 01</div>
+<div class="text-label-sm text-outline font-label-sm">North Guwahati (Riverfront)</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="inline-flex px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#F07171] bg-[#F07171]/10 border border-[#F07171]/30">
+                    CRITICAL
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">1,200</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">900</td>
+<td class="py-2.5 px-3 text-right font-semibold text-on-surface">2,100</td>
+<td class="py-2.5 px-3 text-right text-primary font-semibold">850</td>
+<td class="py-2.5 px-3 text-right text-secondary font-semibold">650</td>
+<td class="py-2.5 px-3 text-right text-on-surface font-bold bg-primary/5">1,500</td>
+<td class="py-2.5 px-3 text-right text-[#F08A42] font-semibold">600</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#F5B84B] bg-[#F5B84B]/10 border border-[#F5B84B]/30">
+<span class="w-1.5 h-1.5 rounded-full bg-[#F5B84B]"></span>
+                    Pending
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm border border-outline-variant/40 transition-colors" type="button">
+                    Edit
+                  </button>
+</td>
+</tr>
+<!-- Row 2: Zone 02 -->
+<tr class="hover:bg-surface-container-high cursor-pointer transition-colors" data-zone-id="Z02">
+<td class="py-2.5 px-3">
+<div class="font-headline-sm text-body-md font-semibold text-on-surface font-body-md">Zone 02</div>
+<div class="text-label-sm text-outline font-label-sm">Bharalumukh Sluice Gate</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="inline-flex px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#F07171] bg-[#F07171]/10 border border-[#F07171]/30">
+                    CRITICAL
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">1,000</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">700</td>
+<td class="py-2.5 px-3 text-right font-semibold text-on-surface">1,700</td>
+<td class="py-2.5 px-3 text-right text-primary font-semibold">650</td>
+<td class="py-2.5 px-3 text-right text-secondary font-semibold">450</td>
+<td class="py-2.5 px-3 text-right text-on-surface font-bold">1,100</td>
+<td class="py-2.5 px-3 text-right text-[#F08A42] font-semibold">600</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#27AE80] bg-[#27AE80]/10 border border-[#27AE80]/30">
+                    Reviewed
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm border border-outline-variant/40 transition-colors" type="button">
+                    Edit
+                  </button>
+</td>
+</tr>
+<!-- Row 3: Zone 03 -->
+<tr class="hover:bg-surface-container-high cursor-pointer transition-colors" data-zone-id="Z03">
+<td class="py-2.5 px-3">
+<div class="font-headline-sm text-body-md font-semibold text-on-surface font-body-md">Zone 03</div>
+<div class="text-label-sm text-outline font-label-sm">Uzan Bazar Ghat</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="inline-flex px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#F08A42] bg-[#F08A42]/10 border border-[#F08A42]/30">
+                    HIGH
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">800</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">600</td>
+<td class="py-2.5 px-3 text-right font-semibold text-on-surface">1,400</td>
+<td class="py-2.5 px-3 text-right text-primary font-semibold">500</td>
+<td class="py-2.5 px-3 text-right text-secondary font-semibold">400</td>
+<td class="py-2.5 px-3 text-right text-on-surface font-bold">900</td>
+<td class="py-2.5 px-3 text-right text-[#F08A42] font-semibold">500</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#27AE80] bg-[#27AE80]/10 border border-[#27AE80]/30">
+                    Reviewed
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm border border-outline-variant/40 transition-colors" type="button">
+                    Edit
+                  </button>
+</td>
+</tr>
+<!-- Row 4: Zone 04 -->
+<tr class="hover:bg-surface-container-high cursor-pointer transition-colors" data-zone-id="Z04">
+<td class="py-2.5 px-3">
+<div class="font-headline-sm text-body-md font-semibold text-on-surface font-body-md">Zone 04</div>
+<div class="text-label-sm text-outline font-label-sm">Basistha Stream Corridor</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="inline-flex px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#F5B84B] bg-[#F5B84B]/10 border border-[#F5B84B]/30">
+                    MODERATE
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">700</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">500</td>
+<td class="py-2.5 px-3 text-right font-semibold text-on-surface">1,200</td>
+<td class="py-2.5 px-3 text-right text-primary font-semibold">400</td>
+<td class="py-2.5 px-3 text-right text-secondary font-semibold">300</td>
+<td class="py-2.5 px-3 text-right text-on-surface font-bold">700</td>
+<td class="py-2.5 px-3 text-right text-[#F08A42] font-semibold">500</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#F5B84B] bg-[#F5B84B]/10 border border-[#F5B84B]/30">
+<span class="w-1.5 h-1.5 rounded-full bg-[#F5B84B]"></span>
+                    Pending
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm border border-outline-variant/40 transition-colors" type="button">
+                    Edit
+                  </button>
+</td>
+</tr>
+<!-- Row 5: Zone 05 -->
+<tr class="hover:bg-surface-container-high cursor-pointer transition-colors" data-zone-id="Z05">
+<td class="py-2.5 px-3">
+<div class="font-headline-sm text-body-md font-semibold text-on-surface font-body-md">Zone 05</div>
+<div class="text-label-sm text-outline font-label-sm">Dispur Secretariat Lowlands</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="inline-flex px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#27AE80] bg-[#27AE80]/10 border border-[#27AE80]/30">
+                    LOW
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">500</td>
+<td class="py-2.5 px-3 text-right text-on-surface-variant">300</td>
+<td class="py-2.5 px-3 text-right font-semibold text-on-surface">800</td>
+<td class="py-2.5 px-3 text-right text-primary font-semibold">350</td>
+<td class="py-2.5 px-3 text-right text-secondary font-semibold">250</td>
+<td class="py-2.5 px-3 text-right text-on-surface font-bold">600</td>
+<td class="py-2.5 px-3 text-right text-[#F08A42] font-semibold">200</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-semibold text-[#27AE80] bg-[#27AE80]/10 border border-[#27AE80]/30">
+                    Reviewed
+                  </span>
+</td>
+<td class="py-2.5 px-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm border border-outline-variant/40 transition-colors" type="button">
+                    Edit
+                  </button>
+</td>
+</tr>
+</tbody>
+<!-- Table Summary Footer -->
+<tfoot class="bg-surface-container-lowest border-t-2 border-outline-variant font-mono-data font-bold text-on-surface">
+<tr>
+<td class="py-3 px-3 text-on-surface font-body-md" colspan="2">
+                  Total (5 Zones In Plan)
+                </td>
+<td class="py-3 px-3 text-right text-on-surface-variant">4,200 kg</td>
+<td class="py-3 px-3 text-right text-on-surface-variant">3,000 kg</td>
+<td class="py-3 px-3 text-right text-secondary">7,200 kg</td>
+<td class="py-3 px-3 text-right text-primary">2,750 kg</td>
+<td class="py-3 px-3 text-right text-secondary">2,050 kg</td>
+<td class="py-3 px-3 text-right text-on-surface bg-surface-container-high">4,800 kg</td>
+<td class="py-3 px-3 text-right text-[#F08A42]">2,400 kg</td>
+<td class="py-3 px-3 text-center font-label-sm text-label-sm text-outline font-normal" colspan="2">
+                  3 Rev / 2 Pend
+                </td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: SELECTED ZONE INSPECTION PANEL & MINI GIS (4 COLUMNS) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- D. SELECTED ZONE DETAILS PANEL -->
+<div class="rounded bg-surface-container border border-outline-variant/30 overflow-hidden flex flex-col">
+<!-- Zone Header -->
+<div class="p-space-md bg-surface-container-high border-b border-outline-variant/30 flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-[#F07171] animate-ping"></span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Zone 01 — North Guwahati</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">
+              Risk: Critical (Index 8.8) • Embankment Breach Threat
+            </span>
+</div>
+<span class="inline-flex items-center px-space-xs py-0.5 rounded font-label-sm text-label-sm text-[#F5B84B] bg-[#F5B84B]/10 border border-[#F5B84B]/30 font-medium">
+            Pending Sign-Off
+          </span>
+</div>
+<div class="p-space-md flex flex-col gap-space-md">
+<!-- Zone Metadata Strip -->
+<div class="grid grid-cols-2 gap-2 text-label-sm font-label-sm">
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant/20 flex flex-col">
+<span class="text-outline uppercase text-[10px]">Confidence</span>
+<span class="text-on-surface font-medium mt-0.5">High (ASDMA Survey)</span>
+</div>
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant/20 flex flex-col">
+<span class="text-outline uppercase text-[10px]">Data Freshness</span>
+<span class="font-mono-data text-on-surface font-medium mt-0.5">14:15 IST (27m ago)</span>
+</div>
+</div>
+<!-- Demand & Allocation Breakdown -->
+<div class="flex flex-col gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<div class="flex items-center justify-between text-label-md font-label-md">
+<span class="text-on-surface-variant font-medium">Food Resource Fulfillment</span>
+<span class="font-mono-data text-primary font-bold">70.8% (850 / 1,200 kg)</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container-lowest overflow-hidden border border-outline-variant/20">
+<div class="h-full bg-primary" style="width: 70.8%;"></div>
+</div>
+<div class="flex items-center justify-between text-label-md font-label-md mt-1">
+<span class="text-on-surface-variant font-medium">Water Supply Fulfillment</span>
+<span class="font-mono-data text-secondary font-bold">72.2% (650 / 900 kg)</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container-lowest overflow-hidden border border-outline-variant/20">
+<div class="h-full bg-secondary" style="width: 72.2%;"></div>
+</div>
+<div class="mt-2 p-2 rounded bg-surface-container-low border border-outline-variant/20 flex items-center justify-between font-mono-data text-label-sm">
+<span class="text-outline">Total Demand: 2,100 kg</span>
+<span class="text-on-surface">Alloc: 1,500 kg</span>
+<span class="text-[#F08A42] font-semibold">Deficit: 600 kg</span>
+</div>
+</div>
+<!-- Allocation Adjustment Controls -->
+<div class="flex flex-col gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">
+              Manual Override Controls
+            </span>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="food-alloc-input">Food Alloc (kg)</label>
+<input class="h-8 px-2.5 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface font-mono-data text-label-md focus:outline-none focus:border-primary" id="food-alloc-input" max="2000" min="0" step="50" type="number" value="850"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="water-alloc-input">Water Alloc (kg)</label>
+<input class="h-8 px-2.5 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface font-mono-data text-label-md focus:outline-none focus:border-primary" id="water-alloc-input" max="2000" min="0" step="50" type="number" value="650"/>
+</div>
+</div>
+<div class="flex items-center gap-space-sm mt-1">
+<button class="flex-1 py-1.5 rounded bg-primary text-on-primary font-label-md text-label-md font-semibold hover:brightness-105 transition-colors" id="btn-apply-override" type="button">
+                Apply Adjustment
+              </button>
+<button class="px-space-md py-1.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface font-label-md text-label-md border border-outline-variant/40 transition-colors" id="btn-reset-override" type="button">
+                Reset
+              </button>
+</div>
+<ul class="font-label-sm text-[11px] text-outline list-disc list-inside space-y-0.5 mt-1">
+<li>Allocation cannot be negative or exceed depot buffer (700 kg free).</li>
+<li>Manual deviations require sign-off in the ASDMA dispatch log.</li>
+</ul>
+</div>
+<!-- TACTICAL GIS MINI-MAP PREVIEW -->
+<div class="flex flex-col gap-1.5 pt-space-xs border-t border-outline-variant/20">
+<div class="flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-on-surface font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">map</span>
+                Tactical GIS Mini-Preview
+              </span>
+<span class="text-outline font-mono-data text-[10px]">EPSG:4326 • North Guwahati</span>
+</div>
+<!-- Stylized Tactical Map Graphic -->
+<div class="w-full h-44 rounded bg-surface-container-lowest border border-outline-variant/40 relative overflow-hidden flex flex-col justify-between p-2" data-location="North Guwahati, Assam, India" style="">
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#20BFA5 1px, transparent 1px); background-size: 16px 16px;"></div>
+<!-- Vectorized River Representation -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none text-secondary/30" preserveaspectratio="none" viewbox="0 0 300 150">
+<path d="M 0,80 Q 75,60 150,90 T 300,70" fill="none" opacity="0.3" stroke="currentColor" stroke-linecap="round" stroke-width="24"></path>
+<!-- Embankment Breach / Hazard Vector -->
+<path d="M 120,40 L 220,30 L 260,70 L 150,85 Z" fill="#F07171" fill-opacity="0.15" stroke="#F07171" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<!-- Route Vector across Saraighat Bridge -->
+<path d="M 60,130 L 110,90 L 130,50 L 190,45" fill="none" stroke="#20BFA5" stroke-dasharray="4,2" stroke-width="2"></path>
+</svg>
+<!-- Map Elements Overlay -->
+<div class="relative z-10 flex items-center justify-between">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high/90 text-[10px] font-mono-data text-on-surface border border-outline-variant/40">
+                  Sector Z01: Inundation 1.4m
+                </span>
+<div class="flex items-center gap-1 bg-surface-container-high/90 px-1 py-0.5 rounded border border-outline-variant/30 text-outline">
+<button class="w-4 h-4 flex items-center justify-center hover:text-on-surface text-[12px] font-bold" type="button">+</button>
+<button class="w-4 h-4 flex items-center justify-center hover:text-on-surface text-[12px] font-bold" type="button">-</button>
+</div>
+</div>
+<!-- Shelter Point / Depot Marker Tags -->
+<div class="relative z-10 flex items-end justify-between font-mono-data text-[10px]">
+<div class="p-1 rounded bg-[#010f1e]/90 border border-[#F07171]/60 text-[#F07171] leading-tight">
+<div class="font-bold">Amingaon Relief Center</div>
+<div class="text-on-surface-variant">Occupancy: 110/200 cap</div>
+</div>
+<div class="p-1 rounded bg-[#010f1e]/90 border border-primary/60 text-primary leading-tight text-right">
+<div class="font-bold">DEPOT-GAU-01</div>
+<div class="text-on-surface-variant">Transit: 14.8 km</div>
+</div>
+</div>
+</div>
+<!-- Mini Map Action Row -->
+<div class="grid grid-cols-2 gap-2 mt-1">
+<button class="py-1 px-2 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/30 flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+<span>View on Live Map</span>
+</button>
+<button class="py-1 px-2 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/30 flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">analytics</span>
+<span>Inspect Demand Log</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. FOOD & POTABLE WATER STOCK UTILIZATION BREAKDOWN (SIDE-BY-SIDE CARDS) -->
+<section class="px-space-lg pb-space-lg grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- LEFT CARD: FOOD RESOURCE ALLOCATION -->
+<div class="p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">lunch_dining</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Dry Food &amp; Ration Packs</h3>
+</div>
+<span class="px-2 py-0.5 rounded font-mono-data text-label-sm bg-primary/10 text-primary border border-primary/30">
+            Commitment: 100% (No Buffer)
+          </span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm my-space-md font-mono-data text-label-sm">
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Physical Depot Stock</span>
+<span class="text-on-surface text-body-md font-semibold mt-0.5">2,500 kg</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Scheduled Inbound</span>
+<span class="text-secondary text-body-md font-semibold mt-0.5">+750 kg <span class="text-[10px] text-outline font-normal">(16:00)</span></span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Reserved Buffer</span>
+<span class="text-on-surface-variant text-body-md font-semibold mt-0.5">500 kg</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Allocated in Wave 1</span>
+<span class="text-primary text-body-md font-bold mt-0.5">2,750 kg</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Total Zone Demand</span>
+<span class="text-on-surface text-body-md font-semibold mt-0.5">4,200 kg</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Unmet Deficit</span>
+<span class="text-[#F08A42] text-body-md font-bold mt-0.5">1,450 kg</span>
+</div>
+</div>
+<!-- Food Utilization Bar -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-label-sm font-label-sm text-outline">
+<span>Depot Availability Fulfillment vs Demand</span>
+<span class="font-mono-data text-on-surface">65.5% Covered</span>
+</div>
+<div class="w-full h-2.5 rounded bg-surface-container-lowest overflow-hidden flex border border-outline-variant/20">
+<div class="h-full bg-primary" style="width: 65.5%;"></div>
+<div class="h-full bg-[#F08A42]/60" style="width: 34.5%; background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px);"></div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-2 border-t border-outline-variant/20 flex items-center justify-between text-label-sm text-outline">
+<span>Inbound consignment: FCI Palasbari Truck #AS-01-EC-9482</span>
+<span class="text-secondary font-mono-data">Verified ETA 16:00 IST</span>
+</div>
+</div>
+<!-- RIGHT CARD: POTABLE WATER ALLOCATION -->
+<div class="p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">water_drop</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Potable Water Packs &amp; Jerrycans</h3>
+</div>
+<span class="px-2 py-0.5 rounded font-mono-data text-label-sm bg-secondary/10 text-secondary border border-secondary/30">
+            Free Buffer: 250 L
+          </span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm my-space-md font-mono-data text-label-sm">
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Physical Depot Stock</span>
+<span class="text-on-surface text-body-md font-semibold mt-0.5">3,000 L</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Medical / Infant Buffer</span>
+<span class="text-on-surface-variant text-body-md font-semibold mt-0.5">700 L</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Available for Planning</span>
+<span class="text-secondary text-body-md font-semibold mt-0.5">2,300 L</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Proposed Allocation</span>
+<span class="text-secondary text-body-md font-bold mt-0.5">2,050 L</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Total Zone Demand</span>
+<span class="text-on-surface text-body-md font-semibold mt-0.5">3,000 L</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[11px] font-sans">Unmet Deficit</span>
+<span class="text-[#F08A42] text-body-md font-bold mt-0.5">950 L</span>
+</div>
+</div>
+<!-- Water Utilization Bar -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-label-sm font-label-sm text-outline">
+<span>Water Demand Coverage Ratio</span>
+<span class="font-mono-data text-on-surface">68.3% Covered</span>
+</div>
+<div class="w-full h-2.5 rounded bg-surface-container-lowest overflow-hidden flex border border-outline-variant/20">
+<div class="h-full bg-secondary" style="width: 68.3%;"></div>
+<div class="h-full bg-[#F08A42]/60" style="width: 31.7%; background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px);"></div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-2 border-t border-outline-variant/20 flex items-center justify-between text-label-sm text-outline">
+<span>Water Treatment Units: 1 Active mobile RO filtration rig at Sarusajai</span>
+<span class="text-primary font-mono-data">Yield: 500 L/hr</span>
+</div>
+</div>
+</section>
+<!-- 5. BASELINE VS OPTIMIZED COMPARISON & PLANNING VALIDATION CHECKS -->
+<section class="px-space-lg pb-space-lg grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- LEFT SUB-PANEL: STRATEGY COMPARISON (7 COLUMNS) -->
+<div class="lg:col-span-7 p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">balance</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Allocation Strategy: Baseline vs Lexicographic</h3>
+</div>
+<span class="font-mono-data text-label-sm text-outline">Engine: PuLP/CBC MILP Solver</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong>Lexicographic Two-Stage Strategy Overview:</strong> Stage 1 minimizes priority-weighted unmet demand across all critical zones. Stage 2 minimizes total vehicle route transit distance strictly among first-stage optimal solutions, preventing starvation in critical riverfront sectors.
+        </p>
+<!-- Side-by-Side Strategy Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm mt-space-xs font-mono-data">
+<!-- Baseline Card -->
+<div class="p-space-sm rounded bg-surface-container-lowest border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-sans font-semibold text-on-surface-variant text-label-md">Baseline Heuristic</span>
+<span class="text-[10px] text-outline uppercase font-mono-data">Demand-Proportional</span>
+</div>
+<div class="flex flex-col gap-1 text-label-sm">
+<div class="flex justify-between">
+<span class="text-outline">Total Allocated:</span>
+<span class="text-on-surface">4,800 kg</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Weighted Unmet Penalty:</span>
+<span class="text-[#F07171] font-semibold">18,450 pts</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Est. Transit Distance:</span>
+<span class="text-on-surface-variant">84.2 km</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Critical Zone Starvation:</span>
+<span class="text-[#F08A42]">Proportional (Severe)</span>
+</div>
+</div>
+<div class="mt-1 pt-1.5 border-t border-outline-variant/20 text-[11px] text-outline flex items-center gap-1 font-sans">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span>Sub-optimal for high-risk flood sectors.</span>
+</div>
+</div>
+<!-- Optimized Card -->
+<div class="p-space-sm rounded bg-surface-container-high border border-primary/50 flex flex-col gap-2 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-sans font-semibold text-primary text-label-md">Lexicographic MILP</span>
+<span class="px-1.5 py-0.2 rounded bg-primary/10 text-primary text-[10px] font-mono-data uppercase border border-primary/30">Optimal</span>
+</div>
+<div class="flex flex-col gap-1 text-label-sm">
+<div class="flex justify-between">
+<span class="text-outline">Total Allocated:</span>
+<span class="text-on-surface font-semibold">4,800 kg</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Weighted Unmet Penalty:</span>
+<span class="text-primary font-bold">9,120 pts (-50.6%)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Est. Transit Distance:</span>
+<span class="text-secondary font-bold">61.8 km (-26.6%)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Critical Protection:</span>
+<span class="text-primary">Zone 01 &amp; 02 Maximized</span>
+</div>
+</div>
+<div class="mt-1 pt-1.5 border-t border-outline-variant/30 text-[11px] text-primary flex items-center gap-1 font-sans">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Feasible / Optimal solution found in 142ms.</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-2 border-t border-outline-variant/20 flex items-center justify-between">
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span>View Mathematical Formulation &amp; Solver Log</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<span class="text-outline font-mono-data text-label-sm">Simulated Run: v2.4</span>
+</div>
+</div>
+<!-- RIGHT SUB-PANEL: PLANNING CHECKS & OPERATIONAL VALIDATION (5 COLUMNS) -->
+<div class="lg:col-span-5 p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">fact_check</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Planning &amp; Feasibility Checks</h3>
+</div>
+<span class="px-1.5 py-0.5 rounded text-[11px] font-mono-data bg-[#F5B84B]/10 text-[#F5B84B] border border-[#F5B84B]/30 font-semibold">
+            2 Warnings
+          </span>
+</div>
+<!-- Checklist of checks -->
+<div class="flex flex-col gap-1.5 text-label-md font-label-md">
+<!-- Check 1: Stock -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#27AE80]">check_circle</span>
+<span class="text-on-surface">Stock Availability Verification</span>
+</div>
+<span class="font-mono-data text-label-sm text-[#27AE80]">PASSED</span>
+</div>
+<!-- Check 2: Demand review -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#F5B84B]">warning</span>
+<span class="text-on-surface">Demand Review Completeness</span>
+</div>
+<span class="font-mono-data text-label-sm text-[#F5B84B]">2 ZONES PENDING</span>
+</div>
+<!-- Check 3: Payload feasibility -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#27AE80]">check_circle</span>
+<span class="text-on-surface">Vehicle Fleet Capacity (5.0T ≥ 4.8T)</span>
+</div>
+<span class="font-mono-data text-label-sm text-[#27AE80]">PASSED</span>
+</div>
+<!-- Check 4: Route accessibility -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#F5B84B]">warning</span>
+<span class="text-on-surface">Submerged MG Road in Zone 02</span>
+</div>
+<span class="font-mono-data text-label-sm text-[#F5B84B]">DETOUR REQUIRED</span>
+</div>
+<!-- Check 5: Data sync -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#27AE80]">check_circle</span>
+<span class="text-on-surface">CWC Water Level Telemetry Sync</span>
+</div>
+<span class="font-mono-data text-label-sm text-[#27AE80]">SYNCED (27m)</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-2 border-t border-outline-variant/20 flex items-center justify-between text-label-sm text-outline">
+<span>ASDMA Standard Operating Protocol v3.1</span>
+<span class="text-on-surface font-mono-data">All Hard Constraints Satisfied</span>
+</div>
+</div>
+</section>
+<!-- 6. REVIEW & APPROVAL WORKFLOW & AUDIT TRAIL -->
+<section class="px-space-lg pb-space-lg flex flex-col gap-space-md">
+<div class="p-space-md rounded bg-surface-container border border-outline-variant/30 flex flex-col gap-space-md">
+<!-- Milestone Stepper -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">
+          Planning Lifecycle &amp; Dispatch Governance
+        </span>
+<div class="grid grid-cols-1 sm:grid-cols-5 gap-2 pt-1 font-label-md text-label-md">
+<!-- Step 1 -->
+<div class="p-2.5 rounded bg-surface-container-low border border-[#27AE80]/40 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#27AE80]">check_circle</span>
+<div class="flex flex-col leading-tight">
+<span class="text-on-surface font-semibold">1. Demand Reviewed</span>
+<span class="text-[11px] text-[#27AE80] font-mono-data">Completed (14:30)</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="p-2.5 rounded bg-surface-container-low border border-[#27AE80]/40 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#27AE80]">check_circle</span>
+<div class="flex flex-col leading-tight">
+<span class="text-on-surface font-semibold">2. Allocation Proposed</span>
+<span class="text-[11px] text-[#27AE80] font-mono-data">Completed (14:35)</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="p-2.5 rounded bg-surface-container-high border-2 border-primary flex items-center gap-2 shadow-sm">
+<span class="w-4 h-4 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+</span>
+<div class="flex flex-col leading-tight">
+<span class="text-primary font-bold">3. Operator Review</span>
+<span class="text-[11px] text-primary font-mono-data">In Progress (Active)</span>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="p-2.5 rounded bg-surface-container-lowest border border-outline-variant/30 flex items-center gap-2 opacity-60">
+<span class="material-symbols-outlined text-[18px] text-outline">pending</span>
+<div class="flex flex-col leading-tight">
+<span class="text-on-surface-variant font-medium">4. ASDMA Sign-off</span>
+<span class="text-[11px] text-outline font-mono-data">Awaiting Action</span>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="p-2.5 rounded bg-surface-container-lowest border border-outline-variant/30 flex items-center gap-2 opacity-60">
+<span class="material-symbols-outlined text-[18px] text-outline">schedule</span>
+<div class="flex flex-col leading-tight">
+<span class="text-on-surface-variant font-medium">5. Route Dispatch</span>
+<span class="text-[11px] text-outline font-mono-data">Standby</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Reviewer Notes & Action Buttons Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md pt-space-xs border-t border-outline-variant/20 items-end">
+<div class="lg:col-span-8 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium flex items-center justify-between" for="reviewer-notes">
+<span>Operational Log &amp; Operator Justification Notes</span>
+<span class="text-outline font-mono-data text-[11px]">Insp. S. Sharma (On Duty)</span>
+</label>
+<textarea class="w-full p-2.5 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none focus:border-primary" id="reviewer-notes" rows="2">Prioritized North Guwahati and Bharalumukh due to high water level (+0.42m at DC Court gauge) and active embankment seepage. Recommend dispatching Vehicle VH-01 via Saraighat bridge before 17:00 IST peak water surge.</textarea>
+</div>
+<div class="lg:col-span-4 flex items-center justify-end gap-space-sm flex-wrap">
+<button class="px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md border border-outline-variant/40 transition-colors" id="btn-save-draft" type="button">
+            Save Draft
+          </button>
+<button class="px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-bright text-secondary font-label-md text-label-md border border-secondary/40 transition-colors" id="btn-request-signoff" type="button">
+            Request Sign-off
+          </button>
+<button class="px-space-lg py-2 rounded bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 hover:brightness-105 active:scale-[0.98] transition-all shadow-sm" id="btn-approve" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Approve Allocation</span>
+</button>
+</div>
+</div>
+<!-- Mini Audit Trail -->
+<div class="p-space-xs px-space-sm rounded bg-surface-container-lowest border border-outline-variant/20 flex items-center justify-between flex-wrap gap-2 text-label-sm font-mono-data text-outline">
+<div class="flex items-center gap-3 flex-wrap">
+<span><strong>Audit:</strong> 14:30 Engine v2.4 initialized draft</span>
+<span class="text-outline-variant">•</span>
+<span>14:38 Insp. S. Sharma modified Z01 food allocation (+150 kg)</span>
+<span class="text-outline-variant">•</span>
+<span class="text-primary font-semibold">14:41 All system checks validated</span>
+</div>
+<span class="text-on-surface-variant font-sans text-[11px]">Ledger ID: #ALC-20241024-GAU-918</span>
+</div>
+</div>
+</section>
+<!-- 7. DATA PROVENANCE & FOOTER TRANSPARENCY -->
+<footer class="px-space-lg py-space-md bg-surface-container-lowest border-t border-outline-variant/30 flex flex-col gap-2">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2 font-mono-data text-label-sm text-outline">
+<div class="flex items-center gap-2 flex-wrap">
+<span>Demand Snapshot: <span class="text-on-surface">Snap-20241024-1430</span></span>
+<span class="text-outline-variant">|</span>
+<span>Inventory: <span class="text-on-surface">DEPOT-GAU-01 (14:15 IST)</span></span>
+<span class="text-outline-variant">|</span>
+<span>Hydrology: <span class="text-on-surface">CWC Guwahati Station</span></span>
+<span class="text-outline-variant">|</span>
+<span>Engine: <span class="text-primary">PuLP / CBC MILP Two-Stage</span></span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>SYSTEM OPERATIONAL • DECISION SUPPORT MODE</span>
+</div>
+</div>
+<div class="font-body-sm text-[11px] text-outline leading-relaxed">
+<strong>Statutory Transparency Notice:</strong> RELIEFOS Lite is an operational decision support system for flood scenario analysis and emergency resource optimization. Algorithmic outputs are intended solely to assist designated ASDMA incident commanders and logistics coordinators. Final resource commitment, physical dispatch, and life-safety decisions remain under direct civil authority command.
+    </div>
+</footer>
+<!-- CLIENT-SIDE MICRO-INTERACTIONS SCRIPT -->
+<script>
+    (function () {
+      // Table row interactive selection
+      const tableRows = document.querySelectorAll('#zones-table-body tr');
+      tableRows.forEach(row => {
+        row.addEventListener('click', () => {
+          tableRows.forEach(r => {
+            r.classList.remove('border-l-4', 'border-l-primary', 'bg-surface-container-high/80');
+          });
+          row.classList.add('border-l-4', 'border-l-primary', 'bg-surface-container-high/80');
+        });
+      });
+
+      // Simple Solver simulation trigger
+      const solverBtn = document.getElementById('btn-solver');
+      if (solverBtn) {
+        solverBtn.addEventListener('click', () => {
+          const originalText = solverBtn.innerHTML;
+          solverBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span><span>Solving MILP...</span>';
+          solverBtn.disabled = true;
+
+          setTimeout(() => {
+            solverBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-[#27AE80]">check_circle</span><span>Solution Optimal (138ms)</span>';
+            setTimeout(() => {
+              solverBtn.innerHTML = originalText;
+              solverBtn.disabled = false;
+            }, 2500);
+          }, 900);
+        });
+      }
+
+      // Quick filter search
+      const searchInput = document.getElementById('zone-search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const val = e.target.value.toLowerCase();
+          tableRows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(val) ? '' : 'none';
+          });
+        });
+      }
+
+      // Quick action alerts
+      const btnApprove = document.getElementById('btn-approve');
+      if (btnApprove) {
+        btnApprove.addEventListener('click', () => {
+          alert('Allocation Plan Approved. Routing parameters forwarded to Vehicle Optimization Module.');
+        });
+      }
+
+      const btnSaveDraft = document.getElementById('btn-save-draft');
+      if (btnSaveDraft) {
+        btnSaveDraft.addEventListener('click', () => {
+          alert('Draft Plan v1.4 saved to operational ledger.');
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

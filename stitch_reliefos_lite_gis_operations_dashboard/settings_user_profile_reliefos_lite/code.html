@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-low":"#0e1d2c","on-secondary":"#003545","on-tertiary":"#650713","on-surface-variant":"#bbcac4","secondary":"#61d4ff","outline-variant":"#3c4a46","secondary-fixed":"#bce9ff","surface-variant":"#283646","surface-container":"#122130","on-error-container":"#ffdad6","primary-fixed-dim":"#4ddcc1","on-background":"#d5e4f9","surface-tint":"#4ddcc1","inverse-primary":"#006b5b","on-tertiary-fixed-variant":"#852127","on-secondary-fixed":"#001f29","on-tertiary-container":"#7a1920","surface":"#051423","on-primary-container":"#00483c","primary":"#4ddcc1","on-primary":"#00382e","inverse-on-surface":"#233241","on-secondary-container":"#00313f","background":"#051423","error":"#ffb4ab","on-error":"#690005","on-primary-fixed":"#00201a","surface-container-highest":"#283646","secondary-container":"#01a0c9","on-tertiary-fixed":"#410007","inverse-surface":"#d5e4f9","tertiary-fixed-dim":"#ffb3b1","surface-container-lowest":"#010f1e","primary-container":"#20bfa5","tertiary":"#ffb3b1","tertiary-fixed":"#ffdad8","primary-fixed":"#6ff9dd","outline":"#85948f","tertiary-container":"#ff8786","surface-bright":"#2c3a4b","surface-container-high":"#1d2b3b","error-container":"#93000a","on-secondary-fixed-variant":"#004d63","surface-dim":"#051423","on-surface":"#d5e4f9","on-primary-fixed-variant":"#005144","secondary-fixed-dim":"#61d4ff"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-xl":"1.5rem","space-xs":"0.25rem","space-sm":"0.375rem","margin-lg":"1.25rem",gutter:"0.75rem","space-lg":"1rem","space-md":"0.75rem","gutter-lg":"1rem",margin:"0.75rem"},fontFamily:{"body-sm":["Inter"],"headline-lg":["Inter"],"headline-sm":["Inter"],"label-md":["Inter"],"display-lg":["Inter"],"body-md":["Inter"],"mono-data":["Inter"],"body-lg":["Inter"],"label-sm":["Inter"]},fontSize:{"body-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.01em",fontWeight:"400"}],"headline-lg":["1.25rem",{lineHeight:"1.75rem",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-sm":["1rem",{lineHeight:"1.5rem",letterSpacing:"0em",fontWeight:"600"}],"label-md":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.03em",fontWeight:"500"}],"display-lg":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["0.8125rem",{lineHeight:"1.25rem",letterSpacing:"0em",fontWeight:"400"}],"mono-data":["0.8125rem",{lineHeight:"1.125rem",letterSpacing:"-0.01em",fontWeight:"500"}],"body-lg":["0.9375rem",{lineHeight:"1.375rem",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["0.6875rem",{lineHeight:"0.875rem",letterSpacing:"0.06em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[250px] bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-lowest"><img alt="Brand logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WoqSveSUjtwcRq3Ng5DMl-ndlaVTHaPwTZ9YR1bMyjeOz1I52m1bXqelBg2BQxYBKTvu0nKDhlbrPuilzlTigX3-Rmm4kQU-cNb4UVGnVL3W8K5ESpJHx3Ta8h-6eAs2gTIuPF7uuxs7QceJOnb_SVQm1-xM34l6cFAn1XkibgCG8cbR_xhVULdzLWIE7WN3qEnKE4fUNjEXO6JFYwnSNzM2d7qORWvgaVCs2xjb2MUboJe3BXuXc00ig"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">RELIEFOS Lite</span><span class="font-label-sm text-label-sm text-on-surface-variant">Flood Ops • Kamrup Metro</span></div></div><nav class="flex-1 overflow-y-auto px-space-xs py-space-sm space-y-space-xs" data-active-classes="bg-surface-container-highest text-primary font-semibold border-l-[3px] border-primary-container"><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="operations-overview" href="#">Operations Overview</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="live-flood-map" href="#">Live Flood Map</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="zones-and-risk" href="#">Zones &amp; Risk</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="resource-inventory" href="#">Resource Inventory</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="demand-management" href="#">Demand Management</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="relief-allocation" href="#">Relief Allocation</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="route-optimization" href="#">Route Optimization</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="simulation-and-reports" href="#">Simulation &amp; Reports</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="data-sources" href="#">Data Sources</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-label-md text-label-md bg-surface-container-highest text-primary font-semibold border-l-[3px] border-primary-container" data-path="settings" href="#">Settings</a></nav></div><div class="p-space-sm space-y-space-xs bg-surface-container-lowest"><div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm font-semibold text-primary flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> ONLINE • TELEMETRY OK</span></div><div class="font-mono-data text-mono-data text-on-surface-variant">MODE: DEMO (SIMULATED)</div></div><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container"><div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-semibold"><span class="material-symbols-outlined text-[18px]">shield_person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface truncate">Insp. S. Sharma</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Disaster Ops, ASDMA</span></div><span class="material-symbols-outlined text-on-surface-variant text-[16px]">more_vert</span></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-low/95 backdrop-blur-md z-40 px-space-md flex items-center justify-between shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex items-center gap-space-md"><img alt="Brand logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WoqSveSUjtwcRq3Ng5DMl-ndlaVTHaPwTZ9YR1bMyjeOz1I52m1bXqelBg2BQxYBKTvu0nKDhlbrPuilzlTigX3-Rmm4kQU-cNb4UVGnVL3W8K5ESpJHx3Ta8h-6eAs2gTIuPF7uuxs7QceJOnb_SVQm1-xM34l6cFAn1XkibgCG8cbR_xhVULdzLWIE7WN3qEnKE4fUNjEXO6JFYwnSNzM2d7qORWvgaVCs2xjb2MUboJe3BXuXc00ig"/><nav class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md"><span class="text-on-surface-variant">RELIEFOS Lite</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="text-on-surface font-semibold">Settings</span></nav><div class="hidden lg:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg text-on-surface font-body-sm text-body-sm"><span class="material-symbols-outlined text-primary text-[16px]">location_on</span><span>Kamrup Metropolitan, Guwahati, Assam</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">arrow_drop_down</span></div></div><div class="flex items-center gap-space-md"><div class="bg-surface-variant px-space-sm py-space-xs rounded-full flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span><span class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider font-semibold">SIMULATED DATA</span></div><div class="hidden md:flex items-center gap-space-xs text-on-surface-variant font-mono-data text-mono-data"><span class="material-symbols-outlined text-[16px]">schedule</span><span>Sync: 14:42:10 IST</span></div><button class="relative p-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error-container text-on-error-container text-[10px] flex items-center justify-center font-bold">4</span></button><button class="p-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">help</span></button><div class="hidden sm:flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg font-label-sm text-label-sm font-semibold text-primary"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span><span>On Duty</span></div><div class="relative flex items-center" id="header-profile-container"><button class="w-8 h-8 rounded-full bg-primary-container border border-primary/50 flex items-center justify-center cursor-pointer overflow-hidden shadow-sm hover:ring-2 hover:ring-primary transition-all" id="header-avatar-btn"><img alt="Insp. S. Sharma" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UgZkhcTCp9tbWzMPfGOMe9lpL5EhNGMhk0Y4MHVVIjablvot2YAF0wYRVkd5XOblMcj1HmZRbD4NwSbViUvaFP5BunuIym03jypJgxNNaL_NmrEdIndZ5heVsO8TSjEempJnU061rmRvs5-LI4pMqvPALjPgH9zRB2CoBX5xVe0eeeKJ1yR8aByFWeVm3FIncNlKXGWy1VlMZHCInSZ6qjP9JFzeyjR_y4u796dCmSzqk3kLG7XqNb1-0"/></button><div class="absolute right-0 top-11 w-80 bg-surface-container-high border border-surface-variant rounded-lg shadow-xl z-50 flex flex-col divide-y divide-surface-variant text-on-surface" id="profile-dropdown-menu"><div class="p-space-sm flex items-start gap-space-sm bg-surface-container"><img alt="Insp. S. Sharma" class="w-12 h-12 rounded-full object-cover border border-primary/40 shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UgZkhcTCp9tbWzMPfGOMe9lpL5EhNGMhk0Y4MHVVIjablvot2YAF0wYRVkd5XOblMcj1HmZRbD4NwSbViUvaFP5BunuIym03jypJgxNNaL_NmrEdIndZ5heVsO8TSjEempJnU061rmRvs5-LI4pMqvPALjPgH9zRB2CoBX5xVe0eeeKJ1yR8aByFWeVm3FIncNlKXGWy1VlMZHCInSZ6qjP9JFzeyjR_y4u796dCmSzqk3kLG7XqNb1-0"/><div class="flex flex-col min-w-0 flex-1"><div class="flex items-center justify-between"><span class="font-label-md font-semibold text-on-surface truncate">Insp. S. Sharma</span><span class="px-1.5 py-0.5 rounded text-[10px] font-mono-data bg-primary-container/20 text-primary border border-primary/30 flex items-center gap-0.5"><span class="material-symbols-outlined text-[11px]">check</span>Planner</span></div><span class="font-mono-data text-[11px] text-on-surface-variant truncate">s.sharma.ops@asdma.gov.in</span><span class="text-[11px] text-outline truncate mt-0.5">ASDMA Disaster Ops • Kamrup Metro</span></div></div><div class="py-1 flex flex-col font-label-md text-label-md"><a class="flex items-center gap-2.5 px-space-sm py-1.5 bg-surface-bright/50 text-primary font-semibold border-l-2 border-primary transition-colors" href="#panel-profile"><span class="material-symbols-outlined text-[18px]">badge</span><span>My Profile &amp; Dossier</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 text-on-surface-variant hover:bg-surface-bright/40 hover:text-on-surface transition-colors" href="#panel-permissions"><span class="material-symbols-outlined text-[18px]">shield</span><span>Role &amp; Permissions</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 text-on-surface-variant hover:bg-surface-bright/40 hover:text-on-surface transition-colors" href="#panel-personal-prefs"><span class="material-symbols-outlined text-[18px]">tune</span><span>Personal Preferences</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 text-on-surface-variant hover:bg-surface-bright/40 hover:text-on-surface transition-colors" href="#panel-notifications"><span class="material-symbols-outlined text-[18px]">notifications_active</span><span>Notification Preferences</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 text-on-surface-variant hover:bg-surface-bright/40 hover:text-on-surface transition-colors" href="#panel-security"><span class="material-symbols-outlined text-[18px]">lock_reset</span><span>Account &amp; Security</span></a></div><div class="p-1.5 bg-surface-container-lowest"><button class="w-full flex items-center justify-between px-space-sm py-1.5 rounded-lg text-error hover:bg-error-container/20 transition-colors font-label-md text-label-md" id="dropdown-signout-btn"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">logout</span><span>Sign Out Session</span></div><span class="font-mono-data text-[10px] text-outline">EOC-GHY</span></button></div></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-space-lg py-space-lg"><div class="flex flex-col w-full space-y-space-md text-on-surface">
+<!-- PAGE HEADER -->
+<div class="flex flex-col gap-space-sm bg-surface-container-low p-space-md rounded-xl shadow-md">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<h1 class="font-display-lg text-display-lg font-bold text-on-surface tracking-tight">System Settings</h1>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider bg-surface-variant text-secondary-fixed-dim font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>
+            PROTOTYPE CONFIGURATION MODE
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+          Configure workspace preferences, regional planning bounds, optimization objectives, and operational governance.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-1.5 bg-surface-container px-space-sm py-1.5 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-bright transition-colors shadow-sm" id="btn-export-json">
+<span class="material-symbols-outlined text-[16px] text-secondary">file_download</span>
+          Export Config (JSON)
+        </button>
+<button class="flex items-center gap-1.5 bg-surface-container px-space-sm py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant hover:text-error transition-colors shadow-sm" id="btn-reset-defaults">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+          Reset Defaults
+        </button>
+</div>
+</div>
+<!-- CONTEXT BANNER STRIP -->
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 px-space-sm py-2 rounded-lg bg-surface-container font-mono-data text-mono-data text-on-surface-variant shadow-inner">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[15px]">warehouse</span>
+        1 Depot (Sarusajai)
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-secondary">grid_view</span>
+        5 Operational Zones
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-primary">local_shipping</span>
+        3 Relief Vehicles
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-tertiary">night_shelter</span>
+        2 Shelters
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-primary">model_training</span>
+        Two-Stage Lexicographic Optimization (OR-Tools CP-SAT)
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-primary-fixed">
+<span class="material-symbols-outlined text-[15px]">verified_user</span>
+        Human-in-the-Loop Decision Support
+      </span>
+</div>
+</div>
+<!-- TWO-COLUMN WORKSPACE -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-md items-start pb-20">
+<!-- LEFT COLUMN: CATEGORY NAVIGATION -->
+<div class="xl:col-span-3 flex flex-col gap-space-sm bg-surface-container-low p-space-sm rounded-xl shadow-md sticky top-20">
+<div class="px-space-xs py-1">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Configuration Subsystems</span>
+</div>
+<nav class="flex flex-col gap-1" id="settings-nav"><button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors bg-surface-container text-primary font-semibold shadow-sm" data-target="panel-profile"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">person</span><span>My Profile &amp; Account</span></div><span class="w-1.5 h-1.5 rounded-full bg-primary"></span></button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-general"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">tune</span><span>General &amp; UI</span></div><span class="font-mono-data text-[10px] text-outline">WORKSPACE</span></button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-planning">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">map</span>
+<span>Region &amp; Planning</span>
+</div>
+<span class="font-mono-data text-[10px] text-outline">5 ZONES</span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-resources">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+<span>Resources &amp; Units</span>
+</div>
+<span class="font-mono-data text-[10px] text-primary">ACTIVE</span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-optimization">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">flowsheet</span>
+<span>Optimization (OR-Tools)</span>
+</div>
+<span class="font-mono-data text-[10px] text-secondary">CP-SAT</span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-data-sources">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">hub</span>
+<span>Data Sources</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-governance">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+<span>Users &amp; Governance</span>
+</div>
+<span class="font-mono-data text-[10px] text-outline">ASDMA</span>
+</button>
+<button class="settings-nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-left font-label-md text-label-md transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-target="panel-audit">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">history_toggle_off</span>
+<span>Audit Logs &amp; Integrity</span>
+</div>
+<span class="font-mono-data text-[10px] text-outline">SHA256</span>
+</button>
+</nav>
+<!-- SYSTEM ENVIRONMENT INDICATOR WIDGET -->
+<div class="mt-4 p-space-sm rounded-lg bg-surface-container space-y-1.5 shadow-inner">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Instance Topology</span>
+<span class="material-symbols-outlined text-[14px]">dns</span>
+</div>
+<div class="font-mono-data text-mono-data text-on-surface font-semibold">DEMO_SANDBOX</div>
+<div class="text-[11px] font-mono-data text-on-surface-variant flex flex-col gap-0.5">
+<span>NODE: NODE-GHY-04 (Assam DDMA)</span>
+<span>STORAGE: PostgreSQL 16 (In-Mem Spatially Partitioned)</span>
+<span class="text-primary flex items-center gap-1 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            GIS Telemetry Bridge: OK
+          </span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: MAIN SETTINGS CANVAS -->
+<div class="xl:col-span-9 flex flex-col gap-space-md"><!-- SECTION A: PERSONAL PROFILE & DUTY DOSSIER -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-profile">
+<div class="flex flex-wrap items-center justify-between gap-space-sm border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Operator Profile &amp; Duty Dossier</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono-data text-label-sm flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> AUTHENTICATED • ASDMA EOC
+      </span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Avatar & Credentials Column -->
+<div class="lg:col-span-4 flex flex-col items-center justify-center p-space-md rounded-lg bg-surface-container gap-3 text-center border border-surface-variant/50">
+<div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-primary/50 shadow-md">
+<img alt="Insp. S. Sharma" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UgZkhcTCp9tbWzMPfGOMe9lpL5EhNGMhk0Y4MHVVIjablvot2YAF0wYRVkd5XOblMcj1HmZRbD4NwSbViUvaFP5BunuIym03jypJgxNNaL_NmrEdIndZ5heVsO8TSjEempJnU061rmRvs5-LI4pMqvPALjPgH9zRB2CoBX5xVe0eeeKJ1yR8aByFWeVm3FIncNlKXGWy1VlMZHCInSZ6qjP9JFzeyjR_y4u796dCmSzqk3kLG7XqNb1-0"/>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Insp. S. Sharma</span>
+<span class="font-mono-data text-body-sm text-primary">ASDMA-EMP-8841-KAMRUP</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Disaster Operations Officer</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<button class="px-2.5 py-1 rounded bg-surface-bright text-on-surface hover:bg-surface-variant text-label-sm font-label-sm transition-colors border border-surface-variant">Change Photo</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-high text-error hover:bg-error-container/20 text-label-sm font-label-sm transition-colors">Remove</button>
+</div>
+<span class="text-[10px] font-mono-data text-outline">Format: PNG/JPG max 2MB • 400x400px</span>
+</div>
+<!-- Editable & Read-only Fields -->
+<div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-space-sm bg-surface-container p-space-md rounded-lg border border-surface-variant/50">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Full Official Name</label>
+<input class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface font-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="Insp. S. Sharma"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Official Gov Email</label>
+<input class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface font-mono-data text-body-sm focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="email" value="s.sharma.ops@asdma.gov.in"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Emergency Contact / Direct Phone</label>
+<input class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface font-mono-data text-body-sm focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="+91 94350 XXXXX (ASDMA Emergency Direct)"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Tactical Job Title</label>
+<input class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface font-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="Operations Planner &amp; GIS Logistics Officer"/>
+</div>
+<div class="flex flex-col gap-1 md:col-span-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Authorizing Department &amp; Lead Division</label>
+<input class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface font-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="Disaster Operations, Kamrup Metro DDMA"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline">Assigned Governance Role (Locked)</label>
+<div class="h-9 px-3 rounded-lg bg-surface-container-lowest text-primary flex items-center justify-between font-label-md border border-surface-variant/40">
+<span class="flex items-center gap-1.5 font-semibold"><span class="material-symbols-outlined text-[16px]">verified</span> Operations Planner</span>
+<span class="material-symbols-outlined text-outline text-[16px]">lock</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline">Current Duty Deployment Post</label>
+<div class="h-9 px-3 rounded-lg bg-surface-container-lowest text-on-surface flex items-center justify-between font-body-sm border border-surface-variant/40">
+<span class="truncate">Guwahati EOC / Sarusajai Staging Post</span>
+<span class="w-2 h-2 rounded-full bg-primary inline-block shrink-0"></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION B: ROLE & PERMISSION MATRIX -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-permissions">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">admin_panel_settings</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Role &amp; Tactical Permission Matrix</h2>
+</div>
+<span class="font-mono-data text-xs text-outline">RBAC: OPS_PLANNER_L3</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container text-body-sm text-on-surface-variant flex items-center justify-between border border-surface-variant/40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">info</span>
+<span>Role assigned by Kamrup Metro DDMA Administrator. Permissions are non-transferable under Section 30 of Disaster Management Act.</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-sm">
+<div class="p-3 rounded-lg bg-surface-container flex items-center justify-between border-l-2 border-primary">
+<div class="flex flex-col">
+<span class="font-label-md font-semibold text-on-surface">Demand Review &amp; Override</span>
+<span class="text-[11px] text-on-surface-variant">Manual surge adjustments</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-[10px] font-bold">AUTHORIZED</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container flex items-center justify-between border-l-2 border-primary">
+<div class="flex flex-col">
+<span class="font-label-md font-semibold text-on-surface">OR-Tools Solver Dispatch</span>
+<span class="text-[11px] text-on-surface-variant">CP-SAT execution trigger</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-[10px] font-bold">AUTHORIZED</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container flex items-center justify-between border-l-2 border-primary">
+<div class="flex flex-col">
+<span class="font-label-md font-semibold text-on-surface">Relief Allocation Drafting</span>
+<span class="text-[11px] text-on-surface-variant">In-memory proposal commit</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-[10px] font-bold">AUTHORIZED</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container flex items-center justify-between border-l-2 border-primary">
+<div class="flex flex-col">
+<span class="font-label-md font-semibold text-on-surface">Fleet Manifest Gate Sign-off</span>
+<span class="text-[11px] text-on-surface-variant">Depot-01 gate issuance</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-[10px] font-bold">AUTHORIZED</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container flex items-center justify-between border-l-2 border-surface-variant opacity-70">
+<div class="flex flex-col">
+<span class="font-label-md font-semibold text-on-surface">User Account Admin</span>
+<span class="text-[11px] text-outline">Create/Revoke credentials</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-variant text-outline font-mono-data text-[10px]">LOCKED (SYS_ADMIN)</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container flex items-center justify-between border-l-2 border-surface-variant opacity-70">
+<div class="flex flex-col">
+<span class="font-label-md font-semibold text-on-surface">Boundary GeoJSON Mutation</span>
+<span class="text-[11px] text-outline">District boundary rewrites</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-variant text-outline font-mono-data text-[10px]">LOCKED (GIS_ADMIN)</span>
+</div>
+</div>
+</section>
+<!-- SECTION C: PERSONAL OPERATOR PREFERENCES -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-personal-prefs">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Personal Operator Preferences</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline-variant font-mono-data">PROFILE.SCOPE: PERSONAL_OVERRIDE</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<div class="flex flex-col gap-1 p-space-sm rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-outline">Language Interface</span>
+<select class="h-8 px-2 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary">
+<option selected="">English (India)</option>
+<option>Assamese (অসমীয়া - Planned)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 p-space-sm rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-outline">Display Timezone</span>
+<select class="h-8 px-2 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary">
+<option selected="">Asia/Kolkata (IST • UTC+05:30)</option>
+<option>UTC (Tactical Standard)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 p-space-sm rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-outline">Theme Mode</span>
+<div class="h-8 px-2 rounded-lg bg-surface-container-high text-primary flex items-center font-mono-data text-body-sm font-semibold justify-between">
+<span>Tactical Dark (EOC)</span>
+<span class="material-symbols-outlined text-[16px]">dark_mode</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 p-space-sm rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-outline">Default Landing Screen</span>
+<select class="h-8 px-2 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary">
+<option selected="">Operations Overview</option>
+<option>Live Flood Map (GIS Fullscreen)</option>
+<option>Demand Management</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-sm">
+<label class="flex items-start justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-bright/50 cursor-pointer transition-colors">
+<div class="flex flex-col pr-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Compact Data Tables</span>
+<span class="text-[11px] text-on-surface-variant">Maximum tabular row density across panels</span>
+</div>
+<input checked="" class="mt-1 w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
+</label>
+<label class="flex items-start justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-bright/50 cursor-pointer transition-colors">
+<div class="flex flex-col pr-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Show ISO-19115 Badges</span>
+<span class="text-[11px] text-on-surface-variant">Render sensor telemetry provenance badges</span>
+</div>
+<input checked="" class="mt-1 w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
+</label>
+<label class="flex items-start justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-bright/50 cursor-pointer transition-colors">
+<div class="flex flex-col pr-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Auditory Surge Warnings</span>
+<span class="text-[11px] text-on-surface-variant">Play tactical chime on critical river rise</span>
+</div>
+<input checked="" class="mt-1 w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
+</label>
+</div>
+</section>
+<!-- SECTION D: EMERGENCY NOTIFICATION PREFERENCES -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-notifications">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">notifications_active</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Emergency Notification Preferences &amp; Alert Routing</h2>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-mono-data text-label-sm">TACTICAL_ALERTS_ROUTING</span>
+</div>
+<div class="overflow-x-auto rounded-lg bg-surface-container shadow-inner">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-high font-label-sm text-label-sm uppercase tracking-wider text-outline">
+<tr>
+<th class="px-3 py-2">Operational Alert Trigger</th>
+<th class="px-3 py-2 text-center">In-App Toast</th>
+<th class="px-3 py-2 text-center">Gov Email Dispatch</th>
+<th class="px-3 py-2 text-center">SMS / TETRA Radio</th>
+<th class="px-3 py-2 text-right">Routing Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="px-3 py-2 font-medium text-on-surface">
+            Critical Zone Risk Escalation (&gt; Danger Mark)
+          </td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-right"><span class="px-2 py-0.5 rounded bg-tertiary-container/20 text-tertiary font-mono-data text-[10px] font-bold">CRITICAL_IMMEDIATE</span></td>
+</tr>
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="px-3 py-2 font-medium text-on-surface">
+            Depot Stock Depletion Warning (&lt; 15% Buffer)
+          </td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-right"><span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-mono-data text-[10px] font-bold">PRIORITY_WARN</span></td>
+</tr>
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="px-3 py-2 font-medium text-on-surface">
+            Two-Stage Solver Optimization Run Complete
+          </td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-right"><span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-[10px] font-bold">ROUTINE_OPS</span></td>
+</tr>
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="px-3 py-2 font-medium text-on-surface">
+            Telemetry Stale / Fallback Sensor Active
+          </td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-right"><span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-mono-data text-[10px] font-bold">INTEGRITY_ALERT</span></td>
+</tr>
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="px-3 py-2 font-medium text-on-surface">
+            Fleet Waypoint Deviation / Severance Barrier Detected
+          </td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-center"><input checked="" class="accent-primary w-4 h-4" type="checkbox"/></td>
+<td class="px-3 py-2 text-right"><span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-[10px] font-bold">DISPATCH_HOLD</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-2 rounded bg-surface-bright/40 text-[11px] text-on-surface-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">cell_tower</span>
+<span>TETRA emergency mesh broadcast integrates automatically when Kamrup EOC VHF Gateway is patched.</span>
+</div>
+<span class="font-mono-data text-outline text-[10px]">GATEWAY: OK</span>
+</div>
+</section>
+<!-- SECTION E: ACCOUNT SECURITY & ACTIVE SESSIONS -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md" id="panel-security">
+<div class="flex items-center justify-between border-b pb-2 border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">lock_reset</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Account Security &amp; Active Cryptographic Session</h2>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono-data text-label-sm">SECURE_SESSION_256</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<!-- Security Credentials -->
+<div class="flex flex-col gap-space-sm bg-surface-container p-space-sm rounded-lg">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Authentication Credentials</span>
+<div class="space-y-2 text-body-sm font-body-sm">
+<div class="flex justify-between items-center py-1.5 border-b border-surface-container-high">
+<span class="text-on-surface-variant">Authentication Protocol</span>
+<span class="font-medium text-on-surface font-mono-data text-xs">ASDMA Gov SSO (OIDC/SAML2)</span>
+</div>
+<div class="flex justify-between items-center py-1.5 border-b border-surface-container-high">
+<span class="text-on-surface-variant">Two-Factor Authentication</span>
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-mono-data text-xs font-semibold">ACTIVE (TOTP Token)</span>
+</div>
+<div class="flex justify-between items-center py-1.5 border-b border-surface-container-high">
+<span class="text-on-surface-variant">Password Last Changed</span>
+<span class="font-mono-data text-on-surface text-xs">18 Days Ago (Mandatory 90-Day Cycle)</span>
+</div>
+</div>
+<button class="mt-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-bright text-on-surface hover:bg-surface-variant text-label-md font-label-md transition-colors border border-surface-variant">
+<span class="material-symbols-outlined text-[16px]">key</span>
+        Update Governance Password
+      </button>
+</div>
+<!-- Active Sessions -->
+<div class="flex flex-col justify-between gap-space-sm bg-surface-container p-space-sm rounded-lg">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline">Active Workstation Session</span>
+<span class="font-mono-data text-[10px] text-primary">THIS DEVICE</span>
+</div>
+<div class="mt-2 p-2.5 rounded bg-surface-container-high flex flex-col gap-1 border border-primary/30">
+<div class="flex items-center justify-between">
+<span class="font-label-md font-semibold text-on-surface flex items-center gap-1.5"><span class="material-symbols-outlined text-primary text-[18px]">desktop_windows</span> Guwahati EOC Tactical Station #04</span>
+<span class="text-[10px] font-mono-data text-primary font-semibold">ONLINE</span>
+</div>
+<div class="text-[11px] font-mono-data text-on-surface-variant flex flex-col gap-0.5">
+<span>IP: 10.24.88.12 • MAC: D8:5E:D3:4A:21:00</span>
+<span>Session Started: Today, 14:10:02 IST (Duration: 32 mins)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-variant">
+<button class="px-2.5 py-1 rounded bg-surface-bright text-outline hover:text-error text-label-md font-label-md transition-colors">
+          Terminate Other Sessions
+        </button>
+<button class="px-2.5 py-1 rounded bg-error-container/30 text-error hover:bg-error-container/50 text-label-md font-label-md transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">logout</span>
+          Sign Out
+        </button>
+</div>
+</div>
+</div>
+</section></div>
+</div>
+<!-- G. PERSISTENT FLOATING BOTTOM ACTION DOCK -->
+<aside aria-label="Settings Action Dock" class="fixed bottom-3 left-4 right-4 sm:left-[270px] sm:right-6 bg-surface-container-high/95 backdrop-blur-md p-space-sm rounded-xl shadow-xl z-30 flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary animate-spin text-[20px]">sync</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Unsaved Configuration Changes</span>
+<span class="text-[11px] text-on-surface-variant">Editing: Insp. S. Sharma • Operational Dossier &amp; Tactical Alert Routing</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="hidden md:inline font-mono-data text-[11px] text-outline pr-2">
+        Statutory Notice: Local session scope only.
+      </span>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-error hover:bg-surface-variant font-label-md text-label-md transition-colors shadow-sm" id="dock-btn-discard">
+        Discard Changes
+      </button>
+<button class="px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:brightness-110 active:scale-[0.98] transition-all flex items-center gap-1.5 shadow-md" id="dock-btn-save">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+        Save Configuration
+      </button>
+</div>
+</aside>
+</div>
+<script>
+  // Simple tab-like smooth scroll focus for settings panels
+  document.querySelectorAll('.settings-nav-item').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.settings-nav-item').forEach(b => {
+        b.classList.remove('bg-surface-container', 'text-primary', 'font-semibold', 'shadow-sm');
+        b.classList.add('text-on-surface-variant');
+      });
+      button.classList.add('bg-surface-container', 'text-primary', 'font-semibold', 'shadow-sm');
+      button.classList.remove('text-on-surface-variant');
+
+      const targetId = button.getAttribute('data-target');
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Micro-interactions for save/export actions
+  const saveBtn = document.getElementById('dock-btn-save');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      saveBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span> Storing State...';
+      saveBtn.classList.add('opacity-80');
+      setTimeout(() => {
+        saveBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">done_all</span> Configuration Synced';
+        saveBtn.classList.remove('opacity-80');
+        setTimeout(() => {
+          saveBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> Save Configuration';
+        }, 2500);
+      }, 700);
+    });
+  }
+
+  const exportBtn = document.getElementById('btn-export-json');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      const originalText = exportBtn.innerHTML;
+      exportBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-primary">download_done</span> JSON Exported';
+      setTimeout(() => {
+        exportBtn.innerHTML = originalText;
+      }, 2000);
+    });
+  }
+</script></main></div></body></html>
