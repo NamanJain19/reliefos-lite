@@ -56,6 +56,10 @@ def calculate_real_road_route(
 
                     return {
                         "success": True,
+                        "is_fallback": False,
+                        "fallback_reason": None,
+                        "provenance_badge": "VERIFIED ROAD NETWORK (OSRM)",
+                        "route_category": "REAL_ROAD_GEOMETRY",
                         "routing_engine": "OSRM OpenStreetMap Driving Router v5",
                         "state": DataSourceState.LIVE.value,
                         "route_name": route_name or "Real-World Road Route",
@@ -74,7 +78,9 @@ def calculate_real_road_route(
                         "attribution": "© OpenStreetMap contributors, Routing by OSRM"
                     }
 
+        fallback_err = "OSRM returned empty or invalid route candidate"
     except Exception as exc:
+        fallback_err = f"OSRM service unreachable: {str(exc)}"
         # Fallback to straight-line topological approximation if public OSRM is rate-limited or offline
         registry.update_provider_status(
             provider_id="ROU-OSRM-02",
@@ -90,11 +96,17 @@ def calculate_real_road_route(
     dist_approx = round(math.sqrt(dlat**2 + dlng**2) * 1.25, 2)  # 1.25 winding factor
     dur_approx = round((dist_approx / 30.0) * 60.0, 1)  # 30 km/h flood urban speed
 
+    display_name = f"[ESTIMATED FALLBACK] {route_name}" if route_name else "Topological Approximated Route (Fallback)"
+
     return {
         "success": True,
+        "is_fallback": True,
+        "fallback_reason": fallback_err,
+        "provenance_badge": "TOPOLOGICAL ESTIMATE (OFFLINE FALLBACK)",
+        "route_category": "TOPOLOGICAL_EUCLIDEAN_ESTIMATED",
         "routing_engine": "NetworkX Topological Fallback Router",
         "state": DataSourceState.ESTIMATED.value,
-        "route_name": route_name or "Topological Approximated Route",
+        "route_name": display_name,
         "distance_km": dist_approx,
         "duration_minutes": dur_approx,
         "duration_formatted": f"{int(dur_approx)} mins (est.)",
@@ -107,5 +119,5 @@ def calculate_real_road_route(
         "polyline_latlng": [[start_lat, start_lng], [end_lat, end_lng]],
         "road_closure_avoidance": "TOPOLOGICAL_ESTIMATED",
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "attribution": "Topological Graph Engine (RELIEFOS Core)"
+        "attribution": "Topological Graph Engine (RELIEFOS Core Fallback)"
     }

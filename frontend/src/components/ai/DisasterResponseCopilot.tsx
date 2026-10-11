@@ -11,6 +11,7 @@ import {
   ActionReviewResponse,
 } from '../../services/api';
 import { useLocationContext } from '../../context/LocationContext';
+import { getGisZonesForLocation } from '../map/gisLayersData';
 
 interface CopilotMessage {
   id: string;
@@ -94,7 +95,7 @@ export const DisasterResponseCopilot: React.FC<Props> = ({ isOpen, onClose, init
         // Welcome intro message tailored to active operational sector
         const introText = selectedLocation.id === 'kamrup_metro'
           ? 'RELIEFOS Copilot ready. I synthesize verified operational context from ASDMA GIS layers, Brahmaputra river gauges, Sarusajai depot inventory, and Google OR-Tools CP-SAT optimizations. All guidance is strictly advisory decision support under ASDMA Form 8B officer review.'
-          : `RELIEFOS Copilot ready for ${selectedLocation.displayName}. Monitoring verified CWC hydrology along ${selectedLocation.primaryRiver}. Note: Local depots are unconfigured for this district; logistics are coordinated via Central Staging Depot in Guwahati. All guidance is strictly advisory decision support under ASDMA Form 8B officer review.`;
+          : `RELIEFOS Copilot ready for ${selectedLocation.displayName}. Monitoring verified CWC hydrology along ${selectedLocation.primaryRiver}. Serving district operations via ${selectedLocation.primaryDepot} and verified local relief shelters. All guidance is strictly advisory decision support under ASDMA Form 8B officer review.`;
         setMessages([
           {
             id: 'welcome-01',
@@ -126,7 +127,7 @@ export const DisasterResponseCopilot: React.FC<Props> = ({ isOpen, onClose, init
   const handleFetchContextPreview = async () => {
     setContextLoading(true);
     try {
-      const res = await getAiContextPreview(undefined, selectedZone || undefined);
+      const res = await getAiContextPreview(undefined, selectedZone || undefined, selectedLocation.id);
       setContextPreviewData(res.data);
       setShowContextPreview(true);
     } catch (err) {
@@ -158,7 +159,8 @@ export const DisasterResponseCopilot: React.FC<Props> = ({ isOpen, onClose, init
 
       const response = await queryAiCopilot({
         query: formattedQuery,
-        zone_code: selectedZone || (selectedLocation.id !== 'kamrup_metro' ? selectedLocation.shortName : undefined),
+        zone_code: selectedZone || undefined,
+        location_id: selectedLocation.id,
         operator_name: officerName,
       });
 
@@ -331,12 +333,12 @@ export const DisasterResponseCopilot: React.FC<Props> = ({ isOpen, onClose, init
               onChange={(e) => setSelectedZone(e.target.value)}
               className="bg-surface-container border border-outline-variant/40 rounded px-2 py-0.5 text-[11px] text-on-surface focus:outline-none focus:border-primary"
             >
-              <option value="">All Zones (Citywide)</option>
-              <option value="ZONE 01">Zone 01 - North Guwahati</option>
-              <option value="ZONE 02">Zone 02 - Bharalumukh</option>
-              <option value="ZONE 03">Zone 03 - Dispur Capital</option>
-              <option value="ZONE 04">Zone 04 - Pandu Ghat</option>
-              <option value="ZONE 05">Zone 05 - Noonmati</option>
+              <option value="">All Sectors ({selectedLocation.shortName})</option>
+              {getGisZonesForLocation(selectedLocation.id).map((z) => (
+                <option key={z.code} value={z.code}>
+                  {z.code} - {z.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>

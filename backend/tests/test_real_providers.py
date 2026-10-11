@@ -203,3 +203,36 @@ def test_demand_verification_and_audit_logs():
     logs = audit_res.json()
     assert len(logs) >= 1
     assert any(l["entity_type"] == "DEMAND" and l["entity_id"] == dem_id for l in logs)
+
+
+def test_osrm_fallback_distinguishability():
+    """Verify that OSRM failures produce clearly distinguishable topological fallback routes with explicit provenance badges."""
+    from unittest.mock import patch
+    import urllib.error
+
+    # Simulate an OSRM network outage / HTTP 503
+    with patch("urllib.request.urlopen", side_effect=urllib.error.URLError("OSRM Public Routing Gateway Timed Out")):
+        route_req = {
+            "start_lat": 26.115,
+            "start_lng": 91.758,
+            "end_lat": 26.172,
+            "end_lng": 91.735,
+            "route_name": "Sarusajai Depot to Bharalumukh Offline Drill"
+        }
+        res_route = client.post("/api/routes/real-route", json=route_req)
+        assert res_route.status_code == 200
+        data = res_route.json()
+
+        # Must be clearly flagged as fallback
+        assert data["success"] is True
+        assert data["is_fallback"] is True
+        assert "OSRM service unreachable" in data["fallback_reason"]
+        assert data["provenance_badge"] == "TOPOLOGICAL ESTIMATE (OFFLINE FALLBACK)"
+        assert data["route_category"] == "TOPOLOGICAL_EUCLIDEAN_ESTIMATED"
+        assert data["routing_engine"] == "NetworkX Topological Fallback Router"
+        assert data["route_name"].startswith("[ESTIMATED FALLBACK]")
+        assert data["distance_km"] > 0
+        assert data["state"] == "ESTIMATED"
+        assert data["geojson_geometry"]["type"] == "LineString"
+        assert len(data["geojson_geometry"]["coordinates"]) == 2
+

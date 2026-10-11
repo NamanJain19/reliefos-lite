@@ -4,6 +4,7 @@ Provides user login, credential verification, token issuance, and profile inspec
 """
 
 import hashlib
+import hmac
 from typing import Dict, Any, List, Optional
 from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel, Field
@@ -75,9 +76,9 @@ async def login_endpoint(req: LoginRequest):
             detail="Invalid username or password."
         )
 
-    # Verify SHA-256 password hash
+    # Verify SHA-256 password hash using constant-time comparison
     hashed = hashlib.sha256(req.password.encode("utf-8")).hexdigest()
-    if hashed != user_record["password_hash"]:
+    if not hmac.compare_digest(hashed, user_record["password_hash"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid username or password."
@@ -152,7 +153,7 @@ async def update_current_user_profile(
         name_clean = req.name.strip()
         if len(name_clean) < 2:
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT if hasattr(status, "HTTP_422_UNPROCESSABLE_CONTENT") else 422,
                 detail="Full Name must be at least 2 characters."
             )
         record["name"] = name_clean
@@ -163,7 +164,7 @@ async def update_current_user_profile(
         if email_clean:
             if "@" not in email_clean or "." not in email_clean.split("@")[-1]:
                 raise HTTPException(
-                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    status_code=status.HTTP_422_UNPROCESSABLE_CONTENT if hasattr(status, "HTTP_422_UNPROCESSABLE_CONTENT") else 422,
                     detail="Please provide a valid email address."
                 )
         record["email"] = email_clean
@@ -213,7 +214,7 @@ async def change_password_endpoint(
         )
 
     current_hash = hashlib.sha256(req.current_password.encode("utf-8")).hexdigest()
-    if current_hash != record["password_hash"]:
+    if not hmac.compare_digest(current_hash, record["password_hash"]):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Current password is incorrect."

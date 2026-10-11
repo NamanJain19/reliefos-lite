@@ -392,9 +392,9 @@ export const api = {
     const res = await apiClient.get('/ai/health');
     return res.data;
   },
-  getAiContextPreview: async (modules?: string, zoneCode?: string) => {
+  getAiContextPreview: async (modules?: string, zoneCode?: string, locationId?: string) => {
     const res = await apiClient.get('/ai/context/preview', {
-      params: { modules, zone_code: zoneCode }
+      params: { modules, zone_code: zoneCode, location_id: locationId }
     });
     return res.data;
   },
@@ -704,8 +704,8 @@ export const dispatchDemand = (id: string, data: any) => apiClient.post(`/demand
 
 export const queryAiCopilot = (data: AIQueryRequest) => apiClient.post<AIStructuredResponse>('/ai/query', data);
 export const getAiHealth = () => apiClient.get<AIProviderHealth>('/ai/health');
-export const getAiContextPreview = (modules?: string, zoneCode?: string) =>
-  apiClient.get('/ai/context/preview', { params: { modules, zone_code: zoneCode } });
+export const getAiContextPreview = (modules?: string, zoneCode?: string, locationId?: string) =>
+  apiClient.get('/ai/context/preview', { params: { modules, zone_code: zoneCode, location_id: locationId } });
 export const reviewAiAction = (data: ActionReviewRequest) =>
   apiClient.post<ActionReviewResponse>('/ai/actions/review', data);
 

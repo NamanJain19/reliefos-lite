@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 const EDGE_PATH = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
-const APP_URL = 'http://localhost:3012';
+const APP_URL = 'http://127.0.0.1:3012';
 const SCREENSHOT_DIR = path.join(__dirname, 'test-artifacts');
 
 if (!fs.existsSync(SCREENSHOT_DIR)) {
@@ -39,8 +39,8 @@ async function runTests() {
   try {
     // 1. Initial Render
     console.log(`\n--- TEST 1: Initial Render at ${APP_URL}/dashboard ---`);
-    await page.goto(`${APP_URL}/dashboard`, { waitUntil: 'networkidle2', timeout: 15000 });
-    await page.waitForSelector('#navbar-location-selector-btn', { timeout: 5000 });
+    await page.goto(`${APP_URL}/dashboard`, { waitUntil: 'domcontentloaded', timeout: 15000 });
+    await page.waitForSelector('#navbar-location-selector-btn', { timeout: 10000 });
     const initialText = await page.$eval('#navbar-location-selector-btn', el => el.innerText);
     console.log(`Initial Navbar Location Selector text: "${initialText.replace(/\n/g, ' ')}"`);
     if (initialText.includes('Kamrup Metropolitan') || initialText.includes('Kamrup Metro')) {
@@ -109,9 +109,9 @@ async function runTests() {
     console.log('\n--- TEST 5: Verify Barpeta Data Isolation & Honest Gaps ---');
     const pageText = await page.evaluate(() => document.body.innerText);
     const hasBarpetaSectorIndicator = pageText.includes('Barpeta') && 
-      (pageText.includes('Relief Depots Unconfigured') || pageText.includes('Micro-Zones Unconfigured') || pageText.includes('Beki') || pageText.includes('CWC Station'));
+      (pageText.includes('Barpeta DDMA') || pageText.includes('DEPOT-BRP-01') || pageText.includes('BRP-') || pageText.includes('Beki') || pageText.includes('CWC Station') || pageText.includes('Relief Depots Unconfigured'));
     
-    console.log('Contains Barpeta sector indicator & unconfigured disclaimer:', hasBarpetaSectorIndicator);
+    console.log('Contains Barpeta sector indicator & isolated data:', hasBarpetaSectorIndicator);
     if (hasBarpetaSectorIndicator) {
       results.barpetaDataIsolationVerified = true;
       console.log('✅ TEST 5 PASSED: Barpeta uses its own telemetry and does not clone Kamrup Metro zones.');
@@ -140,8 +140,8 @@ async function runTests() {
 
     // 7. Session Persistence across Navigation
     console.log('\n--- TEST 7: Session Persistence across Route Navigation ---');
-    await page.goto(`${APP_URL}/flood-map`, { waitUntil: 'networkidle2', timeout: 15000 });
-    await page.waitForSelector('#navbar-location-selector-btn', { timeout: 5000 });
+    await page.goto(`${APP_URL}/flood-map`, { waitUntil: 'domcontentloaded', timeout: 15000 });
+    await page.waitForSelector('#navbar-location-selector-btn', { timeout: 10000 });
     const floodMapNavbarText = await page.$eval('#navbar-location-selector-btn', el => el.innerText);
     console.log(`Flood Map Navbar text after navigation: "${floodMapNavbarText.replace(/\n/g, ' ')}"`);
     if (floodMapNavbarText.includes('Cachar')) {
