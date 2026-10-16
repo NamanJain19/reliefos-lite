@@ -78,7 +78,8 @@ def init_db(engine_override: Optional[Engine] = None):
     target_engine = engine_override or engine
     from app.models.domain import (
         ZoneModel, DepotModel, VehicleModel, InventoryItemModel,
-        DemandModel, ShelterModel, RoadClosureModel, AuditLogModel, DispatchOrderModel
+        DemandModel, ShelterModel, RoadClosureModel, AuditLogModel, DispatchOrderModel,
+        StockMovementModel, IncidentModel, SituationReportModel
     )
     from app.core.data_store import (
         ZONES_DATA, DEPOT_DATA, VEHICLES_DATA, INVENTORY_ITEMS_DATA,
@@ -270,6 +271,111 @@ def init_db(engine_override: Optional[Engine] = None):
                 review_notes="Water surge demand verified; staging at Sarusajai Bay 3.",
                 form_8b_reference="ASDMA-F8B-2026-LOG-DISPATCH",
                 external_connector_status="DISABLED_BY_POLICY"
+            ))
+
+        if db.query(StockMovementModel).count() == 0:
+            db.add(StockMovementModel(
+                movement_id="MOV-20261012-001",
+                item_sku="SKU-FOOD-01",
+                item_name="Fortified Rice & Lentil Emergency Rations",
+                depot_code="DEPOT-GAU-01",
+                movement_type="RECEIPT",
+                quantity=3500.0,
+                unit="kg",
+                batch_lot_number="LOT-ASDMA-2026-F01",
+                expiry_date="2027-06-30",
+                balance_before=0.0,
+                balance_after=3500.0,
+                reference_doc="GOV-ASSAM-RELIEF-CONSIGNMENT-88",
+                operator_name="Insp. S. Sharma (Logistics Officer)",
+                notes="Initial seasonal pre-positioning consignment received at Sarusajai Hub Bay 1."
+            ))
+            db.add(StockMovementModel(
+                movement_id="MOV-20261012-002",
+                item_sku="SKU-WATER-02",
+                item_name="Packaged Drinking Water (1L Pouches)",
+                depot_code="DEPOT-GAU-01",
+                movement_type="RECEIPT",
+                quantity=2000.0,
+                unit="liters",
+                batch_lot_number="LOT-PHE-2026-W04",
+                expiry_date="2026-12-31",
+                balance_before=0.0,
+                balance_after=2000.0,
+                reference_doc="PHE-GUWAHATI-SUPPLY-CHALLAN-12",
+                operator_name="Insp. S. Sharma (Logistics Officer)",
+                notes="PHE Department potable drinking water buffer delivered and certified."
+            ))
+
+        if db.query(IncidentModel).count() == 0:
+            db.add(IncidentModel(
+                incident_id="INC-2026-KM-001",
+                incident_type="EMBANKMENT_BREACH",
+                severity="CRITICAL",
+                status="IN_RESPONSE",
+                title="Brahmaputra Embankment Seepage & Santipur Culvert Backflow",
+                description="Rising river stage at Bharalumukh sluice gate (48.15m MSL) has induced backflow along Santipur riverfront road corridor. Water depth on carriage-way 0.40m overtopping statutory clearance threshold (0.35m).",
+                location_desc="Santipur Riverfront Ghat to Bharalumukh Outfall",
+                latitude=26.175,
+                longitude=91.738,
+                zone_code="ZONE 02",
+                location_id="kamrup_metro",
+                reported_by="SDRF Quick Reaction Patrol Alpha",
+                reported_at=datetime.now(timezone.utc),
+                verified_by="EOC Commander P. Baruah",
+                verified_at=datetime.now(timezone.utc),
+                casualties_reported=0,
+                persons_stranded=18,
+                livestock_affected=6,
+                infrastructure_damaged="MG Road Santipur culvert revetment stones dislodged. Traffic closed; detour via AT Road.",
+                response_action_taken="SDRF inflatable boats mobilized for stranded shopkeepers. Sandbag reinforcement initiated by Water Resources Dept.",
+                assigned_team="SDRF 1st Bn Guwahati Team 2"
+            ))
+            db.add(IncidentModel(
+                incident_id="INC-2026-KM-002",
+                incident_type="STRANDED_CLUSTER",
+                severity="HIGH",
+                status="REPORTED",
+                title="Urban Lowland Inundation at Bharalumukh Ward 4 Lower Basin",
+                description="Heavy local storm runoff combined with drainage channel choke has inundated 25 households in lower depression. Approximately 45 persons isolated with drinking water shortages.",
+                location_desc="Bharalumukh Ward 4, Railway Line Approach",
+                latitude=26.168,
+                longitude=91.730,
+                zone_code="ZONE 02",
+                location_id="kamrup_metro",
+                reported_by="Ward Member / Civil Defence Warden",
+                reported_at=datetime.now(timezone.utc),
+                verified_by="Insp. S. Sharma",
+                verified_at=datetime.now(timezone.utc),
+                casualties_reported=0,
+                persons_stranded=45,
+                livestock_affected=12,
+                infrastructure_damaged="Submerged community tube-well; drinking water contaminated.",
+                response_action_taken="Requisition for 500L clean drinking water and 300 kg dry rations logged in RELIEFOS dispatch queue.",
+                assigned_team="Civil Defence Team Ward 4 & DDMA Logistics"
+            ))
+
+        if db.query(SituationReportModel).count() == 0:
+            db.add(SituationReportModel(
+                sitrep_id="SITREP-20261013-KM-01",
+                report_date=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                time_window="06:00 - 18:00 IST",
+                district_name="Kamrup Metropolitan",
+                location_id="kamrup_metro",
+                active_human_lives_affected=23000,
+                displaced_in_shelters=850,
+                inundated_villages_count=14,
+                active_shelters_count=2,
+                roads_closed_count=1,
+                critical_river_stages='[{"station": "CWC Pandu", "river": "Brahmaputra", "stage_m": 49.68, "danger_m": 49.68, "status": "DANGER"}, {"station": "DC Court Ghat", "river": "Brahmaputra", "stage_m": 49.68, "danger_m": 49.50, "status": "ABOVE_DANGER"}]',
+                weather_synopsis="Monsoon depression active across Lower Assam. 24-hour rainfall recorded 38.4 mm at Borjhar RMC. Intermittent moderate to heavy precipitation forecast for next 36 hours.",
+                relief_distributed_summary='{"total_food_distributed_kg": 4800, "total_water_distributed_l": 3500, "medical_kits_issued": 120, "active_fleet_convoys": 3}',
+                active_incidents_count=2,
+                compiling_officer="Insp. S. Sharma (Logistics Officer)",
+                approving_commander="EOC Commander P. Baruah",
+                approval_status="APPROVED",
+                form_reference="ASDMA-SITREP-DAILY-01",
+                approved_at=datetime.now(timezone.utc)
             ))
 
         db.commit()

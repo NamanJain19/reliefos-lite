@@ -1,0 +1,102 @@
+# ==============================================================================
+# RELIEFOS Lite — Production Multi-Container Orchestration
+# Emergency Operations Center (EOC) Deployment Composition
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # --------------------------------------------------------------------------
+  # 1. FastAPI Core Backend Service
+  # --------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: reliefos-backend
+    restart: unless-stopped
+    ports:
+      - "8013:8013"
+    environment:
+      - APP_ENV=production
+      - DATABASE_URL=sqlite:////app/data/reliefos_lite.db
+      - JWT_SECRET_KEY=reliefos_production_eoc_master_key_secure_2026
+      - ACCESS_TOKEN_EXPIRE_HOURS=12
+      - CORS_ORIGINS=http://localhost,http://localhost:80,http://localhost:5173,http://127.0.0.1
+      - OPEN_METEO_TIMEOUT_SECONDS=6.0
+      - CWC_TIMEOUT_SECONDS=5.0
+      - OSRM_TIMEOUT_SECONDS=4.0
+      - AI_COPILOT_PROVIDER=gemini
+    volumes:
+      - reliefos_data:/app/data
+      - reliefos_backups:/app/backups
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8013/api/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - reliefos_net
+
+  # --------------------------------------------------------------------------
+  # 2. React + TypeScript + Nginx Reverse Proxy Frontend
+  # --------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: reliefos-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 25s
+      timeout: 4s
+      retries: 3
+      start_period: 5s
+    networks:
+      - reliefos_net
+
+  # --------------------------------------------------------------------------
+  # 3. Enterprise PostgreSQL Database (Optional Standby Profile)
+  # Run with: docker compose --profile with-postgres up -d
+  # --------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: reliefos-postgres
+    restart: unless-stopped
+    profiles:
+      - with-postgres
+    environment:
+      - POSTGRES_USER=reliefos
+      - POSTGRES_PASSWORD=reliefos_production_db_password_change_me
+      - POSTGRES_DB=reliefos_lite
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U reliefos -d reliefos_lite"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - reliefos_net
+
+volumes:
+  reliefos_data:
+    driver: local
+  reliefos_backups:
+    driver: local
+  pg_data:
+    driver: local
+
+networks:
+  reliefos_net:
+    driver: bridge

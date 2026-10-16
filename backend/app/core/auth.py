@@ -26,12 +26,68 @@ ALL_ROLES = [ROLE_COMMANDER, ROLE_OPERATOR, ROLE_ANALYST]
 WRITE_ROLES = [ROLE_COMMANDER, ROLE_OPERATOR]
 ADMIN_ROLES = [ROLE_COMMANDER]
 
-# Default Operational Users
+import os
+
+def hash_password(password: str) -> str:
+    """
+    Computes a cryptographic scrypt hash with a cryptographically secure 16-byte salt.
+    Format: scrypt$16384$8$1$<salt_hex>$<derived_key_hex>
+    Protects operational credentials against GPU/ASIC rainbow table and dictionary attacks.
+    """
+    salt = os.urandom(16)
+    key = hashlib.scrypt(
+        password.encode("utf-8"),
+        salt=salt,
+        n=16384,
+        r=8,
+        p=1,
+        maxmem=0,
+        dklen=64
+    )
+    return f"scrypt$16384$8$1${salt.hex()}${key.hex()}"
+
+
+def verify_password(plain_password: str, stored_hash: str) -> bool:
+    """
+    Verifies a plaintext password against a stored hash using constant-time comparison.
+    Supports both scrypt hashes (preferred) and legacy SHA-256 hashes for seamless migration.
+    """
+    if not stored_hash or not plain_password:
+        return False
+
+    if stored_hash.startswith("scrypt$"):
+        try:
+            parts = stored_hash.split("$")
+            if len(parts) != 6:
+                return False
+            _, n_str, r_str, p_str, salt_hex, expected_key_hex = parts
+            n = int(n_str)
+            r = int(r_str)
+            p = int(p_str)
+            salt = bytes.fromhex(salt_hex)
+            derived = hashlib.scrypt(
+                plain_password.encode("utf-8"),
+                salt=salt,
+                n=n,
+                r=r,
+                p=p,
+                maxmem=0,
+                dklen=len(expected_key_hex) // 2
+            )
+            return hmac.compare_digest(derived.hex(), expected_key_hex)
+        except Exception:
+            return False
+
+    # Legacy SHA-256 fallback migration path
+    legacy_hash = hashlib.sha256(plain_password.encode("utf-8")).hexdigest()
+    return hmac.compare_digest(legacy_hash, stored_hash)
+
+
+# Default Operational Users (Initialized with secure scrypt credential hashes)
 REGISTERED_USERS: Dict[str, Dict[str, Any]] = {
     "commander": {
         "username": "commander",
-        # SHA-256 hash of "asdma@2026"
-        "password_hash": hashlib.sha256("asdma@2026".encode("utf-8")).hexdigest(),
+        "password_hash": hash_password("asdma@2026"),
         "role": ROLE_COMMANDER,
         "name": "EOC Commander P. Baruah",
         "agency": "ASDMA District Control Room",
@@ -41,8 +97,7 @@ REGISTERED_USERS: Dict[str, Dict[str, Any]] = {
     },
     "operator": {
         "username": "operator",
-        # SHA-256 hash of "relief@2026"
-        "password_hash": hashlib.sha256("relief@2026".encode("utf-8")).hexdigest(),
+        "password_hash": hash_password("relief@2026"),
         "role": ROLE_OPERATOR,
         "name": "Insp. S. Sharma",
         "agency": "Kamrup Metro Logistics Desk",
@@ -52,8 +107,7 @@ REGISTERED_USERS: Dict[str, Dict[str, Any]] = {
     },
     "analyst": {
         "username": "analyst",
-        # SHA-256 hash of "view@2026"
-        "password_hash": hashlib.sha256("view@2026".encode("utf-8")).hexdigest(),
+        "password_hash": hash_password("view@2026"),
         "role": ROLE_ANALYST,
         "name": "K. Kalita",
         "agency": "GIS & Hydrology Cell",

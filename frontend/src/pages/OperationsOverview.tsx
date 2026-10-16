@@ -10,6 +10,7 @@ import {
 import { TacticalGisMap } from '../components/map/TacticalGisMap';
 import { getGisZonesForLocation } from '../components/map/gisLayersData';
 import { useLocationContext } from '../context/LocationContext';
+import { FieldIncidentsAndSitRep } from '../components/operations/FieldIncidentsAndSitRep';
 
 const ZONE_INSPECTOR_DATA: Record<string, {
   name: string;
@@ -98,9 +99,9 @@ export const OperationsOverview: React.FC = () => {
   const [systemMode, setSystemMode] = useState<string>('OPERATIONAL_LIVE');
 
   // Navigation & View State
-  const [activeTab, setActiveTab] = useState<'overview' | 'review_queue' | 'risk_forecast' | 'allocation_routes' | 'health_audit'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'review_queue' | 'risk_forecast' | 'allocation_routes' | 'health_audit' | 'operational_workflows'>('overview');
   const [alertFilter, setAlertFilter] = useState<'all' | 'critical' | 'high' | 'moderate' | 'info'>('all');
-  const [selectedZone, setSelectedZone] = useState<'01' | '02' | '03' | '04' | '05'>('02');
+  const [selectedZone, setSelectedZone] = useState<string>('01');
   const [overviewBaseMap, setOverviewBaseMap] = useState<'dark' | 'satellite' | 'topo' | 'osm'>('dark');
   const [exportOpen, setExportOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -266,6 +267,83 @@ export const OperationsOverview: React.FC = () => {
 
   useEffect(() => {
     fetchData();
+
+    const locZones = getGisZonesForLocation(selectedLocation.id);
+    if (locZones.length > 0) {
+      setSelectedZone(locZones[0].numberCode || locZones[0].code || '01');
+    }
+    setCurrentUser(prev => ({
+      ...prev,
+      agency: `${selectedLocation.shortName} Logistics Desk`
+    }));
+
+    if (selectedLocation.id === 'kamrup_metro') {
+      setProposedActions([
+        {
+          action_id: 'ACT-AI-901',
+          title: 'Authorize High-Clearance Rations Dispatch Wave for Zone 02',
+          target_entity: 'ZONE 02 (Bharalumukh)',
+          action_type: 'REVIEW_ALLOCATION',
+          priority: 'CRITICAL',
+          rationale: 'Zone 02 deficit is 250 kg food and Bharalumukh MG Road is inundated (0.40m). OR-Tools CP-SAT recommends routing via AT Road bypass using Tata 407 (VH-01).',
+          suggested_route: 'Sarusaajai Depot -> Garchuk -> Jalukbari -> AT Road Bypass -> Bharalumukh Relief Center',
+          status: 'PENDING_OFFICER_REVIEW'
+        },
+        {
+          action_id: 'ACT-AI-902',
+          title: 'Verify Embankment Seepage & Preposition Water Purification in Zone 01',
+          target_entity: 'ZONE 01 (North Guwahati)',
+          action_type: 'VERIFY_DEMAND',
+          priority: 'CRITICAL',
+          rationale: 'Pandu CWC gauge is at 49.85m MSL (+0.35m danger). Riverfront approach is impeded; field liaison inspection required prior to heavy carrier dispatch.',
+          suggested_route: 'Depot -> NH-27 -> Saraighat Bridge -> North Guwahati Embankment Point',
+          status: 'PENDING_OFFICER_REVIEW'
+        },
+        {
+          action_id: 'ACT-AI-903',
+          title: 'Requisition 1,000L Buffer Stock Replenishment from SEOC Khanapara',
+          target_entity: 'SARUSAJAI SPORTS COMPLEX DEPOT',
+          action_type: 'REPLENISH_STOCK',
+          priority: 'HIGH',
+          rationale: 'Projected 24-hour demand surge (+18% precipitation) will draw down potable water reserves below the 40% safety threshold.',
+          status: 'PENDING_OFFICER_REVIEW'
+        }
+      ]);
+    } else {
+      const critZ = locZones.find(z => z.risk.includes('CRITICAL')) || locZones[1] || locZones[0];
+      const monZ = locZones[0];
+      setProposedActions([
+        {
+          action_id: `ACT-AI-${selectedLocation.shortName.toUpperCase().replace(/\s+/g, '')}-01`,
+          title: `Authorize High-Clearance Rations Dispatch Wave for ${critZ ? critZ.code : 'Sector Core'}`,
+          target_entity: `${critZ ? critZ.code : 'Sector'} (${critZ ? critZ.name : selectedLocation.shortName})`,
+          action_type: 'REVIEW_ALLOCATION',
+          priority: 'CRITICAL',
+          rationale: `${selectedLocation.primaryRiver} hydrometry indicates critical run-off. OR-Tools recommends routing high-clearance carriers from ${selectedLocation.primaryDepot}.`,
+          suggested_route: `${selectedLocation.primaryDepot} -> Primary Highway Arterial -> ${critZ ? critZ.name : 'Sector Drop Station'}`,
+          status: 'PENDING_OFFICER_REVIEW'
+        },
+        {
+          action_id: `ACT-AI-${selectedLocation.shortName.toUpperCase().replace(/\s+/g, '')}-02`,
+          title: `Verify Embankment Seepage & Water Quality in ${monZ ? monZ.code : 'Sector 01'}`,
+          target_entity: `${monZ ? monZ.code : 'Sector 01'} (${monZ ? monZ.name : selectedLocation.shortName})`,
+          action_type: 'VERIFY_DEMAND',
+          priority: 'CRITICAL',
+          rationale: `Hydrometric monitoring active along ${selectedLocation.primaryRiver}. Field liaison reconnaissance required prior to heavy carrier dispatch.`,
+          suggested_route: `${selectedLocation.primaryDepot} -> Embankment Staging Corridor -> ${monZ ? monZ.name : 'Sector Drop Point'}`,
+          status: 'PENDING_OFFICER_REVIEW'
+        },
+        {
+          action_id: `ACT-AI-${selectedLocation.shortName.toUpperCase().replace(/\s+/g, '')}-03`,
+          title: `Requisition Buffer Stock Replenishment for ${selectedLocation.primaryDepot}`,
+          target_entity: selectedLocation.primaryDepot.toUpperCase(),
+          action_type: 'REPLENISH_STOCK',
+          priority: 'HIGH',
+          rationale: `24-hour meteorological precipitation projections necessitate safety buffer replenishment at district staging godown.`,
+          status: 'PENDING_OFFICER_REVIEW'
+        }
+      ]);
+    }
 
     const handleProfileUpdated = (e: any) => {
       if (e.detail) {
@@ -444,17 +522,29 @@ export const OperationsOverview: React.FC = () => {
 
   const activeGisZones = getGisZonesForLocation(selectedLocation.id);
   const matchedGisZone = activeGisZones.find((z) => z.code === selectedZone || z.numberCode === selectedZone) || activeGisZones[0];
-  const currentInspector = ZONE_INSPECTOR_DATA[selectedZone] || (matchedGisZone ? {
-    name: `${matchedGisZone.code} (${matchedGisZone.name})`,
-    tier: matchedGisZone.risk,
-    color: matchedGisZone.risk.includes('CRITICAL') ? 'border-error' : matchedGisZone.risk.includes('HIGH') ? 'border-[#f5b84b]' : 'border-primary',
-    surge: '+0.15m',
-    road: matchedGisZone.road,
-    roadColor: matchedGisZone.road.toLowerCase().includes('sever') || matchedGisZone.road.toLowerCase().includes('inundat') ? 'text-error' : 'text-primary',
-    deficit: '120 kg',
-    badgeBg: matchedGisZone.risk.includes('CRITICAL') ? 'bg-error/20' : 'bg-primary/20',
-    badgeColor: matchedGisZone.risk.includes('CRITICAL') ? 'text-error' : 'text-primary'
-  } : ZONE_INSPECTOR_DATA['02']);
+  const currentInspector = (selectedLocation.id === 'kamrup_metro' && ZONE_INSPECTOR_DATA[selectedZone])
+    ? ZONE_INSPECTOR_DATA[selectedZone]
+    : (matchedGisZone ? {
+        name: `${matchedGisZone.code} (${matchedGisZone.name})`,
+        tier: matchedGisZone.risk,
+        color: matchedGisZone.risk.includes('CRITICAL') ? 'border-error' : matchedGisZone.risk.includes('HIGH') ? 'border-[#f5b84b]' : 'border-primary',
+        surge: matchedGisZone.depth || '+0.15m',
+        road: matchedGisZone.road,
+        roadColor: matchedGisZone.road.toLowerCase().includes('sever') || matchedGisZone.road.toLowerCase().includes('inundat') || matchedGisZone.road.toLowerCase().includes('restrict') ? 'text-error' : 'text-primary',
+        deficit: `${Math.round(parseInt(matchedGisZone.pop?.replace(/[^0-9]/g, '') || '3000') * 0.05)} kg`,
+        badgeBg: matchedGisZone.risk.includes('CRITICAL') ? 'bg-error/20' : 'bg-primary/20',
+        badgeColor: matchedGisZone.risk.includes('CRITICAL') ? 'text-error' : 'text-primary'
+      } : {
+        name: `${selectedLocation.districtName} Sector Primary`,
+        tier: 'MONITORED',
+        color: 'border-primary',
+        surge: 'N/A',
+        road: 'Open',
+        roadColor: 'text-primary',
+        deficit: '0 kg',
+        badgeBg: 'bg-primary/20',
+        badgeColor: 'text-primary'
+      });
 
   const controllingGaugeOverview = (liveGauges.length > 0 ? liveGauges : []).find((g: any) => {
     if (selectedLocation.id === 'kamrup_metro') {
@@ -610,6 +700,7 @@ export const OperationsOverview: React.FC = () => {
         {[
           { id: 'overview', label: 'Panoramic Command Overview', icon: 'dashboard' },
           { id: 'review_queue', label: 'Human Review Queue', icon: 'approval_delegation', badge: proposedActions.filter(a => a.status === 'PENDING_OFFICER_REVIEW').length + dispatchOrders.filter(d => d.status === 'PENDING').length },
+          { id: 'operational_workflows', label: 'Field Incidents & ASDMA SitRep', icon: 'emergency' },
           { id: 'risk_forecast', label: 'Flood Risk & Demand Forecasts', icon: 'cyclone' },
           { id: 'allocation_routes', label: 'OR-Tools Allocations & Routes', icon: 'route' },
           { id: 'health_audit', label: 'Pipeline Integrity & Audit Stream', icon: 'security_update_good' },
@@ -673,166 +764,97 @@ export const OperationsOverview: React.FC = () => {
 
           {/* 5 Compact KPI Tiles (Conditioned on selected district data availability) */}
           <section aria-label="Operational Summary Metrics" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-sm">
-            {selectedLocation.dataAvailability.zones ? (
-              <>
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">OPERATIONAL ZONES</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[18px]">pin_drop</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-on-surface tracking-tight font-bold font-mono-data tabular-nums">05</div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Kamrup Metro Monitored</p>
-                  </div>
+            <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+              <div className="flex items-start justify-between">
+                <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">OPERATIONAL ZONES</span>
+                <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                  <span className="material-symbols-outlined text-[18px]">pin_drop</span>
                 </div>
+              </div>
+              <div className="mt-2">
+                <div className="text-kpi-lg text-on-surface tracking-tight font-bold font-mono-data tabular-nums">
+                  {String(data?.summary?.operational_zones ?? activeGisZones.length).padStart(2, '0')}
+                </div>
+                <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5 truncate">{selectedLocation.shortName} Monitored</p>
+              </div>
+            </div>
 
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-container"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-tertiary font-semibold">HIGH-RISK ZONES</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-tertiary">
-                      <span className="material-symbols-outlined text-[18px]">warning</span>
-                    </div>
-                  </div>
-                  <div className="mt-2 flex items-baseline justify-between">
-                    <div>
-                      <div className="text-kpi-lg text-tertiary tracking-tight font-bold font-mono-data tabular-nums">02</div>
-                      <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Zone 01 & Zone 02</p>
-                    </div>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-tertiary-container/20 text-tertiary border border-tertiary/30 animate-pulse">
-                      CRITICAL
-                    </span>
-                  </div>
+            <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-container"></div>
+              <div className="flex items-start justify-between">
+                <span className="font-label-sm text-[11px] uppercase tracking-wider text-tertiary font-semibold">HIGH-RISK ZONES</span>
+                <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-tertiary">
+                  <span className="material-symbols-outlined text-[18px]">warning</span>
                 </div>
+              </div>
+              <div className="mt-2 flex items-baseline justify-between">
+                <div className="min-w-0 pr-1">
+                  <div className="text-kpi-lg text-tertiary tracking-tight font-bold font-mono-data tabular-nums">
+                    {String(data?.summary?.high_risk_zones ?? activeGisZones.filter(z => z.risk.includes('CRITICAL') || z.risk.includes('HIGH')).length).padStart(2, '0')}
+                  </div>
+                  <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5 truncate" title={activeGisZones.filter(z => z.risk.includes('CRITICAL') || z.risk.includes('HIGH')).map(z => z.code).join(' & ') || 'Nominal Status'}>
+                    {activeGisZones.filter(z => z.risk.includes('CRITICAL') || z.risk.includes('HIGH')).map(z => z.code).join(' & ') || 'Nominal Status'}
+                  </p>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-tertiary-container/20 text-tertiary border border-tertiary/30 animate-pulse shrink-0">
+                  CRITICAL
+                </span>
+              </div>
+            </div>
 
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">FLEET LOGISTICS</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-                      <span className="material-symbols-outlined text-[18px]">local_shipping</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-on-surface tracking-tight font-bold font-mono-data tabular-nums">
-                      3 <span className="text-[13px] font-normal text-on-surface-variant">Vehicles (5.0T Cap)</span>
-                    </div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">2 Available • 1 En-Route</p>
-                  </div>
+            <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+              <div className="flex items-start justify-between">
+                <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">FLEET LOGISTICS</span>
+                <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+                  <span className="material-symbols-outlined text-[18px]">local_shipping</span>
                 </div>
+              </div>
+              <div className="mt-2">
+                <div className="text-kpi-lg text-on-surface tracking-tight font-bold font-mono-data tabular-nums">
+                  {data?.summary?.fleet_vehicles_total ?? (selectedLocation.id === 'kamrup_metro' ? 3 : 2)} <span className="text-[13px] font-normal text-on-surface-variant">Vehicles ({((data?.summary?.fleet_vehicles_total ?? (selectedLocation.id === 'kamrup_metro' ? 3 : 2)) * 1.5).toFixed(1)}T Cap)</span>
+                </div>
+                <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">
+                  {data?.summary?.fleet_vehicles_ready ?? Math.max(1, (data?.summary?.fleet_vehicles_total ?? 3) - 1)} Available • {(data?.summary?.fleet_vehicles_total ?? 3) - (data?.summary?.fleet_vehicles_ready ?? Math.max(1, (data?.summary?.fleet_vehicles_total ?? 3) - 1))} En-Route
+                </p>
+              </div>
+            </div>
 
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">RELIEF SHELTERS</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[18px]">night_shelter</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-on-surface tracking-tight font-bold font-mono-data tabular-nums">
-                      02 <span className="text-[13px] font-normal text-on-surface-variant">(235 Occupancy)</span>
-                    </div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Capacity: 850 Persons</p>
-                  </div>
+            <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div>
+              <div className="flex items-start justify-between">
+                <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">RELIEF SHELTERS</span>
+                <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                  <span className="material-symbols-outlined text-[18px]">night_shelter</span>
                 </div>
+              </div>
+              <div className="mt-2">
+                <div className="text-kpi-lg text-on-surface tracking-tight font-bold font-mono-data tabular-nums">
+                  {String(data?.summary?.designated_shelters ?? (selectedLocation.id === 'kamrup_metro' ? 2 : 3)).padStart(2, '0')}{' '}
+                  <span className="text-[13px] font-normal text-on-surface-variant">({data?.summary?.shelter_occupancy ?? (selectedLocation.id === 'kamrup_metro' ? 235 : 180)} Occupancy)</span>
+                </div>
+                <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">
+                  Capacity: {data?.summary?.shelter_capacity ?? (selectedLocation.id === 'kamrup_metro' ? 850 : 600)} Persons
+                </p>
+              </div>
+            </div>
 
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">EST. UNMET DEFICIT</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-tertiary">
-                      <span className="material-symbols-outlined text-[18px]">crisis_alert</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-tertiary tracking-tight font-bold font-mono-data tabular-nums">
-                      {logisticsPlan ? logisticsPlan.total_unmet_kg.toLocaleString() : '300'} <span className="text-[13px] font-normal text-on-surface-variant">kg</span>
-                    </div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Calculated by OR-Tools Solver</p>
-                  </div>
+            <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+              <div className="flex items-start justify-between">
+                <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">EST. UNMET DEFICIT</span>
+                <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-tertiary">
+                  <span className="material-symbols-outlined text-[18px]">crisis_alert</span>
                 </div>
-              </>
-            ) : (
-              <>
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">MICRO-ZONES</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-                      <span className="material-symbols-outlined text-[18px]">domain_disabled</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-outline tracking-tight font-bold font-mono-data tabular-nums">00</div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Unconfigured for Sector</p>
-                  </div>
+              </div>
+              <div className="mt-2">
+                <div className="text-kpi-lg text-tertiary tracking-tight font-bold font-mono-data tabular-nums">
+                  {logisticsPlan ? logisticsPlan.total_unmet_kg.toLocaleString() : (data?.summary?.estimated_unmet_deficit_kg ? data.summary.estimated_unmet_deficit_kg.toLocaleString() : '300')} <span className="text-[13px] font-normal text-on-surface-variant">kg</span>
                 </div>
-
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-primary font-semibold">CWC HYDRO STATIONS</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[18px]">water</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-primary tracking-tight font-bold font-mono-data tabular-nums">
-                      0{selectedLocation.stationCount}
-                    </div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5 truncate">{selectedLocation.primaryRiver}</p>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">LOCAL DEPOTS</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-tertiary">
-                      <span className="material-symbols-outlined text-[18px]">warehouse</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-tertiary tracking-tight font-bold font-mono-data tabular-nums">00</div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Staged via Central EOC</p>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">NWP WEATHER</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-                      <span className="material-symbols-outlined text-[18px]">cloud</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-secondary tracking-tight font-bold font-mono-data">LIVE</div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Open-Meteo CC-BY 4.0</p>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between border border-outline-variant/30">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-label-sm text-[11px] uppercase tracking-wider text-outline font-semibold">SECTOR TIER</span>
-                    <div className="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-                      <span className="material-symbols-outlined text-[18px]">shield</span>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-kpi-lg text-on-surface tracking-tight font-bold font-mono-data truncate">
-                      {selectedLocation.tierBadgeText}
-                    </div>
-                    <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">ASDMA Telemetry</p>
-                  </div>
-                </div>
-              </>
-            )}
+                <p className="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Calculated by OR-Tools Solver</p>
+              </div>
+            </div>
           </section>
 
           {/* Tactical GIS Map & Operational Alerts */}
@@ -1026,25 +1048,34 @@ export const OperationsOverview: React.FC = () => {
                         <span className="font-semibold text-on-surface text-[13px]">Dry Food & Pulse Rations</span>
                       </div>
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-primary-container/20 text-primary border border-primary/30">
-                        Adequate Stock
+                        {selectedLocation.id === 'kamrup_metro' ? 'Adequate Stock' : 'Contingency Stock'}
                       </span>
                     </div>
                     <div className="grid grid-cols-3 gap-2 mt-2 text-[12px] font-mono-data">
                       <div>
                         <span className="text-outline text-[10px] block">TOTAL STOCK</span>
-                        <span className="font-bold text-on-surface text-[15px]">2,500 <span className="text-[10px] font-normal text-outline">kg</span></span>
+                        <span className="font-bold text-on-surface text-[15px]">
+                          {(data?.relief_resource_availability?.dry_food_kg?.total ?? (selectedLocation.id === 'kamrup_metro' ? 2500 : 2000)).toLocaleString()} <span className="text-[10px] font-normal text-outline">kg</span>
+                        </span>
                       </div>
                       <div>
                         <span className="text-outline text-[10px] block">ALLOCATED</span>
-                        <span className="font-bold text-secondary text-[15px]">2,200 <span className="text-[10px] font-normal text-outline">kg</span></span>
+                        <span className="font-bold text-secondary text-[15px]">
+                          {(data?.relief_resource_availability?.dry_food_kg?.allocated ?? (selectedLocation.id === 'kamrup_metro' ? 2200 : 1200)).toLocaleString()} <span className="text-[10px] font-normal text-outline">kg</span>
+                        </span>
                       </div>
                       <div>
                         <span className="text-outline text-[10px] block">RESERVE BUFFER</span>
-                        <span className="font-bold text-primary text-[15px]">300 <span className="text-[10px] font-normal text-outline">kg</span></span>
+                        <span className="font-bold text-primary text-[15px]">
+                          {(data?.relief_resource_availability?.dry_food_kg?.remaining ?? (selectedLocation.id === 'kamrup_metro' ? 300 : 800)).toLocaleString()} <span className="text-[10px] font-normal text-outline">kg</span>
+                        </span>
                       </div>
                     </div>
                     <div className="w-full bg-surface-container-high h-2 rounded-full overflow-hidden mt-2.5">
-                      <div className="bg-primary h-full rounded-full transition-all duration-500" style={{ width: '88%' }}></div>
+                      <div
+                        className="bg-primary h-full rounded-full transition-all duration-500"
+                        style={{ width: `${data?.relief_resource_availability?.dry_food_kg?.pct ?? (selectedLocation.id === 'kamrup_metro' ? 88 : 60)}%` }}
+                      ></div>
                     </div>
                   </div>
 
@@ -1056,32 +1087,45 @@ export const OperationsOverview: React.FC = () => {
                         <span className="font-semibold text-on-surface text-[13px]">Potable Packaged Water</span>
                       </div>
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-secondary-container/20 text-secondary border border-secondary/30">
-                        Optimal Buffer
+                        {selectedLocation.id === 'kamrup_metro' ? 'Optimal Buffer' : 'Contingency Stock'}
                       </span>
                     </div>
                     <div className="grid grid-cols-3 gap-2 mt-2 text-[12px] font-mono-data">
                       <div>
                         <span className="text-outline text-[10px] block">TOTAL STOCK</span>
-                        <span className="font-bold text-on-surface text-[15px]">3,000 <span className="text-[10px] font-normal text-outline">L</span></span>
+                        <span className="font-bold text-on-surface text-[15px]">
+                          {(data?.relief_resource_availability?.potable_water_l?.total ?? (selectedLocation.id === 'kamrup_metro' ? 3000 : 2500)).toLocaleString()} <span className="text-[10px] font-normal text-outline">L</span>
+                        </span>
                       </div>
                       <div>
                         <span className="text-outline text-[10px] block">ALLOCATED</span>
-                        <span className="font-bold text-secondary text-[15px]">2,300 <span className="text-[10px] font-normal text-outline">L</span></span>
+                        <span className="font-bold text-secondary text-[15px]">
+                          {(data?.relief_resource_availability?.potable_water_l?.allocated ?? (selectedLocation.id === 'kamrup_metro' ? 2300 : 1500)).toLocaleString()} <span className="text-[10px] font-normal text-outline">L</span>
+                        </span>
                       </div>
                       <div>
                         <span className="text-outline text-[10px] block">RESERVE BUFFER</span>
-                        <span className="font-bold text-primary text-[15px]">700 <span className="text-[10px] font-normal text-outline">L</span></span>
+                        <span className="font-bold text-primary text-[15px]">
+                          {(data?.relief_resource_availability?.potable_water_l?.remaining ?? (selectedLocation.id === 'kamrup_metro' ? 700 : 1000)).toLocaleString()} <span className="text-[10px] font-normal text-outline">L</span>
+                        </span>
                       </div>
                     </div>
                     <div className="w-full bg-surface-container-high h-2 rounded-full overflow-hidden mt-2.5">
-                      <div className="bg-secondary h-full rounded-full transition-all duration-500" style={{ width: '76%' }}></div>
+                      <div
+                        className="bg-secondary h-full rounded-full transition-all duration-500"
+                        style={{ width: `${data?.relief_resource_availability?.potable_water_l?.pct ?? (selectedLocation.id === 'kamrup_metro' ? 76 : 60)}%` }}
+                      ></div>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="pt-space-md border-t border-outline-variant/20 mt-space-md flex items-center justify-between">
-                <span className="font-mono-data text-[10px] text-outline">PHYSICAL LEDGER SYNC: 13:30 IST • ASDMA FORM 4</span>
+                <span className="font-mono-data text-[10px] text-outline">
+                  {selectedLocation.id === 'kamrup_metro'
+                    ? 'PHYSICAL LEDGER SYNC: 13:30 IST • ASDMA FORM 4'
+                    : 'ASDMA CONTINGENCY BUFFER (ESTIMATED PLANNING RESERVE)'}
+                </span>
                 <Link to="/inventory" className="text-[12px] text-primary hover:text-primary-fixed font-semibold flex items-center gap-1">
                   <span>Manage Warehouse Ledger</span>
                   <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
@@ -1644,47 +1688,54 @@ export const OperationsOverview: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-space-sm">
-              {[
-                { code: 'ZONE 01', name: 'North Guwahati', tier: 'CRITICAL', score: 0.85, hazard: 0.92, vuln: 0.81, expos: 0.88, drainage: 0.35, color: 'text-error', bg: 'bg-error/10', border: 'border-error/40' },
-                { code: 'ZONE 02', name: 'Bharalumukh', tier: 'HIGH ALERT', score: 0.76, hazard: 0.84, vuln: 0.75, expos: 0.80, drainage: 0.40, color: 'text-error', bg: 'bg-error/10', border: 'border-error/40' },
-                { code: 'ZONE 03', name: 'Uzan Bazar', tier: 'MODERATE', score: 0.52, hazard: 0.58, vuln: 0.50, expos: 0.55, drainage: 0.62, color: 'text-[#f5b84b]', bg: 'bg-[#f5b84b]/10', border: 'border-[#f5b84b]/40' },
-                { code: 'ZONE 04', name: 'Basistha', tier: 'LOW RISK', score: 0.28, hazard: 0.30, vuln: 0.25, expos: 0.22, drainage: 0.78, color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/40' },
-                { code: 'ZONE 05', name: 'Dispur', tier: 'LOW RISK', score: 0.22, hazard: 0.25, vuln: 0.20, expos: 0.18, drainage: 0.82, color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/40' },
-              ].map((z) => (
-                <div key={z.code} className={`p-space-sm rounded-xl bg-surface-container border ${z.border} flex flex-col justify-between gap-2`}>
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono-data text-[11px] font-bold text-on-surface">{z.code}</span>
-                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold font-mono-data ${z.bg} ${z.color}`}>
-                        {z.tier}
-                      </span>
-                    </div>
-                    <span className="font-label-sm text-[12px] text-on-surface font-semibold block mt-1">{z.name}</span>
-                    <div className="text-headline-md font-bold font-mono-data text-on-surface mt-1">
-                      {(z.score * 100).toFixed(0)} <span className="text-[11px] font-normal text-outline">/ 100 Risk</span>
-                    </div>
-                  </div>
+              {activeGisZones.map((z, idx) => {
+                const isCrit = z.risk.includes('CRITICAL');
+                const isHigh = z.risk.includes('HIGH');
+                const score = isCrit ? 0.85 : isHigh ? 0.72 : Math.max(0.20, 0.32 - idx * 0.05);
+                const hazard = isCrit ? 0.92 : isHigh ? 0.84 : 0.35;
+                const vuln = isCrit ? 0.81 : isHigh ? 0.75 : 0.30;
+                const expos = isCrit ? 0.88 : isHigh ? 0.80 : 0.25;
+                const drainage = isCrit ? 0.35 : isHigh ? 0.40 : 0.78;
+                const color = isCrit ? 'text-error' : isHigh ? 'text-error' : 'text-primary';
+                const bg = isCrit ? 'bg-error/10' : isHigh ? 'bg-error/10' : 'bg-primary/10';
+                const border = isCrit ? 'border-error/40' : isHigh ? 'border-[#f5b84b]/40' : 'border-primary/40';
 
-                  <div className="grid grid-cols-2 gap-1.5 font-mono-data text-[10px] pt-2 border-t border-outline-variant/20">
+                return (
+                  <div key={z.code} className={`p-space-sm rounded-xl bg-surface-container border ${border} flex flex-col justify-between gap-2`}>
                     <div>
-                      <span className="text-outline block">HAZARD:</span>
-                      <span className="font-semibold text-tertiary">{(z.hazard * 100).toFixed(0)}%</span>
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono-data text-[11px] font-bold text-on-surface">{z.code}</span>
+                        <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold font-mono-data ${bg} ${color}`}>
+                          {z.risk}
+                        </span>
+                      </div>
+                      <span className="font-label-sm text-[12px] text-on-surface font-semibold block mt-1 truncate">{z.name}</span>
+                      <div className="text-headline-md font-bold font-mono-data text-on-surface mt-1">
+                        {(score * 100).toFixed(0)} <span className="text-[11px] font-normal text-outline">/ 100 Risk</span>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-outline block">VULNERABILITY:</span>
-                      <span className="font-semibold text-secondary">{(z.vuln * 100).toFixed(0)}%</span>
-                    </div>
-                    <div>
-                      <span className="text-outline block">EXPOSURE:</span>
-                      <span className="font-semibold text-on-surface">{(z.expos * 100).toFixed(0)}%</span>
-                    </div>
-                    <div>
-                      <span className="text-outline block">DRAINAGE:</span>
-                      <span className="font-semibold text-primary">{(z.drainage * 100).toFixed(0)}%</span>
+
+                    <div className="grid grid-cols-2 gap-1.5 font-mono-data text-[10px] pt-2 border-t border-outline-variant/20">
+                      <div>
+                        <span className="text-outline block">HAZARD:</span>
+                        <span className="font-semibold text-tertiary">{(hazard * 100).toFixed(0)}%</span>
+                      </div>
+                      <div>
+                        <span className="text-outline block">VULNERABILITY:</span>
+                        <span className="font-semibold text-secondary">{(vuln * 100).toFixed(0)}%</span>
+                      </div>
+                      <div>
+                        <span className="text-outline block">EXPOSURE:</span>
+                        <span className="font-semibold text-on-surface">{(expos * 100).toFixed(0)}%</span>
+                      </div>
+                      <div>
+                        <span className="text-outline block">DRAINAGE:</span>
+                        <span className="font-semibold text-primary">{(drainage * 100).toFixed(0)}%</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -1784,13 +1835,32 @@ export const OperationsOverview: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline-variant/20 text-on-surface font-mono-data">
-                  {[
-                    { code: 'ZONE 01', tier: 'CRITICAL', tierColor: 'text-error', foodDem: '650 kg', foodAlloc: '650 kg', waterDem: '800 L', waterAlloc: '800 L', deficit: '0 kg', pct: '100%', pctColor: 'text-primary' },
-                    { code: 'ZONE 02', tier: 'HIGH ALERT', tierColor: 'text-error', foodDem: '850 kg', foodAlloc: '600 kg', waterDem: '1,200 L', waterAlloc: '950 L', deficit: '250 kg', pct: '70.6%', pctColor: 'text-tertiary' },
-                    { code: 'ZONE 03', tier: 'MODERATE', tierColor: 'text-[#f5b84b]', foodDem: '450 kg', foodAlloc: '400 kg', waterDem: '500 L', waterAlloc: '450 L', deficit: '50 kg', pct: '88.9%', pctColor: 'text-secondary' },
-                    { code: 'ZONE 04', tier: 'LOW RISK', tierColor: 'text-primary', foodDem: '300 kg', foodAlloc: '300 kg', waterDem: '300 L', waterAlloc: '300 L', deficit: '0 kg', pct: '100%', pctColor: 'text-primary' },
-                    { code: 'ZONE 05', tier: 'LOW RISK', tierColor: 'text-primary', foodDem: '250 kg', foodAlloc: '250 kg', waterDem: '200 L', waterAlloc: '200 L', deficit: '0 kg', pct: '100%', pctColor: 'text-primary' },
-                  ].map((row, idx) => (
+                  {((logisticsPlan?.zones && logisticsPlan.zones.length > 0)
+                    ? logisticsPlan.zones.map((z: any) => ({
+                        code: z.zone_code,
+                        tier: z.risk_tier,
+                        tierColor: z.risk_tier.includes('CRITICAL') ? 'text-error' : z.risk_tier.includes('HIGH') ? 'text-[#f5b84b]' : 'text-primary',
+                        foodDem: `${Math.round(z.food_demand_kg)} kg`,
+                        foodAlloc: `${Math.round(z.alloc_food_kg)} kg`,
+                        waterDem: `${Math.round(z.water_demand_kg)} L`,
+                        waterAlloc: `${Math.round(z.alloc_water_kg)} L`,
+                        deficit: `${Math.round(z.deficit_kg)} kg`,
+                        pct: `${z.fulfillment_pct.toFixed(1)}%`,
+                        pctColor: z.fulfillment_pct >= 99 ? 'text-primary' : z.fulfillment_pct >= 70 ? 'text-secondary' : 'text-tertiary'
+                      }))
+                    : activeGisZones.map((z, idx) => ({
+                        code: z.code,
+                        tier: z.risk,
+                        tierColor: z.risk.includes('CRITICAL') ? 'text-error' : z.risk.includes('HIGH') ? 'text-[#f5b84b]' : 'text-primary',
+                        foodDem: `${500 + idx * 100} kg`,
+                        foodAlloc: `${450 + idx * 80} kg`,
+                        waterDem: `${700 + idx * 150} L`,
+                        waterAlloc: `${650 + idx * 120} L`,
+                        deficit: `${50 + idx * 20} kg`,
+                        pct: `${(90 - idx * 5).toFixed(1)}%`,
+                        pctColor: idx === 0 ? 'text-primary' : 'text-secondary'
+                      }))
+                  ).map((row, idx) => (
                     <tr key={idx} className="hover:bg-surface-container/60 transition-colors">
                       <td className="py-2.5 px-3 font-bold">{row.code}</td>
                       <td className={`py-2.5 px-3 font-semibold ${row.tierColor}`}>{row.tier}</td>
@@ -1816,25 +1886,40 @@ export const OperationsOverview: React.FC = () => {
                   Calculated Logistics Routes & Road Closures [OSRM Geometry]
                 </h2>
                 <p className="font-body-sm text-[12px] text-on-surface-variant mt-0.5">
-                  Calculates shortest passable path from Sarusaajai Depot while avoiding inundated segments.
+                  Calculates shortest passable path from {selectedLocation.primaryDepot} while avoiding inundated segments.
                 </p>
               </div>
               <span className="font-mono-data text-[11px] text-outline">
-                TOTAL FLEET DISTANCE: 61.8 KM • FUEL: 19.1 L
+                TOTAL FLEET DISTANCE: {logisticsPlan?.total_transit_distance_km ? `${logisticsPlan.total_transit_distance_km.toFixed(1)} KM` : '54.2 KM'} • FUEL: {logisticsPlan?.est_total_fuel_burn_liters ? `${logisticsPlan.est_total_fuel_burn_liters.toFixed(1)} L` : '16.8 L'}
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
-              {[
-                { route: 'Route R-01 (Depot -> Zone 02)', dist: '14.2 km', time: '28 min', road: 'MG Road Severed (0.4m depth)', detour: 'Rerouted via AT Road bypass (+3.2 km)', vehicle: 'Tata 407 4x4 (VH-01)', status: 'DETOUR_ACTIVE', statusColor: 'text-tertiary bg-tertiary/10 border-tertiary/30' },
-                { route: 'Route R-02 (Depot -> Zone 01)', dist: '22.8 km', time: '42 min', road: 'Saraighat Bridge open; approach muddy', detour: 'Direct crossing via NH-27', vehicle: 'Force Trax (VH-03)', status: 'PASSABLE', statusColor: 'text-primary bg-primary/10 border-primary/30' },
-                { route: 'Route R-03 (Depot -> Zone 04/05)', dist: '24.8 km', time: '35 min', road: 'GS Road arterial fully passable', detour: 'Standard metropolitan loop', vehicle: 'Mahindra Bolero (VH-02)', status: 'CLEAR', statusColor: 'text-primary bg-primary/10 border-primary/30' },
-              ].map((r, idx) => (
+              {((logisticsPlan?.routes && logisticsPlan.routes.length > 0)
+                ? logisticsPlan.routes.map((r: any) => ({
+                    route: `${r.vehicle_code} (${r.vehicle_name})`,
+                    dist: `${r.total_distance_km.toFixed(1)} km`,
+                    time: r.est_duration,
+                    road: r.detour_enforced ? (r.detour_reason || 'Inundation Chokepoint Detected') : 'Clear Highway Corridor',
+                    detour: r.detour_enforced ? 'Dynamic Detour Route Active' : 'Direct Primary Transit',
+                    vehicle: `${r.vehicle_name} [${r.assigned_crew}]`,
+                    status: r.detour_enforced ? 'DETOUR_ACTIVE' : 'PASSABLE',
+                    statusColor: r.detour_enforced ? 'text-tertiary bg-tertiary/10 border-tertiary/30' : 'text-primary bg-primary/10 border-primary/30'
+                  }))
+                : (selectedLocation.id === 'kamrup_metro' ? [
+                    { route: 'Route R-01 (Depot -> Zone 02)', dist: '14.2 km', time: '28 min', road: 'MG Road Severed (0.4m depth)', detour: 'Rerouted via AT Road bypass (+3.2 km)', vehicle: 'Tata 407 4x4 (VH-01)', status: 'DETOUR_ACTIVE', statusColor: 'text-tertiary bg-tertiary/10 border-tertiary/30' },
+                    { route: 'Route R-02 (Depot -> Zone 01)', dist: '22.8 km', time: '42 min', road: 'Saraighat Bridge open; approach muddy', detour: 'Direct crossing via NH-27', vehicle: 'Force Trax (VH-03)', status: 'PASSABLE', statusColor: 'text-primary bg-primary/10 border-primary/30' },
+                    { route: 'Route R-03 (Depot -> Zone 04/05)', dist: '24.8 km', time: '35 min', road: 'GS Road arterial fully passable', detour: 'Standard metropolitan loop', vehicle: 'Mahindra Bolero (VH-02)', status: 'CLEAR', statusColor: 'text-primary bg-primary/10 border-primary/30' },
+                  ] : [
+                    { route: `${selectedLocation.shortName} Route 1`, dist: '18.4 km', time: '32 min', road: `${selectedLocation.primaryRiver} Corridor Passable`, detour: 'High-clearance causeway', vehicle: `SDRF Unit 1`, status: 'PASSABLE', statusColor: 'text-primary bg-primary/10 border-primary/30' },
+                    { route: `${selectedLocation.shortName} Route 2`, dist: '24.1 km', time: '45 min', road: 'Secondary Arterial Passable', detour: 'Direct Transit', vehicle: `SDRF Unit 2`, status: 'CLEAR', statusColor: 'text-primary bg-primary/10 border-primary/30' }
+                  ])
+              ).map((r, idx) => (
                 <div key={idx} className="p-space-sm rounded-xl bg-surface-container border border-outline-variant/30 flex flex-col justify-between gap-2">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="font-headline-sm text-[13px] font-bold text-on-surface">{r.route}</span>
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono-data border ${r.statusColor}`}>
+                      <span className="font-headline-sm text-[13px] font-bold text-on-surface truncate">{r.route}</span>
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono-data border ${r.statusColor} shrink-0`}>
                         {r.status}
                       </span>
                     </div>
@@ -1845,9 +1930,9 @@ export const OperationsOverview: React.FC = () => {
                   </div>
 
                   <div className="text-[11px] bg-surface-container-high/40 p-2 rounded flex flex-col gap-1 border border-outline-variant/20">
-                    <span className="text-tertiary font-semibold">{r.road}</span>
-                    <span className="text-on-surface-variant">{r.detour}</span>
-                    <span className="font-mono-data text-[10px] text-primary">Assigned: {r.vehicle}</span>
+                    <span className="text-tertiary font-semibold truncate" title={r.road}>{r.road}</span>
+                    <span className="text-on-surface-variant truncate">{r.detour}</span>
+                    <span className="font-mono-data text-[10px] text-primary truncate">Assigned: {r.vehicle}</span>
                   </div>
                 </div>
               ))}
@@ -1964,6 +2049,17 @@ export const OperationsOverview: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* TAB 6: FIELD INCIDENTS & ASDMA SITUATION REPORTS */}
+      {/* ============================================================== */}
+      {activeTab === 'operational_workflows' && (
+        <FieldIncidentsAndSitRep
+          currentUserRole={currentUser.role}
+          currentUserName={currentUser.name}
+          onToast={showToast}
+        />
       )}
 
       {/* 4. MODAL: Human Review Sign-Off on AI Action */}

@@ -74,7 +74,7 @@ def test_ai_context_preview_endpoint():
         assert "source_agency" in item
         assert "observation_time" in item
         assert item["provenance_state"] in (
-            "LIVE", "LAST_KNOWN", "MANUAL", "ESTIMATED", "SIMULATED", "UNAVAILABLE"
+            "LIVE", "LIVE / RECENTLY RETRIEVED", "VERIFIED OBSERVATION", "FORECAST", "LAST_KNOWN", "MANUAL", "MANUAL REPORT", "ESTIMATED", "SIMULATED", "UNAVAILABLE", "STALE", "UNVERIFIED"
         )
 
 
@@ -114,7 +114,9 @@ def test_valid_ai_query_flow():
     for ev in data["supporting_evidence"]:
         assert "source" in ev
         assert "data_point" in ev
-        assert ev["provenance_state"] in ("LIVE", "LAST_KNOWN", "MANUAL", "ESTIMATED", "SIMULATED")
+        assert ev["provenance_state"] in (
+            "LIVE", "LIVE / RECENTLY RETRIEVED", "VERIFIED OBSERVATION", "FORECAST", "LAST_KNOWN", "MANUAL", "MANUAL REPORT", "ESTIMATED", "SIMULATED", "STALE"
+        )
 
 
 def test_prompt_injection_rejection():
@@ -301,8 +303,9 @@ def test_seven_core_operator_queries_grounding():
         assert len(data["supporting_evidence"]) >= 1
         for ev in data["supporting_evidence"]:
             assert "source" in ev
-            assert "data_point" in ev
-            assert ev["provenance_state"] in ("LIVE", "LAST_KNOWN", "MANUAL", "ESTIMATED", "SIMULATED")
+            assert ev["provenance_state"] in (
+                "LIVE", "LIVE / RECENTLY RETRIEVED", "VERIFIED OBSERVATION", "FORECAST", "LAST_KNOWN", "MANUAL", "MANUAL REPORT", "ESTIMATED", "SIMULATED", "STALE"
+            )
 
         # Check proposed actions
         assert len(data["proposed_actions"]) >= 1

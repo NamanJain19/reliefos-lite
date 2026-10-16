@@ -919,20 +919,23 @@ async def get_simulation_reports(loc_id: str = Depends(resolve_location)):
 
 
 @router.get("/simulations/scenarios", tags=["Simulation & Reports"])
-async def get_all_scenarios_endpoint():
-    """Retrieve catalog of all 10 standardized disaster stress-testing scenarios (Scenarios A through J)."""
-    return get_all_scenarios_metadata()
+async def get_all_scenarios_endpoint(loc_id: str = Depends(resolve_location)):
+    """Retrieve catalog of standardized disaster stress-testing scenarios for selected location."""
+    return get_all_scenarios_metadata(location_id=loc_id)
 
 
 @router.post("/simulations/run", tags=["Simulation & Reports"])
-async def run_simulation_scenario_endpoint(payload: RunScenarioRequest):
+async def run_simulation_scenario_endpoint(
+    payload: RunScenarioRequest,
+    loc_id: str = Depends(resolve_location)
+):
     """
     Execute an isolated disaster stress-testing scenario (Scenarios A through J).
     Uses strict two-stage lexicographic CP-SAT optimization.
     Guarantees zero mutation of operational inventory or demand tables.
     """
     try:
-        result = run_isolated_scenario(payload.scenario_id, payload.custom_overrides)
+        result = run_isolated_scenario(payload.scenario_id, payload.custom_overrides, location_id=loc_id)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

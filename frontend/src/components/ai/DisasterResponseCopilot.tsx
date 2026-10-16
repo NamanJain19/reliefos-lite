@@ -400,7 +400,25 @@ export const DisasterResponseCopilot: React.FC<Props> = ({ isOpen, onClose, init
                   </div>
 
                   {/* Provider Inference Transparency Disclosure */}
-                  {msg.structuredResponse.is_mock_fallback || msg.structuredResponse.execution_mode?.includes('MOCK') ? (
+                  {msg.structuredResponse.execution_mode === 'LIVE_LLM' ? (
+                    <div className="bg-primary/10 border border-primary/40 text-primary px-3 py-1.5 rounded-lg text-[11px] font-mono-data flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        <span className="font-bold">LIVE CLOUD INFERENCE:</span>
+                        <span>{msg.structuredResponse.provider_used.toUpperCase()} ({msg.structuredResponse.model_used})</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-primary">GROUNDED CONTEXT VERIFIED</span>
+                    </div>
+                  ) : msg.structuredResponse.execution_mode === 'DETERMINISTIC_GROUNDED' ? (
+                    <div className="bg-secondary/10 border border-secondary/40 text-secondary px-3 py-1.5 rounded-lg text-[11px] font-mono-data flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <span className="material-symbols-outlined text-[15px]">verified</span>
+                        <span className="font-bold">DETERMINISTIC BACKEND GROUNDING:</span>
+                        <span>Direct Database Telemetry & Solvers</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-secondary">ZERO HALLUCINATION</span>
+                    </div>
+                  ) : (
                     <div className="bg-[#f5b84b]/10 border border-[#f5b84b]/40 text-[#f5b84b] px-3 py-1.5 rounded-lg text-[11px] font-mono-data flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className="material-symbols-outlined text-[15px]">info</span>
@@ -412,15 +430,6 @@ export const DisasterResponseCopilot: React.FC<Props> = ({ isOpen, onClose, init
                           {msg.structuredResponse.fallback_reason}
                         </span>
                       )}
-                    </div>
-                  ) : (
-                    <div className="bg-primary/10 border border-primary/40 text-primary px-3 py-1.5 rounded-lg text-[11px] font-mono-data flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                        <span className="font-bold">LIVE CLOUD INFERENCE:</span>
-                        <span>{msg.structuredResponse.provider_used.toUpperCase()} ({msg.structuredResponse.model_used})</span>
-                      </div>
-                      <span className="text-[10px] font-bold text-primary">GROUNDED CONTEXT VERIFIED</span>
                     </div>
                   )}
 

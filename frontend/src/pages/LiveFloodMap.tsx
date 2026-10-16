@@ -552,7 +552,9 @@ export const LiveFloodMap: React.FC = () => {
                   {controllingGauge?.station_name || controllingGauge?.name || 'CWC Hydrometric Station'}
                 </span>
                 <span className="text-[13px] font-bold text-tertiary">
-                  {gaugeLevel !== null && gaugeLevel !== undefined ? `${Number(gaugeLevel).toFixed(2)}m MSL` : '49.85m MSL'}
+                  {gaugeLevel !== null && gaugeLevel !== undefined
+                    ? `${Number(gaugeLevel).toFixed(2)}m MSL`
+                    : (gaugeDanger ? `DL: ${Number(gaugeDanger).toFixed(2)}m (NO IOT)` : 'MANUAL POST • NO IOT')}
                 </span>
               </div>
               <div className="flex items-center justify-between text-[10px] text-on-surface-variant mt-0.5">
@@ -560,7 +562,7 @@ export const LiveFloodMap: React.FC = () => {
                 <span className={gaugeMargin !== null && gaugeMargin >= 0 ? 'text-error font-bold' : 'text-primary'}>
                   {gaugeMargin !== null
                     ? `${gaugeMargin >= 0 ? '+' : ''}${gaugeMargin.toFixed(2)}m danger margin`
-                    : `DL: ${gaugeDanger ? Number(gaugeDanger).toFixed(2) + 'm' : '49.68m'}`}
+                    : (gaugeDanger ? `DL: ${Number(gaugeDanger).toFixed(2)}m` : 'DL: PENDING SURVEY')}
                 </span>
               </div>
             </div>
@@ -583,7 +585,7 @@ export const LiveFloodMap: React.FC = () => {
                   <span className="text-[13px] font-bold text-secondary">
                     {liveWeather?.precipitation_rate_mm_h !== undefined
                       ? `${liveWeather.precipitation_rate_mm_h} mm/h`
-                      : (floodTelemetry?.current_weather?.rainfall_rate_mm_h ? `${floodTelemetry.current_weather.rainfall_rate_mm_h} mm/h` : '14.5 mm/h')}
+                      : (floodTelemetry?.current_weather?.rainfall_rate_mm_h !== undefined ? `${floodTelemetry.current_weather.rainfall_rate_mm_h} mm/h` : '0.0 mm/h')}
                   </span>
                 </div>
               </div>

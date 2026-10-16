@@ -173,3 +173,92 @@ class DispatchOrderModel(Base):
     external_connector_attempted = Column(Boolean, default=False)
     external_connector_status = Column(String(50), default="DISABLED_BY_POLICY")
     location_id = Column(String(50), default="kamrup_metro", index=True)
+
+
+class StockMovementModel(Base):
+    """
+    Persistent warehouse ledger tracking every physical stock movement:
+    receipts, issues, reservations, adjustments, and expiry write-offs.
+    """
+    __tablename__ = "stock_movements"
+
+    id = Column(Integer, primary_key=True, index=True)
+    movement_id = Column(String(50), unique=True, index=True, nullable=False)
+    item_sku = Column(String(50), index=True, nullable=False)
+    item_name = Column(String(255), nullable=False)
+    depot_code = Column(String(50), index=True, nullable=False)
+    movement_type = Column(String(50), nullable=False, index=True)  # RECEIPT, DISPATCH_DEDUCTION, RESERVATION, RELEASE_RESERVATION, DAMAGE_EXPIRY_WRITE_OFF, AUDIT_ADJUSTMENT
+    quantity = Column(Float, nullable=False)
+    unit = Column(String(50), default="kg")
+    batch_lot_number = Column(String(100), default="LOT-DEFAULT")
+    expiry_date = Column(String(50), nullable=True)
+    balance_before = Column(Float, default=0.0)
+    balance_after = Column(Float, default=0.0)
+    reference_doc = Column(String(100), default="DIRECT_ADJUSTMENT")
+    operator_name = Column(String(100), default="ASDMA Logistics Officer")
+    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    notes = Column(Text, default="")
+    location_id = Column(String(50), default="kamrup_metro", index=True)
+
+
+class IncidentModel(Base):
+    """
+    Operational field incident tracking for emergency operations center (EOC):
+    Embankment breaches, stranded civilians, bridge closures, and rescue calls.
+    """
+    __tablename__ = "incidents"
+
+    id = Column(Integer, primary_key=True, index=True)
+    incident_id = Column(String(50), unique=True, index=True, nullable=False)
+    incident_type = Column(String(50), nullable=False, index=True)  # EMBANKMENT_BREACH, FLASH_FLOOD, ROAD_SEVERANCE, STRANDED_CLUSTER, SHELTER_OVERFLOW, LANDSLIDE
+    severity = Column(String(50), default="HIGH", index=True)  # CRITICAL, HIGH, MEDIUM, LOW
+    status = Column(String(50), default="REPORTED", index=True)  # REPORTED, VERIFIED, IN_RESPONSE, RESOLVED, CLOSED
+    title = Column(String(255), nullable=False)
+    description = Column(Text, default="")
+    location_desc = Column(String(255), default="")
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+    zone_code = Column(String(50), nullable=False)
+    location_id = Column(String(50), default="kamrup_metro", index=True)
+    reported_by = Column(String(100), default="DDMA Field Observer")
+    reported_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    verified_by = Column(String(100), nullable=True)
+    verified_at = Column(DateTime, nullable=True)
+    casualties_reported = Column(Integer, default=0)
+    persons_stranded = Column(Integer, default=0)
+    livestock_affected = Column(Integer, default=0)
+    infrastructure_damaged = Column(Text, default="")
+    response_action_taken = Column(Text, default="")
+    assigned_team = Column(String(100), default="SDRF 1st Battalion Guwahati")
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+
+class SituationReportModel(Base):
+    """
+    Official Disaster Situation Report (SitRep) conforming to ASDMA/NDMA Formats:
+    Daily official summaries of displaced persons, damage, logistics distribution, and river stages.
+    """
+    __tablename__ = "situation_reports"
+
+    id = Column(Integer, primary_key=True, index=True)
+    sitrep_id = Column(String(50), unique=True, index=True, nullable=False)
+    report_date = Column(String(50), nullable=False, index=True)  # YYYY-MM-DD
+    time_window = Column(String(50), default="06:00 - 18:00 IST")
+    district_name = Column(String(100), nullable=False)
+    location_id = Column(String(50), default="kamrup_metro", index=True)
+    active_human_lives_affected = Column(Integer, default=0)
+    displaced_in_shelters = Column(Integer, default=0)
+    inundated_villages_count = Column(Integer, default=0)
+    active_shelters_count = Column(Integer, default=0)
+    roads_closed_count = Column(Integer, default=0)
+    critical_river_stages = Column(Text, default="[]")  # JSON string of CWC stations & stages
+    weather_synopsis = Column(Text, default="")
+    relief_distributed_summary = Column(Text, default="{}")  # JSON string of distributed food/water/medical
+    active_incidents_count = Column(Integer, default=0)
+    compiling_officer = Column(String(100), default="Insp. S. Sharma (Logistics Officer)")
+    approving_commander = Column(String(100), nullable=True)
+    approval_status = Column(String(50), default="DRAFT", index=True)  # DRAFT, APPROVED, TRANSMITTED_STATE_EOC
+    form_reference = Column(String(100), default="ASDMA-SITREP-DAILY-01")
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    approved_at = Column(DateTime, nullable=True)
+

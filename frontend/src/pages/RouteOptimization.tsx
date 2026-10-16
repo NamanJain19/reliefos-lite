@@ -34,6 +34,21 @@ export const RouteOptimization: React.FC = () => {
   const [osrmRoute, setOsrmRoute] = useState<any>(null);
   const [loadingOsrm, setLoadingOsrm] = useState(false);
 
+  const depotCoords: [number, number] = isKamrupMetro
+    ? [26.115, 91.758]
+    : [selectedLocation.center[0] - 0.02, selectedLocation.center[1] - 0.02];
+
+  useEffect(() => {
+    if (selectedLocation.id === 'kamrup_metro') {
+      setSelectedVehicle('VH-02');
+    } else {
+      const locVehicles = getGisVehiclesForLocation(selectedLocation.id);
+      if (locVehicles.length > 0) {
+        setSelectedVehicle(locVehicles[0].label || locVehicles[0].id || 'VH-01');
+      }
+    }
+  }, [selectedLocation.id]);
+
   useEffect(() => {
     const fetchRoutes = async () => {
       try {
@@ -55,11 +70,9 @@ export const RouteOptimization: React.FC = () => {
       setLoadingOsrm(true);
       try {
         const dest = VEHICLE_DEST_COORDS[selectedVehicle]?.coords || [selectedLocation.center[0] + 0.02, selectedLocation.center[1] + 0.02];
-        const startLat = isKamrupMetro ? 26.115 : selectedLocation.center[0] - 0.02;
-        const startLng = isKamrupMetro ? 91.758 : selectedLocation.center[1] - 0.02;
         const res = await api.calculateRealRoute({
-          start_lat: startLat,
-          start_lng: startLng,
+          start_lat: depotCoords[0],
+          start_lng: depotCoords[1],
           end_lat: dest[0],
           end_lng: dest[1],
           route_name: `${selectedVehicle} Real Road Tour (${selectedLocation.shortName})`
@@ -84,13 +97,13 @@ export const RouteOptimization: React.FC = () => {
   const handleCalculateOsrm = async () => {
     setLoadingOsrm(true);
     try {
-      const dest = VEHICLE_DEST_COORDS[selectedVehicle]?.coords || [26.172, 91.735];
+      const dest = VEHICLE_DEST_COORDS[selectedVehicle]?.coords || [selectedLocation.center[0] + 0.02, selectedLocation.center[1] + 0.02];
       const res = await api.calculateRealRoute({
-        start_lat: 26.115,
-        start_lng: 91.758,
+        start_lat: depotCoords[0],
+        start_lng: depotCoords[1],
         end_lat: dest[0],
         end_lng: dest[1],
-        route_name: `${selectedVehicle} Real Road Tour`
+        route_name: `${selectedVehicle} Real Road Tour (${selectedLocation.shortName})`
       });
       if (res && res.polyline_latlng) {
         setOsrmRoute(res);
@@ -221,13 +234,13 @@ export const RouteOptimization: React.FC = () => {
     };
   });
 
-  const currentVehicle = vehicles.find((v) => v.code === selectedVehicle) || vehicles[1];
+  const currentVehicle = vehicles.find((v) => v.code === selectedVehicle) || vehicles[0];
 
   const handleRecalculate = async () => {
     setLoadingRecalc(true);
     try {
       await api.recalculateRoutes();
-      alert("NetworkX Dijkstra graph engine recalculated routes: MG Road submerged chokepoint evaded. Detour active!");
+      alert(`NetworkX Dijkstra graph engine recalculated routes: ${isKamrupMetro ? 'MG Road submerged chokepoint evaded' : 'Submerged chokepoint evaded'}. Detour active!`);
     } catch {
       alert("NetworkX shortest safe paths recomputed.");
     } finally {
@@ -242,9 +255,6 @@ export const RouteOptimization: React.FC = () => {
     zone: selectedLocation.shortName,
     offload: '1,000kg Food, 800L Water'
   };
-  const depotCoords: [number, number] = isKamrupMetro
-    ? [26.115, 91.758]
-    : [selectedLocation.center[0] - 0.02, selectedLocation.center[1] - 0.02];
 
   // Derive active route from backend NetworkX API if available
   const activeBackendRoute = networkRoutes?.routes?.find(

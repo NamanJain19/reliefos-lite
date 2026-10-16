@@ -1114,5 +1114,178 @@ export const getDispatchSafetyCheck = async (params: { zone_code: string; vehicl
   return res.data;
 };
 
+export interface IncidentItem {
+  id: number;
+  incident_id: string;
+  incident_type: string;
+  severity: string;
+  status: string;
+  title: string;
+  description: string;
+  location_desc: string;
+  latitude: number;
+  longitude: number;
+  zone_code: string;
+  location_id: string;
+  reported_by: string;
+  reported_at: string;
+  verified_by?: string;
+  verified_at?: string;
+  casualties_reported: number;
+  persons_stranded: number;
+  livestock_affected: number;
+  infrastructure_damaged?: string;
+  response_action_taken?: string;
+  assigned_team?: string;
+  updated_at: string;
+}
+
+export interface SituationReportItem {
+  id: number;
+  sitrep_id: string;
+  report_date: string;
+  time_window: string;
+  district_name: string;
+  location_id: string;
+  active_human_lives_affected: number;
+  displaced_in_shelters: number;
+  inundated_villages_count: number;
+  active_shelters_count: number;
+  roads_closed_count: number;
+  critical_river_stages: Array<{ station: string; river: string; stage_m?: number; danger_m?: number; status: string }>;
+  weather_synopsis: string;
+  relief_distributed_summary: Record<string, any>;
+  active_incidents_count: number;
+  compiling_officer: string;
+  approving_commander?: string;
+  approval_status: string;
+  form_reference: string;
+  created_at: string;
+  approved_at?: string;
+}
+
+export interface StockMovementItem {
+  movement_id: string;
+  item_sku: string;
+  item_name: string;
+  depot_code: string;
+  movement_type: string;
+  quantity: number;
+  unit: string;
+  batch_lot_number: string;
+  expiry_date?: string;
+  balance_before: number;
+  balance_after: number;
+  reference_doc: string;
+  operator_name: string;
+  timestamp: string;
+  notes?: string;
+  location_id: string;
+}
+
+export interface InventoryAlertsReport {
+  total_low_stock_alerts: number;
+  total_near_expiry_alerts: number;
+  alerts: Array<{
+    type: string;
+    severity: string;
+    sku: string;
+    name: string;
+    current_available: number;
+    unit: string;
+    message: string;
+  }>;
+}
+
+export interface SphereDemandReport {
+  calculation_timestamp: string;
+  standard_reference: string;
+  location_id: string;
+  input_parameters: Record<string, any>;
+  sphere_per_capita_baselines: Record<string, any>;
+  measured_shelter_demand: Record<string, any>;
+  estimated_unregistered_demand: Record<string, any>;
+  consolidated_humanitarian_requirement: Record<string, any>;
+  horizon_breakdown: {
+    "24_hours_immediate_kg": number;
+    "72_hours_surge_kg": number;
+    "7_days_sustenance_kg": number;
+  };
+  uncertainty_and_governance_notice: string;
+}
+
+export const getIncidents = async (params?: { status_filter?: string; severity_filter?: string }): Promise<IncidentItem[]> => {
+  const res = await apiClient.get<IncidentItem[]>('/operational/incidents', { params });
+  return res.data;
+};
+
+export const createIncident = async (data: Partial<IncidentItem>): Promise<IncidentItem> => {
+  const res = await apiClient.post<IncidentItem>('/operational/incidents', data);
+  return res.data;
+};
+
+export const updateIncident = async (incidentId: string, data: Partial<IncidentItem>): Promise<IncidentItem> => {
+  const res = await apiClient.put<IncidentItem>(`/operational/incidents/${incidentId}`, data);
+  return res.data;
+};
+
+export const getSituationReports = async (): Promise<SituationReportItem[]> => {
+  const res = await apiClient.get<SituationReportItem[]>('/operational/sitreps');
+  return res.data;
+};
+
+export const compileSituationReport = async (data?: { report_date?: string; time_window?: string; weather_synopsis?: string; compiling_officer?: string }): Promise<SituationReportItem> => {
+  const res = await apiClient.post<SituationReportItem>('/operational/sitreps/generate', data || {});
+  return res.data;
+};
+
+export const approveSituationReport = async (sitrepId: string, data: { approving_commander: string; notes?: string }): Promise<SituationReportItem> => {
+  const res = await apiClient.put<SituationReportItem>(`/operational/sitreps/${sitrepId}/approve`, data);
+  return res.data;
+};
+
+export const receiveStockConsignment = async (data: any): Promise<StockMovementItem> => {
+  const res = await apiClient.post<StockMovementItem>('/operational/inventory/receipt', data);
+  return res.data;
+};
+
+export const adjustStockQuantity = async (data: any): Promise<StockMovementItem> => {
+  const res = await apiClient.post<StockMovementItem>('/operational/inventory/adjustment', data);
+  return res.data;
+};
+
+export const reserveStockQuantity = async (data: any): Promise<StockMovementItem> => {
+  const res = await apiClient.post<StockMovementItem>('/operational/inventory/reserve', data);
+  return res.data;
+};
+
+export const getStockMovements = async (params?: { limit?: number; sku?: string }): Promise<StockMovementItem[]> => {
+  const res = await apiClient.get<StockMovementItem[]>('/operational/inventory/movements', { params });
+  return res.data;
+};
+
+export const getInventoryAlerts = async (): Promise<InventoryAlertsReport> => {
+  const res = await apiClient.get<InventoryAlertsReport>('/operational/inventory/alerts');
+  return res.data;
+};
+
+export const calculateSphereDemand = async (data: {
+  population_affected: number;
+  evacuees_in_shelters: number;
+  time_horizon_hours: number;
+  infant_count?: number;
+  elderly_count?: number;
+  contingency_buffer_pct?: number;
+}): Promise<SphereDemandReport> => {
+  const res = await apiClient.post<SphereDemandReport>('/operational/demand/sphere-calculate', data);
+  return res.data;
+};
+
+export const getSphereStandardsInfo = async (): Promise<any> => {
+  const res = await apiClient.get('/operational/demand/standards-info');
+  return res.data;
+};
+
+
 
 

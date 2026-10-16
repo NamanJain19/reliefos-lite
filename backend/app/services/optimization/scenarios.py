@@ -9,6 +9,11 @@ import copy
 from datetime import datetime, timezone
 
 from app.core.data_store import ZONES_DATA, DEPOT_DATA, VEHICLES_DATA
+from app.core.location_registry import normalize_location_id, get_location_meta
+from app.core.location_data import (
+    get_district_zones, get_district_depot, get_district_vehicles,
+    get_district_routes, get_district_simulation_catalog
+)
 from app.services.optimization.solver import run_lexicographic_optimization
 from app.services.routing.router import build_guwahati_road_graph, compute_fleet_optimized_routes
 
@@ -202,8 +207,26 @@ SCENARIOS_CATALOG: Dict[str, Dict[str, Any]] = {
 }
 
 
-def get_all_scenarios_metadata() -> List[Dict[str, Any]]:
-    """Returns a clean list of all 10 disaster scenario definitions with catalog headers."""
+def get_all_scenarios_metadata(location_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    """Returns a clean list of disaster scenario definitions with catalog headers for selected district."""
+    loc_id = normalize_location_id(location_id) if location_id else "kamrup_metro"
+    if loc_id != "kamrup_metro":
+        dist_catalog = get_district_simulation_catalog(loc_id)
+        return [
+            {
+                "id": sc["id"],
+                "code": sc["code"],
+                "name": sc["name"],
+                "threat_level": sc["threat_level"],
+                "category": sc["category"],
+                "description": sc["description"],
+                "stock_summary": f"Food: {sc['configuration'].get('stock_food_kg', 2400)} kg, Water: {sc['configuration'].get('stock_water_kg', 2800)} L",
+                "fleet_summary": f"{len(sc['configuration'].get('active_vehicles', ['VH-01']))} Vehicles Active",
+                "closures_count": len(sc['configuration'].get('road_closures', [])),
+                "unreachable_count": len(sc['configuration'].get('unreachable_zones', []))
+            }
+            for sc in dist_catalog
+        ]
     return [
         {
             "id": sc["id"],
@@ -223,34 +246,51 @@ def get_all_scenarios_metadata() -> List[Dict[str, Any]]:
 
 def run_isolated_scenario(
     scenario_id: str,
-    custom_overrides: Optional[Dict[str, Any]] = None
+    custom_overrides: Optional[Dict[str, Any]] = None,
+    location_id: Optional[str] = None
 ) -> Dict[str, Any]:
     """
-    Executes a disaster stress-testing scenario in complete isolation.
+    Executes a disaster stress-testing scenario in complete isolation for selected district.
     Guarantees zero mutation of operational inventory, live demand, or base road network.
     """
     start_ts = datetime.now(timezone.utc).isoformat()
-    sc_def = SCENARIOS_CATALOG.get(scenario_id.upper())
+    raw_loc = location_id or (custom_overrides.get("location_id") if custom_overrides else None) or "kamrup_metro"
+    target_loc_id = normalize_location_id(raw_loc)
+    loc_meta = get_location_meta(target_loc_id)
+
+    if target_loc_id != "kamrup_metro":
+        dist_catalog = get_district_simulation_catalog(target_loc_id)
+        sc_def = next((sc for sc in dist_catalog if sc["id"].upper() == scenario_id.upper()), None)
+        if not sc_def:
+            sc_def = SCENARIOS_CATALOG.get(scenario_id.upper())
+    else:
+        sc_def = SCENARIOS_CATALOG.get(scenario_id.upper())
+
     if not sc_def:
-        raise ValueError(f"Scenario '{scenario_id}' not found in disaster catalog. Valid IDs: A through J.")
+        raise ValueError(f"Scenario '{scenario_id}' not found in disaster catalog for {target_loc_id}.")
 
     # Deep copy baseline operational stores to achieve strict isolation
-    zones_copy = copy.deepcopy(ZONES_DATA)
-    depot_copy = copy.deepcopy(DEPOT_DATA)
-    vehicles_copy = copy.deepcopy(VEHICLES_DATA)
+    if target_loc_id == "kamrup_metro":
+        zones_copy = copy.deepcopy(ZONES_DATA)
+        depot_copy = copy.deepcopy(DEPOT_DATA)
+        vehicles_copy = copy.deepcopy(VEHICLES_DATA)
+    else:
+        zones_copy = copy.deepcopy(get_district_zones(target_loc_id))
+        depot_copy = copy.deepcopy(get_district_depot(target_loc_id))
+        vehicles_copy = copy.deepcopy(get_district_vehicles(target_loc_id))
 
     cfg = sc_def["configuration"]
 
     # 1. Apply Inventory Configuration
-    depot_copy["available_food_kg"] = cfg.get("stock_food_kg", depot_copy["available_food_kg"])
-    depot_copy["available_water_kg"] = cfg.get("stock_water_kg", depot_copy["available_water_kg"])
+    depot_copy["available_food_kg"] = cfg.get("stock_food_kg", depot_copy.get("available_food_kg", 2500))
+    depot_copy["available_water_kg"] = cfg.get("stock_water_kg", depot_copy.get("available_water_kg", 3000))
 
     # 2. Apply Demand & Priority Configuration
     mult = cfg.get("demand_multiplier", 1.0)
     for z in zones_copy:
         z_code = z["code"]
-        z["food_demand_kg"] = int(round(z["food_demand_kg"] * mult))
-        z["water_demand_kg"] = int(round(z["water_demand_kg"] * mult))
+        z["food_demand_kg"] = int(round(z.get("food_demand_kg", 500) * mult))
+        z["water_demand_kg"] = int(round(z.get("water_demand_kg", 300) * mult))
         z["total_demand_kg"] = z["food_demand_kg"] + z["water_demand_kg"]
 
         # Custom zone demand overrides
@@ -267,8 +307,11 @@ def run_isolated_scenario(
             z["severity_weight"] = p_ov["severity_weight"]
 
     # 3. Apply Vehicle Fleet Configuration
-    active_codes = set(cfg.get("active_vehicles", ["VH-01", "VH-02", "VH-03"]))
+    default_vehicles = [v["code"] for v in vehicles_copy]
+    active_codes = set(cfg.get("active_vehicles", default_vehicles))
     filtered_vehicles = [v for v in vehicles_copy if v["code"] in active_codes]
+    if not filtered_vehicles:
+        filtered_vehicles = vehicles_copy
     for v in filtered_vehicles:
         v["status"] = "AVAILABLE"
 
@@ -366,15 +409,19 @@ def run_isolated_scenario(
     )
 
     # Compute simulated fleet routes
-    fleet_routes_raw = compute_fleet_optimized_routes()
-    simulated_routes = fleet_routes_raw.get("routes", [])
+    if target_loc_id == "kamrup_metro":
+        fleet_routes_raw = compute_fleet_optimized_routes()
+        simulated_routes = fleet_routes_raw.get("routes", [])
+    else:
+        routes_data = get_district_routes(target_loc_id)
+        simulated_routes = routes_data.get("routes", []) if isinstance(routes_data, dict) else routes_data
 
     # Calculate baseline comparison (Scenario A reference)
-    base_demand = 4800
-    base_alloc = 4800
+    base_demand = sum(z.get("total_demand_kg", 1000) for z in zones_copy)
+    base_alloc = base_demand
     base_unmet = 0
-    base_distance = 61.8
-    base_fuel = 19.1
+    base_distance = 61.8 if target_loc_id == "kamrup_metro" else 50.0
+    base_fuel = round(base_distance * 0.31, 1)
 
     curr_demand = optimization_result.get("total_demand_kg", 0)
     curr_alloc = optimization_result.get("total_allocated_kg", 0)
@@ -406,6 +453,8 @@ def run_isolated_scenario(
 
     # Compile Scenario Execution Report
     return {
+        "location_id": target_loc_id,
+        "district_name": loc_meta.district_name,
         "scenario_id": sc_def["id"],
         "scenario_code": sc_def["code"],
         "scenario_name": sc_def["name"],

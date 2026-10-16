@@ -11,6 +11,7 @@ from app.api.logistics_advisor_routes import router as logistics_advisor_router
 from app.api.auth_routes import router as auth_router
 from app.api.forecasting_routes import router as forecasting_router
 from app.api.dispatch_routes import router as dispatch_router
+from app.api.operational_routes import router as operational_router
 from app.core.database import engine, Base, init_db
 import app.models.domain  # noqa: F401
 
@@ -101,7 +102,8 @@ async def root():
     return {
         "system": settings.PROJECT_NAME,
         "version": settings.VERSION,
-        "region": "Kamrup Metropolitan, Guwahati, Assam",
+        "region": "Kamrup Metropolitan & Assam Operational Grid (9 Monitored Districts)",
+        "jurisdiction": "Assam State Disaster Management Authority (ASDMA)",
         "status": "online",
         "documentation": "/docs",
         "health_check": "/api/health"
@@ -116,4 +118,5 @@ app.include_router(logistics_advisor_router, prefix="/api")
 app.include_router(auth_router, prefix="/api")
 app.include_router(forecasting_router, prefix="/api")
 app.include_router(dispatch_router, prefix="/api")
+app.include_router(operational_router, prefix="/api")
 

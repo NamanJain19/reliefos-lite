@@ -9,9 +9,17 @@ class AIContextModule(str, Enum):
     WEATHER = "weather"
     GAUGES = "gauges"
     INVENTORY = "inventory"
+    STOCK_MOVEMENTS = "stock_movements"
+    SHELTERS = "shelters"
     DEMANDS = "demands"
+    INCIDENTS = "incidents"
+    SITREPS = "sitreps"
+    VEHICLES = "vehicles"
     ROADS = "roads"
+    ROUTING = "routing"
     ALLOCATION = "allocation"
+    RISK_ASSESSMENT = "risk_assessment"
+    SPHERE_STANDARDS = "sphere_standards"
     SYSTEM_MODE = "system_mode"
 
 
@@ -132,6 +140,8 @@ class ContextItem(BaseModel):
     observation_time: str
     summary: str
     raw_metrics: Dict[str, Any]
+    retrieval_time: Optional[str] = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    freshness_status: Optional[str] = "FRESH"
 
 
 class AIContextPreviewResponse(BaseModel):

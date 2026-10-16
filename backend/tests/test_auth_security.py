@@ -555,4 +555,37 @@ async def test_lifespan_production_safe_failure():
         assert "CRITICAL SECURITY CONFIGURATION ERROR" in str(exc.value)
 
 
+def test_scrypt_password_hashing_and_verification():
+    """Verify passwords use salted scrypt hashing rather than fast plain SHA-256."""
+    from app.core.auth import hash_password, verify_password, REGISTERED_USERS
+
+    for uname in ["commander", "operator", "analyst"]:
+        record = REGISTERED_USERS[uname]
+        stored_hash = record["password_hash"]
+        assert stored_hash.startswith("scrypt$16384$8$1$"), f"{uname} hash not in scrypt format: {stored_hash}"
+        parts = stored_hash.split("$")
+        assert len(parts) == 6
+        salt_hex = parts[4]
+        key_hex = parts[5]
+        assert len(salt_hex) == 32  # 16 bytes = 32 hex chars
+        assert len(key_hex) == 128  # 64 bytes = 128 hex chars
+
+    # Verify unique salts
+    hash1 = hash_password("test_pass_2026")
+    hash2 = hash_password("test_pass_2026")
+    assert hash1 != hash2, "Salts must be randomly generated and unique across hashes"
+
+    # Verify verification correctness
+    assert verify_password("test_pass_2026", hash1) is True
+    assert verify_password("wrong_password", hash1) is False
+    assert verify_password("", hash1) is False
+
+    # Verify backward compatibility with legacy SHA-256 migration
+    import hashlib
+    legacy_sha = hashlib.sha256("legacy_secret_2026".encode("utf-8")).hexdigest()
+    assert verify_password("legacy_secret_2026", legacy_sha) is True
+    assert verify_password("wrong_legacy", legacy_sha) is False
+
+
+
 

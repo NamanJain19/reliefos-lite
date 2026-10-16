@@ -272,11 +272,12 @@ def get_location_meta(location_id: Optional[str] = None) -> LocationMeta:
 
 def resolve_location(
     x_location_id: Optional[str] = Header(None, alias="X-Location-ID"),
+    x_assam_location: Optional[str] = Header(None, alias="X-Assam-Location"),
     location_id: Optional[str] = Query(None, description="Operational location ID (e.g. 'kamrup_metro', 'barpeta')")
 ) -> str:
     """
     FastAPI dependency that resolves the target location from either query parameter
-    or the X-Location-ID HTTP request header, defaulting safely to kamrup_metro.
+    or the X-Location-ID / X-Assam-Location HTTP request headers, defaulting safely to kamrup_metro.
     """
-    candidate = location_id or x_location_id or DEFAULT_LOCATION_ID
+    candidate = location_id or x_location_id or x_assam_location or DEFAULT_LOCATION_ID
     return normalize_location_id(candidate)

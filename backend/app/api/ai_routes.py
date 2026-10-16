@@ -4,7 +4,7 @@ Provides endpoints for AI query generation, provider health, and context inspect
 """
 
 from typing import Optional, List, Dict, Any
-from fastapi import APIRouter, HTTPException, Query, status, Depends
+from fastapi import APIRouter, HTTPException, Query, Header, status, Depends
 from fastapi.responses import JSONResponse
 
 from app.core.auth import require_role, WRITE_ROLES
@@ -31,12 +31,18 @@ router = APIRouter(prefix="/ai", tags=["AI Decision Support"])
     response_model=AIStructuredResponse,
     summary="Submit query for AI-assisted disaster decision support"
 )
-async def generate_ai_decision_guidance(request: AIQueryRequest):
+async def generate_ai_decision_guidance(
+    request: AIQueryRequest,
+    x_location_id: Optional[str] = Header(None, alias="X-Location-ID")
+):
     """
     Submits an operational query to the safe AI decision-support engine.
     Aggregates verified database context and sensor telemetry, sanitizes against prompt injection,
     and returns a structured recommendation with empirical evidence citations and statutory Form 8B notice.
     """
+    if x_location_id and (not request.location_id or request.location_id == "kamrup_metro"):
+        request.location_id = x_location_id
+
     try:
         response = await AIService.process_query(request)
         return response
@@ -119,12 +125,14 @@ async def get_ai_provider_health():
 async def preview_ai_operational_context(
     modules: Optional[str] = Query(None, description="Comma-separated module names (e.g. 'weather,gauges,inventory')"),
     zone_code: Optional[str] = Query(None, description="Optional target zone to filter (e.g. 'ZONE 01')"),
-    location_id: Optional[str] = Query(None, description="Target district location ID (e.g. 'kamrup_metro', 'barpeta')")
+    location_id: Optional[str] = Query(None, description="Target district location ID (e.g. 'kamrup_metro', 'barpeta')"),
+    x_location_id: Optional[str] = Header(None, alias="X-Location-ID")
 ):
     """
     Returns the real-time compiled operational context payload that is provided to the AI.
     Exposes explicit provenance labeling (LIVE, LAST_KNOWN, MANUAL, ESTIMATED) for governance audits.
     """
+    effective_loc = location_id or x_location_id or "kamrup_metro"
     module_list = None
     if modules:
         parsed_modules = []
@@ -140,7 +148,7 @@ async def preview_ai_operational_context(
     return AIContextService.compile_full_context(
         modules=module_list,
         target_zone_code=zone_code,
-        location_id=location_id
+        location_id=effective_loc
     )
 
 

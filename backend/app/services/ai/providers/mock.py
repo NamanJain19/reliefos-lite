@@ -228,21 +228,23 @@ class MockAIProvider(BaseAIProvider):
         food_deficit = max(0, dem_food - total_food)
         water_deficit = max(0, dem_water - total_water)
 
+        depot_source = inv_domain.get("source", "District Logistics Hub")
+
         rec = (
-            f"Relief inventory is currently strained at Sarusajai Central Depot: Available Food Rations ({total_food:,} kg) "
-            f"fall {food_deficit:,} kg short of total field requisitions ({dem_food:,} kg), with Potable Water at {total_water:,} L."
+            f"Relief inventory at {depot_source}: Available Food Rations ({total_food:,} kg) "
+            f"vs total field requisitions ({dem_food:,} kg) (Deficit: {food_deficit:,} kg), with Potable Water at {total_water:,} L."
         )
 
         explanation = (
-            f"The Sarusajai Central Depot logistics ledger records {total_food:,} kg of dry food rations and {total_water:,} L "
+            f"The {depot_source} logistics ledger records {total_food:,} kg of dry food rations and {total_water:,} L "
             f"of potable water in stock. Under the statutory 15% strategic reserve buffer mandate, available consumable quantities "
             f"can fully cover Stage 1 Critical requisitions, but cannot fulfill secondary tier demands without an emergency "
-            f"replenishment shipment from the State Emergency Operations Center (SEOC) Khanapara depot."
+            f"replenishment shipment from the district/state staging depot."
         )
 
         evidence = [
             {
-                "source": inv_domain.get("source", "Sarusajai Central Depot Logistics Desk"),
+                "source": depot_source,
                 "data_point": f"Food stock: {total_food:,} kg available; Potable Water: {total_water:,} L available",
                 "provenance_state": inv_domain.get("provenance_state", "MANUAL"),
                 "observation_time": inv_domain.get("observation_time", "Current Shift Ledger"),

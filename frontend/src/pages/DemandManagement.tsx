@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
 import { useLocationContext } from '../context/LocationContext';
 import { getGisZonesForLocation } from '../components/map/gisLayersData';
+import { SphereDemandModal } from '../components/operations/SphereDemandModal';
 
 const KAMRUP_INITIAL_DEMANDS = [
   {
@@ -132,6 +133,7 @@ export const DemandManagement: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'PENDING' | 'APPROVED' | 'FULFILLED'>('ALL');
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [auditModalOpen, setAuditModalOpen] = useState(false);
+  const [sphereModalOpen, setSphereModalOpen] = useState(false);
   const [auditLogs, setAuditLogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [demands, setDemands] = useState<any[]>(() => isKamrupMetro ? KAMRUP_INITIAL_DEMANDS : []);
@@ -250,6 +252,40 @@ export const DemandManagement: React.FC = () => {
     URL.revokeObjectURL(url);
   };
 
+  const handleApplySphereRequisition = async (req: {
+    resourceType: string;
+    requestedQty: number;
+    unit: string;
+    priority: string;
+    notes: string;
+  }) => {
+    const newReq = {
+      id: `DEM-SPHERE-${Date.now().toString().slice(-4)}`,
+      zoneCode: selectedZone,
+      zoneName: activeZones.find(z => z.code === selectedZone)?.name || selectedZone,
+      resourceType: req.resourceType,
+      requestedQty: req.requestedQty,
+      unit: req.unit,
+      priority: req.priority,
+      status: 'PENDING',
+      source: 'Sphere 2018 Humanitarian Standard',
+      time: 'Just now'
+    };
+    try {
+      await api.createDemand({
+        zone_code: selectedZone,
+        resource_type: req.resourceType,
+        requested_qty: req.requestedQty,
+        unit: req.unit,
+        priority: req.priority
+      });
+    } catch {
+      // Maintain UI state
+    }
+    setDemands(prev => [newReq, ...prev]);
+    alert(`Sphere-calculated requisition for ${req.requestedQty} ${req.unit} of ${req.resourceType} recorded.`);
+  };
+
   const handleCreateDemand = async (e: React.FormEvent) => {
     e.preventDefault();
     const zoneMap: Record<string, string> = {};
@@ -338,6 +374,13 @@ export const DemandManagement: React.FC = () => {
           >
             <span className="material-symbols-outlined text-[16px]">file_download</span>
             <span>Export CSV</span>
+          </button>
+          <button
+            onClick={() => setSphereModalOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface text-[12px] border border-secondary/40 text-secondary font-medium transition-colors cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[16px] text-secondary">medical_services</span>
+            <span>Sphere Standards</span>
           </button>
           <button
             onClick={() => setCreateModalOpen(true)}
@@ -698,6 +741,12 @@ export const DemandManagement: React.FC = () => {
           </div>
         </div>
       )}
+      {/* Sphere Standards Calculator Modal */}
+      <SphereDemandModal
+        isOpen={sphereModalOpen}
+        onClose={() => setSphereModalOpen(false)}
+        onApplyRequisition={handleApplySphereRequisition}
+      />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pathlib import Path
 from typing import List, Optional, Set
 from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -41,6 +42,7 @@ class Settings(BaseSettings):
 
     # AI Infrastructure Configuration (Backend-Only Credentials)
     AI_PROVIDER: str = "mock"  # "gemini", "openai", "mock"
+    AI_COPILOT_PROVIDER: Optional[str] = None
     GEMINI_API_KEY: str = Field(default="", repr=False)
     GEMINI_MODEL: str = "gemini-flash-lite-latest"
     OPENAI_API_KEY: str = Field(default="", repr=False)
@@ -55,6 +57,7 @@ class Settings(BaseSettings):
     AUTH_ENABLED: bool = True
     AUTH_STRICT: bool = False
     JWT_SECRET: Optional[str] = Field(default=None, repr=False)
+    JWT_SECRET_KEY: Optional[str] = Field(default=None, repr=False)
     JWT_ALGORITHM: str = "HS256"
     TOKEN_EXPIRY_HOURS: int = 24
 
@@ -91,11 +94,15 @@ class Settings(BaseSettings):
                     port = f":{self.DB_PORT}" if self.DB_PORT else ""
                     return f"postgresql+psycopg2://{self.DB_USER}{pwd}@{self.DB_HOST}{port}/{self.DB_NAME}"
                 raise ValueError("DATABASE_URL or DB_HOST/DB_USER/DB_NAME must be specified in production.")
-            return "sqlite:///./reliefos_lite.db"
+            url = "sqlite:///./reliefos_lite.db"
         if url.startswith("postgres://"):
             return url.replace("postgres://", "postgresql+psycopg2://", 1)
         if url.startswith("postgresql://"):
             return url.replace("postgresql://", "postgresql+psycopg2://", 1)
+        if url.startswith("sqlite:///./"):
+            backend_dir = Path(__file__).resolve().parent.parent.parent
+            db_file = url.replace("sqlite:///./", "")
+            return f"sqlite:///{(backend_dir / db_file).as_posix()}"
         return url
 
     @property
@@ -139,6 +146,11 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_security_configuration(self) -> "Settings":
+        if not self.JWT_SECRET and self.JWT_SECRET_KEY:
+            self.JWT_SECRET = self.JWT_SECRET_KEY
+        if self.AI_COPILOT_PROVIDER and self.AI_PROVIDER == "mock":
+            self.AI_PROVIDER = self.AI_COPILOT_PROVIDER
+
         if self.is_production:
             if not self.JWT_SECRET or not self.JWT_SECRET.strip():
                 raise ValueError(

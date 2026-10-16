@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 
 from app.core.auth import (
     REGISTERED_USERS, PRESHARED_TOKENS, create_access_token, get_current_user,
+    hash_password, verify_password,
     ROLE_COMMANDER, ROLE_OPERATOR, ROLE_ANALYST, ALL_ROLES
 )
 
@@ -76,9 +77,8 @@ async def login_endpoint(req: LoginRequest):
             detail="Invalid username or password."
         )
 
-    # Verify SHA-256 password hash using constant-time comparison
-    hashed = hashlib.sha256(req.password.encode("utf-8")).hexdigest()
-    if not hmac.compare_digest(hashed, user_record["password_hash"]):
+    # Verify secure password hash using constant-time comparison
+    if not verify_password(req.password, user_record["password_hash"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid username or password."
@@ -213,8 +213,7 @@ async def change_password_endpoint(
             detail=f"User record for '{uname}' not found."
         )
 
-    current_hash = hashlib.sha256(req.current_password.encode("utf-8")).hexdigest()
-    if not hmac.compare_digest(current_hash, record["password_hash"]):
+    if not verify_password(req.current_password, record["password_hash"]):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Current password is incorrect."
@@ -232,9 +231,8 @@ async def change_password_endpoint(
             detail="New password must be at least 6 characters long."
         )
 
-    # Hash new password
-    new_hash = hashlib.sha256(req.new_password.encode("utf-8")).hexdigest()
-    record["password_hash"] = new_hash
+    # Hash new password using scrypt
+    record["password_hash"] = hash_password(req.new_password)
 
     return {
         "success": True,
