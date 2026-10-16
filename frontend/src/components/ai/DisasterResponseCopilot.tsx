@@ -402,27 +402,32 @@ export const DisasterResponseCopilot: React.FC<Props> = ({ isOpen, onClose, init
                   {/* Provider Inference Transparency Disclosure */}
                   {msg.structuredResponse.execution_mode === 'LIVE_LLM' ? (
                     <div className="bg-primary/10 border border-primary/40 text-primary px-3 py-1.5 rounded-lg text-[11px] font-mono-data flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                         <span className="font-bold">LIVE CLOUD INFERENCE:</span>
-                        <span>{msg.structuredResponse.provider_used.toUpperCase()} ({msg.structuredResponse.model_used})</span>
+                        <span className="font-semibold">{msg.structuredResponse.provider_used.toUpperCase()} ({msg.structuredResponse.model_used})</span>
+                        {msg.structuredResponse.provider_status === 'FALLBACK' && (
+                          <span className="ml-1 px-1.5 py-0.2 rounded text-[9px] font-bold bg-[#f5b84b]/20 text-[#f5b84b] border border-[#f5b84b]/40">
+                            SECONDARY FALLBACK
+                          </span>
+                        )}
                       </div>
-                      <span className="text-[10px] font-bold text-primary">GROUNDED CONTEXT VERIFIED</span>
+                      <span className="text-[10px] font-bold text-primary whitespace-nowrap">GROUNDED CONTEXT VERIFIED</span>
                     </div>
-                  ) : msg.structuredResponse.execution_mode === 'DETERMINISTIC_GROUNDED' ? (
+                  ) : (msg.structuredResponse.execution_mode === 'DETERMINISTIC_GROUNDED' || msg.structuredResponse.provider_used === 'deterministic') ? (
                     <div className="bg-secondary/10 border border-secondary/40 text-secondary px-3 py-1.5 rounded-lg text-[11px] font-mono-data flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="material-symbols-outlined text-[15px]">verified</span>
-                        <span className="font-bold">DETERMINISTIC BACKEND GROUNDING:</span>
+                        <span className="font-bold">DETERMINISTIC GROUNDED FALLBACK:</span>
                         <span>Direct Database Telemetry & Solvers</span>
                       </div>
-                      <span className="text-[10px] font-bold text-secondary">ZERO HALLUCINATION</span>
+                      <span className="text-[10px] font-bold text-secondary whitespace-nowrap">ZERO HALLUCINATION</span>
                     </div>
                   ) : (
                     <div className="bg-[#f5b84b]/10 border border-[#f5b84b]/40 text-[#f5b84b] px-3 py-1.5 rounded-lg text-[11px] font-mono-data flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="material-symbols-outlined text-[15px]">info</span>
-                        <span className="font-bold">MOCK FALLBACK DISCLOSURE:</span>
+                        <span className="font-bold">DETERMINISTIC GROUNDED FALLBACK:</span>
                         <span>Operating on verified deterministic ground rules.</span>
                       </div>
                       {msg.structuredResponse.fallback_reason && (

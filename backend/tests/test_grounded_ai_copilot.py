@@ -49,6 +49,14 @@ def analyst_token():
 class TestGroundedAICopilot:
     """Rigorous end-to-end tests for AI Copilot data grounding and operational integrity."""
 
+    @pytest.fixture(autouse=True)
+    def ensure_deterministic_grounding(self, monkeypatch):
+        """Ensures test assertions evaluate against deterministic grounding engine rather than remote LLM calls."""
+        from app.services.ai.providers.gemini import GeminiProvider
+        from app.services.ai.providers.openai import OpenAIProvider
+        monkeypatch.setattr(GeminiProvider, "is_live", False)
+        monkeypatch.setattr(OpenAIProvider, "is_live", False)
+
     def test_01_dynamic_inventory_insertion_and_query(self, client):
         """
         1. Insert a known unique inventory record into the active database.

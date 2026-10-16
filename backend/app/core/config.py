@@ -41,10 +41,11 @@ class Settings(BaseSettings):
     DB_POOL_RECYCLE: int = 1800
 
     # AI Infrastructure Configuration (Backend-Only Credentials)
-    AI_PROVIDER: str = "mock"  # "gemini", "openai", "mock"
+    AI_PROVIDER: str = "gemini"  # Primary provider: "gemini", "openai", "mock"
+    AI_FALLBACK_PROVIDER: Optional[str] = "openai"  # Secondary fallback provider: "openai", "gemini", "mock", None
     AI_COPILOT_PROVIDER: Optional[str] = None
     GEMINI_API_KEY: str = Field(default="", repr=False)
-    GEMINI_MODEL: str = "gemini-flash-lite-latest"
+    GEMINI_MODEL: str = "gemini-3.8-flash"
     OPENAI_API_KEY: str = Field(default="", repr=False)
     OPENAI_MODEL: str = "gpt-4o-mini"
     OPENAI_BASE_URL: str = "https://api.openai.com/v1"
@@ -148,8 +149,14 @@ class Settings(BaseSettings):
     def validate_security_configuration(self) -> "Settings":
         if not self.JWT_SECRET and self.JWT_SECRET_KEY:
             self.JWT_SECRET = self.JWT_SECRET_KEY
-        if self.AI_COPILOT_PROVIDER and self.AI_PROVIDER == "mock":
+        if self.AI_COPILOT_PROVIDER and self.AI_PROVIDER in ("mock", "", None):
             self.AI_PROVIDER = self.AI_COPILOT_PROVIDER
+
+        self.AI_PROVIDER = (self.AI_PROVIDER or "gemini").strip().lower()
+        if self.AI_FALLBACK_PROVIDER:
+            self.AI_FALLBACK_PROVIDER = self.AI_FALLBACK_PROVIDER.strip().lower()
+            if self.AI_FALLBACK_PROVIDER in ("none", "disabled", "false", "", self.AI_PROVIDER):
+                self.AI_FALLBACK_PROVIDER = None
 
         if self.is_production:
             if not self.JWT_SECRET or not self.JWT_SECRET.strip():

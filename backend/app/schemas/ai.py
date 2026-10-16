@@ -108,8 +108,12 @@ class AIStructuredResponse(BaseModel):
         description="Statutory legal and governance declaration."
     )
     is_mock_fallback: bool = Field(False, description="Flag indicating whether response was produced by mock fallback")
-    execution_mode: str = Field("LIVE_LLM", description="Execution mode: LIVE_LLM or MOCK_FALLBACK")
+    execution_mode: str = Field("LIVE_LLM", description="Execution mode: LIVE_LLM, DETERMINISTIC_GROUNDED, or MOCK_FALLBACK")
     fallback_reason: Optional[str] = Field(None, description="Detailed explanation if fallback was triggered")
+    provider_status: str = Field("LIVE", description="Provider operational status: LIVE, FALLBACK, or UNAVAILABLE")
+    grounding_status: str = Field("GROUNDED", description="Grounding status: GROUNDED")
+    location: Optional[str] = Field(None, description="Active district location ID (e.g. 'kamrup_metro', 'barpeta')")
+    data_timestamp: Optional[str] = Field(None, description="ISO-8601 timestamp of underlying operational data")
     audit_id: str = Field(..., description="UUID or reference tracking code logged into the immutable database audit ledger.")
     created_at: str = Field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat(),
@@ -122,8 +126,13 @@ class AIProviderHealthResponse(BaseModel):
     effective_provider: str
     model: str
     is_live_provider: bool
-    provider_status: str = "LIVE"  # "LIVE", "MOCK", "UNAVAILABLE", "ERROR"
+    provider_status: str = "LIVE"  # "LIVE", "MOCK", "UNAVAILABLE", "ERROR", "FALLBACK"
     status_message: str = "Provider operational"
+    configured_primary_provider: Optional[str] = None
+    configured_fallback_provider: Optional[str] = None
+    primary_status: Optional[str] = None
+    fallback_status: Optional[str] = None
+    fallback_model: Optional[str] = None
     rate_limit_requests_per_minute: int
     current_minute_requests: int
     timeout_seconds: float

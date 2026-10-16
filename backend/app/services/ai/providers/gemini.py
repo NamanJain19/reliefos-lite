@@ -50,7 +50,7 @@ class GeminiProvider(BaseAIProvider):
             )
 
         models_to_try = [self._model]
-        for alt in ("gemini-flash-lite-latest", "gemini-flash-latest"):
+        for alt in ("gemini-3.8-flash", "gemini-flash-lite-latest", "gemini-flash-latest", "gemini-1.5-flash"):
             if alt not in models_to_try:
                 models_to_try.append(alt)
 

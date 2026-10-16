@@ -7,6 +7,7 @@ grounded evidence validation, deterministic fallback synthesis, and statutory au
 import json
 import re
 import logging
+from datetime import datetime, timezone
 from typing import Optional, Dict, Any, List
 
 from app.core.config import get_settings
@@ -24,7 +25,9 @@ from app.services.ai.synthesizer import DeterministicGroundedSynthesizer
 from app.services.ai.resilience import (
     SlidingWindowRateLimiter, CircuitBreaker, execute_with_retry
 )
-from app.services.ai.providers.factory import get_configured_ai_provider
+from app.services.ai.providers.factory import (
+    get_configured_ai_provider, get_primary_ai_provider, get_fallback_ai_provider
+)
 from app.services.ai.providers.mock import MockAIProvider
 from app.services.ai.audit import record_ai_audit_event
 from app.core.location_registry import normalize_location_id
@@ -103,43 +106,17 @@ class AIService:
             location_id=loc_id
         )
 
-        # 7. Check AI provider configuration
-        provider = get_configured_ai_provider()
+        # 7. Resolve Primary and Secondary/Fallback AI Providers
+        primary_provider = get_configured_ai_provider()
+        fallback_provider = get_fallback_ai_provider()
 
-        # If live provider is NOT active (e.g. no Gemini/OpenAI API key configured), or circuit breaker is OPEN:
-        # Synthesize a deterministic, 100% evidence-grounded operational response directly from DB records.
-        if circuit_open or not provider.is_live:
-            is_mock = isinstance(provider, MockAIProvider) or getattr(provider, "name", "") == "mock"
-            deterministic_resp = DeterministicGroundedSynthesizer.synthesize(
-                query=clean_query,
-                location_id=loc_id,
-                context_items=context_preview.context_items,
-                fallback_reason=fallback_reason or ("Mock provider active" if is_mock else "Provider unconfigured"),
-                is_provider_error=circuit_open,
-                operator_name=request.operator_name
-            )
-            if is_mock:
-                deterministic_resp.is_mock_fallback = True
-                deterministic_resp.provider_used = "mock"
-                deterministic_resp.execution_mode = "MOCK_FALLBACK"
-                deterministic_resp.fallback_reason = "Mock AI provider active (unconfigured cloud LLM credentials)"
+        # If primary is MockAIProvider (e.g. explicit mock configuration or patched mock in tests),
+        # or if primary is unconfigured and no fallback is available:
+        is_explicit_mock = (
+            (isinstance(primary_provider, MockAIProvider) and getattr(primary_provider, "model_name", "") == "reliefos-deterministic-v1")
+            or getattr(settings, "AI_PROVIDER", "gemini").lower() == "mock"
+        )
 
-            # Record audit event
-            audit_id = record_ai_audit_event(
-                operator_name=request.operator_name,
-                query_text=clean_query,
-                provider_name="backend_deterministic",
-                model_name=deterministic_resp.model_used,
-                latency_ms=12.5,
-                recommendation_summary=deterministic_resp.recommendation,
-                supporting_evidence_count=len(deterministic_resp.supporting_evidence),
-                risks_count=len(deterministic_resp.identified_risks_and_limitations),
-                disclosures_count=len(deterministic_resp.missing_or_stale_data_disclosures)
-            )
-            deterministic_resp.audit_id = audit_id
-            return deterministic_resp
-
-        # 8. Live Cloud LLM Inference Pipeline (When Gemini/OpenAI is configured and online)
         context_json = AIContextService.serialize_context_for_prompt(
             modules=active_modules,
             target_zone_code=request.zone_code,
@@ -152,24 +129,72 @@ class AIService:
         max_retries = getattr(settings, "AI_MAX_RETRIES", 2)
         temperature = getattr(settings, "AI_TEMPERATURE", 0.2)
 
-        try:
-            async def _invoke():
-                return await provider.generate_response(
-                    system_instruction=system_instruction,
-                    prompt=secure_prompt,
-                    temperature=temperature,
+        raw_response = None
+        active_provider = None
+        failover_reasons: List[str] = []
+        is_fallback_provider_used = False
+
+        # Phase 1: Attempt Primary Provider (if live and circuit breaker not open)
+        if not circuit_open and primary_provider.is_live and not is_explicit_mock:
+            try:
+                async def _invoke_primary():
+                    return await primary_provider.generate_response(
+                        system_instruction=system_instruction,
+                        prompt=secure_prompt,
+                        temperature=temperature,
+                        timeout_seconds=timeout_sec
+                    )
+
+                raw_response = await execute_with_retry(
+                    operation=_invoke_primary,
+                    max_retries=max_retries,
+                    base_delay=0.5,
                     timeout_seconds=timeout_sec
                 )
+                active_provider = primary_provider
+                await circuit_breaker.record_success()
+            except Exception as prim_exc:
+                err_msg = str(prim_exc)
+                failover_reasons.append(f"Primary '{primary_provider.name}' failed: {err_msg}")
+                logger.warning(
+                    f"Primary AI provider '{primary_provider.name}' failed: {err_msg}. Attempting secondary fallback provider."
+                )
+                await circuit_breaker.record_failure()
+        else:
+            if circuit_open:
+                failover_reasons.append(f"Primary '{primary_provider.name}' circuit breaker OPEN")
+            elif not primary_provider.is_live and not is_explicit_mock:
+                failover_reasons.append(f"Primary '{primary_provider.name}' credentials not configured")
 
-            raw_response = await execute_with_retry(
-                operation=_invoke,
-                max_retries=max_retries,
-                base_delay=0.5,
-                timeout_seconds=timeout_sec
-            )
-            await circuit_breaker.record_success()
+        # Phase 2: Attempt Secondary/Fallback Provider if Primary did not succeed
+        if raw_response is None and fallback_provider and fallback_provider.is_live and not is_explicit_mock:
+            try:
+                logger.info(f"Attempting fallback AI provider: {fallback_provider.name}")
+                async def _invoke_fallback():
+                    return await fallback_provider.generate_response(
+                        system_instruction=system_instruction,
+                        prompt=secure_prompt,
+                        temperature=temperature,
+                        timeout_seconds=timeout_sec
+                    )
 
-            # Parse and validate structured output
+                raw_response = await execute_with_retry(
+                    operation=_invoke_fallback,
+                    max_retries=max_retries,
+                    base_delay=0.5,
+                    timeout_seconds=timeout_sec
+                )
+                active_provider = fallback_provider
+                is_fallback_provider_used = True
+            except Exception as fall_exc:
+                err_msg = str(fall_exc)
+                failover_reasons.append(f"Fallback '{fallback_provider.name}' failed: {err_msg}")
+                logger.warning(
+                    f"Fallback AI provider '{fallback_provider.name}' failed: {err_msg}. Falling back to deterministic synthesizer."
+                )
+
+        # Phase 3: Successful inference from Primary or Secondary Provider
+        if raw_response is not None and active_provider is not None:
             parsed = cls._parse_llm_json_output(raw_response.content)
 
             supporting_evidence_models = []
@@ -185,7 +210,6 @@ class AIService:
                         )
                     )
 
-            # If model didn't generate explicit evidence, populate directly from retrieved context items
             if not supporting_evidence_models:
                 for it in context_preview.context_items[:4]:
                     supporting_evidence_models.append(
@@ -222,6 +246,12 @@ class AIService:
             if not isinstance(disclosures, list):
                 disclosures = [str(disclosures)]
 
+            if is_fallback_provider_used:
+                disclosures.insert(
+                    0,
+                    f"Primary provider '{primary_provider.name}' unavailable ({failover_reasons[0] if failover_reasons else 'failed'}). Response served by fallback provider '{active_provider.name}'."
+                )
+
             rec = parsed.get("recommendation", "Review zone demand vs depot inventory.")
             detailed_exp = parsed.get("detailed_explanation", "")
 
@@ -238,6 +268,7 @@ class AIService:
                 disclosures_count=len(disclosures)
             )
 
+            now_iso = datetime.now(timezone.utc).isoformat()
             return AIStructuredResponse(
                 status="SUCCESS",
                 provider_used=raw_response.provider,
@@ -252,35 +283,55 @@ class AIService:
                 statutory_compliance_notice="ASDMA Form 8B Advisory Guidance Only. Official human sign-off required prior to vehicle rollout.",
                 is_mock_fallback=False,
                 execution_mode="LIVE_LLM",
-                fallback_reason=None,
+                provider_status="FALLBACK" if is_fallback_provider_used else "LIVE",
+                grounding_status="GROUNDED",
+                location=loc_id,
+                data_timestamp=now_iso,
+                fallback_reason=" | ".join(failover_reasons) if is_fallback_provider_used else None,
                 audit_id=audit_id
             )
 
-        except (AIProviderError, AITimeoutError, Exception) as exc:
-            logger.warning(f"Live AI provider '{provider.name}' failed: {str(exc)}. Falling back to deterministic grounded synthesis.")
-            await circuit_breaker.record_failure()
+        # Phase 4: Deterministic Grounded Fallback (Both cloud providers failed or unconfigured)
+        combined_reason = " | ".join(failover_reasons) if failover_reasons else "No live cloud AI credentials configured"
 
-            # Execute grounded deterministic fallback rather than scripted conversational mock
-            degraded_resp = DeterministicGroundedSynthesizer.synthesize(
-                query=clean_query,
-                location_id=loc_id,
-                context_items=context_preview.context_items,
-                fallback_reason=f"Live provider '{provider.name}' failed: {str(exc)}",
-                is_provider_error=True,
-                operator_name=request.operator_name
-            )
-            degraded_resp.status = "PARTIAL_CONTEXT"
+        deterministic_resp = DeterministicGroundedSynthesizer.synthesize(
+            query=clean_query,
+            location_id=loc_id,
+            context_items=context_preview.context_items,
+            fallback_reason=combined_reason,
+            is_provider_error=bool(failover_reasons and not is_explicit_mock),
+            operator_name=request.operator_name
+        )
 
-            audit_id = record_ai_audit_event(
-                operator_name=request.operator_name,
-                query_text=clean_query,
-                provider_name="backend_deterministic",
-                model_name=degraded_resp.model_used,
-                latency_ms=18.0,
-                recommendation_summary=degraded_resp.recommendation,
-                supporting_evidence_count=len(degraded_resp.supporting_evidence),
-                risks_count=len(degraded_resp.identified_risks_and_limitations),
-                disclosures_count=len(degraded_resp.missing_or_stale_data_disclosures)
-            )
-            degraded_resp.audit_id = audit_id
-            return degraded_resp
+        if is_explicit_mock:
+            deterministic_resp.is_mock_fallback = True
+            deterministic_resp.provider_used = "mock"
+            deterministic_resp.execution_mode = "MOCK_FALLBACK"
+            deterministic_resp.provider_status = "MOCK"
+            deterministic_resp.fallback_reason = "Mock AI provider active (unconfigured cloud LLM credentials)"
+        else:
+            if failover_reasons:
+                deterministic_resp.status = "PARTIAL_CONTEXT"
+            deterministic_resp.is_mock_fallback = False
+            deterministic_resp.provider_used = "deterministic"
+            deterministic_resp.execution_mode = "DETERMINISTIC_GROUNDED"
+            deterministic_resp.provider_status = "FALLBACK"
+            deterministic_resp.grounding_status = "GROUNDED"
+            deterministic_resp.location = loc_id
+            deterministic_resp.data_timestamp = datetime.now(timezone.utc).isoformat()
+            if not deterministic_resp.fallback_reason:
+                deterministic_resp.fallback_reason = combined_reason
+
+        audit_id = record_ai_audit_event(
+            operator_name=request.operator_name,
+            query_text=clean_query,
+            provider_name="backend_deterministic",
+            model_name=deterministic_resp.model_used,
+            latency_ms=15.0,
+            recommendation_summary=deterministic_resp.recommendation,
+            supporting_evidence_count=len(deterministic_resp.supporting_evidence),
+            risks_count=len(deterministic_resp.identified_risks_and_limitations),
+            disclosures_count=len(deterministic_resp.missing_or_stale_data_disclosures)
+        )
+        deterministic_resp.audit_id = audit_id
+        return deterministic_resp

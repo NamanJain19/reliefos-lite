@@ -633,8 +633,12 @@ export interface AIStructuredResponse {
   human_review_required: boolean;
   statutory_compliance_notice: string;
   is_mock_fallback?: boolean;
-  execution_mode?: 'LIVE_LLM' | 'MOCK_FALLBACK' | 'MOCK_STANDALONE' | string;
+  execution_mode?: 'LIVE_LLM' | 'DETERMINISTIC_GROUNDED' | 'MOCK_FALLBACK' | 'MOCK_STANDALONE' | string;
   fallback_reason?: string;
+  provider_status?: 'LIVE' | 'FALLBACK' | 'UNAVAILABLE' | string;
+  grounding_status?: string;
+  location?: string;
+  data_timestamp?: string;
   audit_id: string;
   created_at: string;
 }
@@ -652,8 +656,13 @@ export interface AIProviderHealth {
   effective_provider: string;
   model: string;
   is_live_provider: boolean;
-  provider_status?: 'LIVE' | 'MOCK' | 'UNAVAILABLE' | 'ERROR' | string;
+  provider_status?: 'LIVE' | 'MOCK' | 'UNAVAILABLE' | 'ERROR' | 'FALLBACK' | string;
   status_message?: string;
+  configured_primary_provider?: string;
+  configured_fallback_provider?: string;
+  primary_status?: string;
+  fallback_status?: string;
+  fallback_model?: string;
   rate_limit_requests_per_minute: number;
   current_minute_requests: number;
   timeout_seconds: number;

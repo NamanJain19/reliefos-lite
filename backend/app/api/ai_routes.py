@@ -18,7 +18,9 @@ from app.schemas.ai import (
 )
 from app.services.ai.service import AIService, rate_limiter, circuit_breaker
 from app.services.ai.context_service import AIContextService
-from app.services.ai.providers.factory import get_configured_ai_provider
+from app.services.ai.providers.factory import (
+    get_configured_ai_provider, get_primary_ai_provider, get_fallback_ai_provider
+)
 from app.services.ai.exceptions import (
     AIPromptSecurityError, AIRateLimitError, AITimeoutError, AIProviderError
 )
@@ -86,29 +88,64 @@ async def generate_ai_decision_guidance(
 async def get_ai_provider_health():
     """Returns AI provider operational status, active model, and rate limiting status."""
     settings = get_settings()
-    provider = get_configured_ai_provider()
+    primary = get_primary_ai_provider()
+    fallback = get_fallback_ai_provider()
 
-    cfg_provider = getattr(settings, "AI_PROVIDER", "mock").lower().strip()
+    cfg_primary = (getattr(settings, "AI_PROVIDER", "gemini") or "gemini").lower().strip()
+    cfg_fallback = getattr(settings, "AI_FALLBACK_PROVIDER", None)
+    if cfg_fallback:
+        cfg_fallback = cfg_fallback.lower().strip()
+
     if circuit_breaker.state == "OPEN":
-        provider_status = "ERROR"
+        primary_status = "ERROR"
         status_msg = f"Circuit breaker OPEN due to consecutive failures. Recovery timeout {circuit_breaker.recovery_timeout_seconds}s."
-    elif provider.is_live:
-        provider_status = "LIVE"
-        status_msg = f"Live cloud inference active via {provider.name} ({provider.model_name})."
-    elif cfg_provider != "mock":
-        provider_status = "UNAVAILABLE"
-        status_msg = f"Configured provider '{cfg_provider}' key unconfigured; using deterministic mock fallback."
+    elif primary.is_live:
+        primary_status = "LIVE"
+        status_msg = f"Live cloud inference active via {primary.name} ({primary.model_name})."
+    elif cfg_primary != "mock":
+        primary_status = "UNAVAILABLE"
+        status_msg = f"Configured primary provider '{cfg_primary}' key unconfigured."
     else:
-        provider_status = "MOCK"
+        primary_status = "MOCK"
         status_msg = "Deterministic grounded mock engine active."
 
+    fallback_status = None
+    fallback_model = None
+    if fallback:
+        fallback_model = fallback.model_name
+        fallback_status = "LIVE" if fallback.is_live else "UNAVAILABLE"
+
+    # Effective provider is primary if live, else fallback if live, else primary mock/deterministic
+    if primary.is_live and circuit_breaker.state != "OPEN":
+        eff_provider = primary.name
+        eff_model = primary.model_name
+        eff_status = primary_status
+    elif fallback and fallback.is_live:
+        eff_provider = fallback.name
+        eff_model = fallback.model_name
+        eff_status = "FALLBACK"
+        status_msg = f"Primary provider unavailable; secondary fallback active via {fallback.name} ({fallback.model_name})."
+    elif cfg_primary != "mock":
+        eff_provider = primary.name
+        eff_model = primary.model_name
+        eff_status = "UNAVAILABLE"
+    else:
+        eff_provider = primary.name
+        eff_model = primary.model_name
+        eff_status = "MOCK"
+
     return AIProviderHealthResponse(
-        configured_provider=cfg_provider,
-        effective_provider=provider.name,
-        model=provider.model_name,
-        is_live_provider=provider.is_live,
-        provider_status=provider_status,
+        configured_provider=cfg_primary,
+        effective_provider=eff_provider,
+        model=eff_model,
+        is_live_provider=primary.is_live or (fallback.is_live if fallback else False),
+        provider_status=eff_status,
         status_message=status_msg,
+        configured_primary_provider=cfg_primary,
+        configured_fallback_provider=cfg_fallback,
+        primary_status=primary_status,
+        fallback_status=fallback_status,
+        fallback_model=fallback_model,
         rate_limit_requests_per_minute=rate_limiter.max_requests,
         current_minute_requests=rate_limiter.current_load(),
         timeout_seconds=getattr(settings, "AI_TIMEOUT_SECONDS", 15.0),
