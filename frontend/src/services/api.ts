@@ -444,6 +444,18 @@ export const api = {
     const res = await apiClient.put('/auth/me', data);
     return res.data;
   },
+  uploadAvatar: async (avatar_data_url: string): Promise<UserProfileResponse> => {
+    const res = await apiClient.post('/auth/avatar', { avatar_data_url });
+    return res.data;
+  },
+  removeAvatar: async (): Promise<UserProfileResponse> => {
+    const res = await apiClient.delete('/auth/avatar');
+    return res.data;
+  },
+  exportDossier: async (): Promise<any> => {
+    const res = await apiClient.get('/auth/dossier/export');
+    return res.data;
+  },
   changePassword: async (data: ChangePasswordRequest): Promise<{ success: boolean; message: string }> => {
     const res = await apiClient.post('/auth/change-password', data);
     return res.data;
@@ -494,6 +506,7 @@ export interface UpdateProfileRequest {
   email?: string;
   phone?: string;
   agency?: string;
+  avatar_url?: string;
 }
 
 export interface ChangePasswordRequest {

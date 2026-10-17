@@ -79,7 +79,7 @@ def init_db(engine_override: Optional[Engine] = None):
     from app.models.domain import (
         ZoneModel, DepotModel, VehicleModel, InventoryItemModel,
         DemandModel, ShelterModel, RoadClosureModel, AuditLogModel, DispatchOrderModel,
-        StockMovementModel, IncidentModel, SituationReportModel
+        StockMovementModel, IncidentModel, SituationReportModel, UserProfileModel
     )
     from app.core.data_store import (
         ZONES_DATA, DEPOT_DATA, VEHICLES_DATA, INVENTORY_ITEMS_DATA,
@@ -377,6 +377,20 @@ def init_db(engine_override: Optional[Engine] = None):
                 form_reference="ASDMA-SITREP-DAILY-01",
                 approved_at=datetime.now(timezone.utc)
             ))
+
+        if db.query(UserProfileModel).count() == 0:
+            from app.core.auth import REGISTERED_USERS
+            for uname, udata in REGISTERED_USERS.items():
+                db.add(UserProfileModel(
+                    username=udata["username"],
+                    role=udata["role"],
+                    name=udata["name"],
+                    agency=udata.get("agency", "District Operations"),
+                    email=udata.get("email"),
+                    phone=udata.get("phone"),
+                    avatar_url=udata.get("avatar_url", "/officer_sharma.png"),
+                    password_hash=udata.get("password_hash")
+                ))
 
         db.commit()
     except Exception:

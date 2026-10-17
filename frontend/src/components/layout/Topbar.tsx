@@ -472,7 +472,7 @@ export const Topbar: React.FC<Props> = ({ pageTitle, onToggleMobileMenu, onOpenC
                 <img
                   src={currentUser.avatar_url}
                   alt={currentUser.name}
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                   onError={(e) => {
                     (e.target as HTMLElement).style.display = 'none';
                   }}

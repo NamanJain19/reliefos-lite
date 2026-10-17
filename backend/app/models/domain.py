@@ -262,3 +262,24 @@ class SituationReportModel(Base):
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     approved_at = Column(DateTime, nullable=True)
 
+
+class UserProfileModel(Base):
+    """
+    Authenticated operational officer profile and duty dossier record.
+    Persists official name, duty desk assignment, contact information,
+    cryptographic password hash, and avatar photo across sessions.
+    """
+    __tablename__ = "user_profiles"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(50), unique=True, index=True, nullable=False)
+    role = Column(String(50), nullable=False, default="OPERATOR")
+    name = Column(String(100), nullable=False)
+    agency = Column(String(150), default="Kamrup Metro Logistics Desk")
+    email = Column(String(150), nullable=True)
+    phone = Column(String(50), nullable=True)
+    avatar_url = Column(Text, nullable=True)
+    password_hash = Column(String(255), nullable=True)
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+
