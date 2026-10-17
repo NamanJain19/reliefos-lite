@@ -265,3 +265,88 @@ def test_dossier_export_integrity_and_security(operator_token):
     assert "password_hash" not in dumped
     assert "SECRET_KEY" not in dumped
     assert "secret" not in dumped.lower() or "session" in dumped.lower() or "statutory_notice" in dumped.lower()
+
+
+def test_unauthenticated_photo_upload_rejected():
+    """Verify that photo upload without a valid Bearer token is strictly rejected with 401."""
+    sample_png = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+    
+    # 1. Without Authorization header under strict mode
+    resp = client.post("/api/auth/avatar", headers={"X-Auth-Strict": "true"}, json={"avatar_data_url": sample_png})
+    assert resp.status_code == 401
+    assert "Authentication required" in resp.json()["detail"]
+
+    # 2. With malformed Authorization header
+    resp_bad = client.post("/api/auth/avatar", headers={"Authorization": "InvalidTokenFormat"}, json={"avatar_data_url": sample_png})
+    assert resp_bad.status_code == 401
+    assert "Malformed Authorization header" in resp_bad.json()["detail"]
+
+
+def test_login_photo_upload_and_persistence_lifecycle():
+    """
+    Simulates the exact end-to-end user workflow:
+    1. Authenticate via /api/auth/login with valid operator credentials.
+    2. Receive and extract access_token.
+    3. Update profile metadata and upload avatar with Authorization: Bearer <token>.
+    4. Reload profile (simulating browser page refresh).
+    5. Verify photo and metadata remain persisted in the database.
+    """
+    # Step 1: Login
+    login_resp = client.post("/api/auth/login", json={"username": "operator", "password": "relief@2026"})
+    assert login_resp.status_code == 200
+    token = login_resp.json()["access_token"]
+    assert token and len(token) > 20
+
+    auth_headers = {"Authorization": f"Bearer {token}"}
+    sample_png = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+
+    # Step 2: Upload photo via /auth/avatar
+    upload_resp = client.post("/api/auth/avatar", headers=auth_headers, json={"avatar_data_url": sample_png})
+    assert upload_resp.status_code == 200
+    assert upload_resp.json()["avatar_url"] == sample_png
+
+    # Step 3: Update profile metadata via /auth/me
+    update_resp = client.put("/api/auth/me", headers=auth_headers, json={
+        "name": "Insp. S. Sharma (EOC Logistics)",
+        "email": "sharma.persisted@asdma.gov.in",
+        "phone": "+91 94350 77665",
+        "agency": "Kamrup Metro Command Staging Desk"
+    })
+    assert update_resp.status_code == 200
+    assert update_resp.json()["name"] == "Insp. S. Sharma (EOC Logistics)"
+
+    # Step 4: Reload profile (page refresh) with token
+    reload_resp = client.get("/api/auth/me", headers=auth_headers)
+    assert reload_resp.status_code == 200
+    reloaded_data = reload_resp.json()
+    assert reloaded_data["name"] == "Insp. S. Sharma (EOC Logistics)"
+    assert reloaded_data["email"] == "sharma.persisted@asdma.gov.in"
+    assert reloaded_data["avatar_url"] == sample_png
+
+    # Step 5: Verify directly in database session
+    db = SessionLocal()
+    try:
+        user_record = db.query(UserProfileModel).filter(UserProfileModel.username == "operator").first()
+        assert user_record.avatar_url == sample_png
+        assert user_record.name == "Insp. S. Sharma (EOC Logistics)"
+    finally:
+        db.close()
+
+
+def test_expired_token_rejected_on_photo_upload():
+    """Verify that an expired token cannot be used to upload photo or modify profile."""
+    # Create token expired 2 hours ago
+    expired_token = create_access_token({
+        "username": "operator",
+        "role": ROLE_OPERATOR,
+        "name": "Insp. S. Sharma",
+        "agency": "Kamrup Metro Logistics Desk"
+    }, expires_delta_hours=-2.0)
+
+    sample_png = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+    headers = {"Authorization": f"Bearer {expired_token}"}
+    
+    resp = client.post("/api/auth/avatar", headers=headers, json={"avatar_data_url": sample_png})
+    assert resp.status_code == 401
+    assert "Invalid, expired, or untrusted authentication token" in resp.json()["detail"]
+

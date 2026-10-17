@@ -16,10 +16,18 @@ apiClient.interceptors.request.use(
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('auth_token');
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        if (typeof config.headers.set === 'function') {
+          config.headers.set('Authorization', `Bearer ${token}`);
+        } else {
+          config.headers['Authorization'] = `Bearer ${token}`;
+        }
       }
       const locationId = localStorage.getItem('reliefos_selected_location_id') || 'kamrup_metro';
-      config.headers['X-Location-ID'] = locationId;
+      if (typeof config.headers.set === 'function') {
+        config.headers.set('X-Location-ID', locationId);
+      } else {
+        config.headers['X-Location-ID'] = locationId;
+      }
     }
     return config;
   },
@@ -29,11 +37,24 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response Interceptor: structured logging and graceful error propagation
+// Response Interceptor: structured logging, token expiration handling, and graceful error propagation
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response) {
+    if (error.response?.status === 401 && typeof window !== 'undefined') {
+      console.warn(`[Auth 401 Unauthorized] Stale or missing session token at ${error.config?.url}`);
+      // Remove stale/invalid token
+      localStorage.removeItem('auth_token');
+      // Dispatch event so UI components can prompt authentication
+      window.dispatchEvent(
+        new CustomEvent('reliefos-auth-expired', {
+          detail: {
+            message: error.response?.data?.detail || 'Authentication required. Please log in.',
+            status: 401,
+          },
+        })
+      );
+    } else if (error.response) {
       console.warn(`[API Response Error ${error.response.status}] ${error.config?.url}:`, error.response.data);
     } else if (error.request) {
       console.warn(`[API Network Timeout/Down] Failed to reach backend at ${API_BASE_URL}:`, error.message);
@@ -464,6 +485,31 @@ export const api = {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('auth_token');
     }
+  },
+  getAuthToken: (): string | null => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('auth_token');
+    }
+    return null;
+  },
+  isAuthenticated: (): boolean => {
+    if (typeof window === 'undefined') return false;
+    const token = localStorage.getItem('auth_token');
+    if (!token) return false;
+    try {
+      const parts = token.split('.');
+      if (parts.length === 3) {
+        const payload = JSON.parse(atob(parts[1]));
+        if (payload.exp && payload.exp < Date.now() / 1000) {
+          localStorage.removeItem('auth_token');
+          return false;
+        }
+        return true;
+      }
+    } catch {
+      return false;
+    }
+    return false;
   },
   // Demand Forecasting & Sphere Projections
   getDemandForecast: async (horizonHours: number = 24): Promise<DemandForecastResponse> => {

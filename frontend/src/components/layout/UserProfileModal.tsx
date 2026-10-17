@@ -7,6 +7,14 @@ interface Props {
 }
 
 export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  // Authentication status state
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(api.isAuthenticated());
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [loginForm, setLoginForm] = useState({
+    username: 'operator',
+    password: 'relief@2026',
+  });
+
   // Current user state
   const [profile, setProfile] = useState<UserProfileResponse>({
     username: 'operator',
@@ -65,6 +73,18 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   // Load user profile from persistent backend database
   const fetchProfile = async () => {
+    const isAuth = api.isAuthenticated();
+    setIsAuthenticated(isAuth);
+
+    if (!isAuth) {
+      setIsLoading(false);
+      setStatusMessage({
+        type: 'error',
+        text: 'Authentication required. Provide a valid Bearer token in the Authorization header by logging in below.',
+      });
+      return;
+    }
+
     setIsLoading(true);
     setStatusMessage(null);
     try {
@@ -80,9 +100,18 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
         setPreviewAvatarUrl(null);
         setPendingAvatarDataUrl(null);
         setIsPhotoModified(false);
+        setIsAuthenticated(true);
       }
     } catch (err: any) {
-      console.warn('Could not fetch latest profile from backend:', err);
+      if (err?.response?.status === 401) {
+        setIsAuthenticated(false);
+        setStatusMessage({
+          type: 'error',
+          text: 'Authentication required. Provide a valid Bearer token in the Authorization header by logging in below.',
+        });
+      } else {
+        console.warn('Could not fetch latest profile from backend:', err);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -93,7 +122,6 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
       fetchProfile();
       setIsEditing(false);
       setIsPasswordSectionOpen(false);
-      setStatusMessage(null);
       setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
     } else {
       cleanupBlobUrl();
@@ -101,15 +129,73 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   useEffect(() => {
+    const handleAuthExpired = (e: any) => {
+      setIsAuthenticated(false);
+      setStatusMessage({
+        type: 'error',
+        text: e.detail?.message || 'Authentication required. Provide a valid Bearer token in the Authorization header.',
+      });
+    };
+
+    window.addEventListener('reliefos-auth-expired', handleAuthExpired);
     return () => {
+      window.removeEventListener('reliefos-auth-expired', handleAuthExpired);
       cleanupBlobUrl();
     };
   }, []);
 
   if (!isOpen) return null;
 
+  // Handle In-Modal Officer Authentication
+  const handleLogin = async (e?: React.FormEvent, customCreds?: { username: string; password: string }) => {
+    if (e) e.preventDefault();
+    const creds = customCreds || loginForm;
+
+    if (!creds.username || !creds.password) {
+      setStatusMessage({ type: 'error', text: 'Please provide both username and password.' });
+      return;
+    }
+
+    setIsLoggingIn(true);
+    setStatusMessage(null);
+
+    try {
+      const res = await api.login(creds);
+      setIsAuthenticated(true);
+      setProfile(res.user);
+      setFormData({
+        name: res.user.name || '',
+        email: res.user.email || '',
+        phone: res.user.phone || '',
+        agency: res.user.agency || '',
+      });
+      setStatusMessage({
+        type: 'success',
+        text: `Authenticated successfully as ${res.user.role} (${res.user.name}). Active Bearer token attached.`,
+      });
+
+      // Broadcast profile update event to Topbar, Sidebar, etc.
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('reliefos-profile-updated', { detail: res.user }));
+      }
+    } catch (err: any) {
+      const errMsg = err?.response?.data?.detail || err?.message || 'Authentication failed. Please verify credentials.';
+      setStatusMessage({ type: 'error', text: errMsg });
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
   // Handle Edit Mode Toggle
   const handleStartEdit = () => {
+    if (!api.isAuthenticated()) {
+      setIsAuthenticated(false);
+      setStatusMessage({
+        type: 'error',
+        text: 'Authentication required. Provide a valid Bearer token by logging in below before editing.',
+      });
+      return;
+    }
     setFormData({
       name: profile.name || '',
       email: profile.email || '',
@@ -143,6 +229,14 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   // Trigger File Input Picker
   const handleTriggerFileInput = () => {
+    if (!api.isAuthenticated()) {
+      setIsAuthenticated(false);
+      setStatusMessage({
+        type: 'error',
+        text: 'Authentication required. Provide a valid Bearer token by logging in below before changing photos.',
+      });
+      return;
+    }
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
@@ -229,10 +323,20 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
     });
   };
 
-  // Validate and Save Profile (persists to backend database)
+  // Validate and Save Profile (persists to backend database via authenticated request)
   const handleSaveProfile = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setStatusMessage(null);
+
+    // Do not silently send unauthenticated request
+    if (!api.isAuthenticated()) {
+      setIsAuthenticated(false);
+      setStatusMessage({
+        type: 'error',
+        text: 'Authentication required. Provide a valid Bearer token in the Authorization header by logging in below before saving.',
+      });
+      return;
+    }
 
     // Validation
     const trimmedName = formData.name.trim();
@@ -261,6 +365,7 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
         payload.avatar_url = pendingAvatarDataUrl;
       }
 
+      // apiClient automatically attaches Authorization: Bearer <CURRENT_VALID_JWT_TOKEN>
       const updated = await api.updateProfile(payload);
 
       setProfile(updated);
@@ -272,7 +377,7 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
       setStatusMessage({
         type: 'success',
-        text: 'Officer dossier successfully updated and persisted in ASDMA registry.',
+        text: 'Officer dossier and photo successfully updated and persisted in ASDMA registry.',
       });
 
       // Notify Topbar, Sidebar, and other application components
@@ -280,6 +385,9 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
         window.dispatchEvent(new CustomEvent('reliefos-profile-updated', { detail: updated }));
       }
     } catch (err: any) {
+      if (err?.response?.status === 401) {
+        setIsAuthenticated(false);
+      }
       const errDetail = err?.response?.data?.detail;
       const errMsg = typeof errDetail === 'string' ? errDetail : err?.message || 'Failed to update profile.';
       setStatusMessage({ type: 'error', text: errMsg });
@@ -292,6 +400,15 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatusMessage(null);
+
+    if (!api.isAuthenticated()) {
+      setIsAuthenticated(false);
+      setStatusMessage({
+        type: 'error',
+        text: 'Authentication required. Provide a valid Bearer token by logging in below before updating credentials.',
+      });
+      return;
+    }
 
     if (!passwordForm.currentPassword) {
       setStatusMessage({ type: 'error', text: 'Please enter your current operational password.' });
@@ -326,6 +443,9 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
         setIsPasswordSectionOpen(false);
       }
     } catch (err: any) {
+      if (err?.response?.status === 401) {
+        setIsAuthenticated(false);
+      }
       const errDetail = err?.response?.data?.detail;
       const errMsg = typeof errDetail === 'string' ? errDetail : err?.message || 'Password update failed.';
       setStatusMessage({ type: 'error', text: errMsg });
@@ -336,6 +456,15 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   // Handle Export Dossier (Signed Cryptographic JSON & Clean Printable PDF Window)
   const handleExportDossier = async (format: 'json' | 'print' = 'json') => {
+    if (!api.isAuthenticated()) {
+      setIsAuthenticated(false);
+      setStatusMessage({
+        type: 'error',
+        text: 'Authentication required. Provide a valid Bearer token by logging in below before exporting dossiers.',
+      });
+      return;
+    }
+
     setIsExporting(true);
     setStatusMessage(null);
 
@@ -343,7 +472,6 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const dossier = await api.exportDossier();
 
       if (format === 'json') {
-        // Machine-readable cryptographically verified JSON export
         const jsonBlob = new Blob([JSON.stringify(dossier, null, 2)], { type: 'application/json' });
         const downloadUrl = URL.createObjectURL(jsonBlob);
         const a = document.createElement('a');
@@ -359,7 +487,6 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
           text: `Official Duty Dossier JSON exported with SHA-256 integrity hash: ${dossier.cryptographic_hash_sha256?.substring(0, 12)}...`,
         });
       } else {
-        // Printable / PDF Document Dossier View
         const printWindow = window.open('', '_blank');
         if (printWindow) {
           const avatarSrc = profile.avatar_url || '/officer_sharma.png';
@@ -516,6 +643,9 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
         }
       }
     } catch (err: any) {
+      if (err?.response?.status === 401) {
+        setIsAuthenticated(false);
+      }
       const errDetail = err?.response?.data?.detail;
       const errMsg = typeof errDetail === 'string' ? errDetail : err?.message || 'Failed to export dossier.';
       setStatusMessage({ type: 'error', text: errMsg });
@@ -524,11 +654,20 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
     }
   };
 
-  // Handle Logout
+  // Handle Logout / End Shift
   const handleLogout = () => {
     api.logout();
+    setIsAuthenticated(false);
+    setStatusMessage({
+      type: 'success',
+      text: 'Officer shift ended. Session token cleared.',
+    });
     if (typeof window !== 'undefined') {
-      window.location.reload();
+      window.dispatchEvent(
+        new CustomEvent('reliefos-auth-expired', {
+          detail: { message: 'Logged out successfully.' },
+        })
+      );
     }
   };
 
@@ -605,8 +744,121 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
           </div>
         )}
 
-        {/* Loading Spinner for initial fetch */}
-        {isLoading ? (
+        {/* Unauthenticated Mode: Prompt Officer Authentication */}
+        {!isAuthenticated ? (
+          <div className="bg-surface-container-lowest p-space-md rounded-xl border border-primary/30 mb-space-md space-y-3.5">
+            <div className="flex items-center gap-2 pb-2 border-b border-outline-variant/20">
+              <span className="material-symbols-outlined text-amber-400 text-[20px]">lock</span>
+              <div>
+                <h3 className="font-headline-sm text-[14px] font-bold text-on-surface">
+                  Operational Shift Authentication Required
+                </h3>
+                <p className="text-[11px] text-on-surface-variant">
+                  A verified Bearer token is required to inspect and update officer duty records.
+                </p>
+              </div>
+            </div>
+
+            {/* Quick-Select Registered Officer Credentials */}
+            <div>
+              <span className="block text-[10.5px] font-mono-data uppercase text-outline mb-2 font-semibold">
+                Quick-Select Registered ASDMA Account:
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  disabled={isLoggingIn}
+                  onClick={() => handleLogin(undefined, { username: 'operator', password: 'relief@2026' })}
+                  className="p-2.5 rounded-lg bg-surface-container hover:bg-primary/20 border border-outline-variant/40 hover:border-primary transition-all text-left group"
+                >
+                  <span className="text-primary font-bold text-[12px] block group-hover:text-primary-fixed">
+                    OPERATOR
+                  </span>
+                  <span className="text-[10px] text-on-surface-variant block truncate">Insp. S. Sharma</span>
+                  <span className="font-mono-data text-[9px] text-outline">relief@2026</span>
+                </button>
+
+                <button
+                  type="button"
+                  disabled={isLoggingIn}
+                  onClick={() => handleLogin(undefined, { username: 'commander', password: 'asdma@2026' })}
+                  className="p-2.5 rounded-lg bg-surface-container hover:bg-amber-500/20 border border-outline-variant/40 hover:border-amber-500 transition-all text-left group"
+                >
+                  <span className="text-amber-400 font-bold text-[12px] block group-hover:text-amber-300">
+                    COMMANDER
+                  </span>
+                  <span className="text-[10px] text-on-surface-variant block truncate">EOC Commander P. Baruah</span>
+                  <span className="font-mono-data text-[9px] text-outline">asdma@2026</span>
+                </button>
+
+                <button
+                  type="button"
+                  disabled={isLoggingIn}
+                  onClick={() => handleLogin(undefined, { username: 'analyst', password: 'view@2026' })}
+                  className="p-2.5 rounded-lg bg-surface-container hover:bg-secondary/20 border border-outline-variant/40 hover:border-secondary transition-all text-left group"
+                >
+                  <span className="text-secondary font-bold text-[12px] block group-hover:text-secondary-fixed">
+                    ANALYST
+                  </span>
+                  <span className="text-[10px] text-on-surface-variant block truncate">K. Kalita</span>
+                  <span className="font-mono-data text-[9px] text-outline">view@2026</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Manual Credential Login Form */}
+            <form onSubmit={handleLogin} className="space-y-3 pt-2 border-t border-outline-variant/20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-mono-data uppercase text-outline mb-1 font-semibold">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    value={loginForm.username}
+                    onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
+                    required
+                    placeholder="e.g. operator"
+                    className="w-full px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/50 text-on-surface text-[13px] focus:outline-none focus:border-primary transition-colors font-mono-data"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-mono-data uppercase text-outline mb-1 font-semibold">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    value={loginForm.password}
+                    onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                    required
+                    placeholder="Enter password"
+                    className="w-full px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/50 text-on-surface text-[13px] focus:outline-none focus:border-primary transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end pt-1">
+                <button
+                  type="submit"
+                  disabled={isLoggingIn}
+                  className="px-4 py-2 rounded-lg bg-primary text-on-primary font-semibold text-[12px] hover:brightness-110 transition-all flex items-center gap-1.5 disabled:opacity-50 shadow-md"
+                >
+                  {isLoggingIn ? (
+                    <>
+                      <span className="material-symbols-outlined animate-spin text-[16px]">sync</span>
+                      Authenticating Shift...
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined text-[16px]">login</span>
+                      Authenticate & Access Dossier
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        ) : isLoading ? (
           <div className="p-10 flex flex-col items-center justify-center gap-2.5 text-outline">
             <span className="material-symbols-outlined animate-spin text-[32px] text-primary">sync</span>
             <span className="font-mono-data text-[12px]">Synchronizing officer records with ASDMA backend...</span>
@@ -1087,48 +1339,57 @@ export const UserProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
         {/* Footer Actions: End Shift / Logout, Export Dossier & Close */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-t border-outline-variant/30 pt-3.5 mt-auto">
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="px-3 py-1.5 rounded-lg bg-error/10 hover:bg-error/20 text-error border border-error/30 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
-              title="Terminate Active Officer Shift"
-            >
-              <span className="material-symbols-outlined text-[15px]">logout</span>
-              End Shift / Logout
-            </button>
+            {isAuthenticated ? (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="px-3 py-1.5 rounded-lg bg-error/10 hover:bg-error/20 text-error border border-error/30 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                title="Terminate Active Officer Shift"
+              >
+                <span className="material-symbols-outlined text-[15px]">logout</span>
+                End Shift / Logout
+              </button>
+            ) : (
+              <span className="font-mono-data text-[10.5px] text-amber-400 flex items-center gap-1">
+                <span className="material-symbols-outlined text-[14px]">lock</span>
+                Unauthenticated
+              </span>
+            )}
 
             {/* Genuine Export Dossier Button (JSON / Print) */}
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => handleExportDossier('json')}
-                disabled={isExporting}
-                className="px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-secondary border border-secondary/30 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors disabled:opacity-50"
-                title="Download verified cryptographic ASDMA JSON duty dossier"
-              >
-                {isExporting ? (
-                  <span className="material-symbols-outlined animate-spin text-[15px]">sync</span>
-                ) : (
-                  <span className="material-symbols-outlined text-[15px]">download</span>
-                )}
-                Export Dossier
-              </button>
+            {isAuthenticated && (
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => handleExportDossier('json')}
+                  disabled={isExporting}
+                  className="px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-secondary border border-secondary/30 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors disabled:opacity-50"
+                  title="Download verified cryptographic ASDMA JSON duty dossier"
+                >
+                  {isExporting ? (
+                    <span className="material-symbols-outlined animate-spin text-[15px]">sync</span>
+                  ) : (
+                    <span className="material-symbols-outlined text-[15px]">download</span>
+                  )}
+                  Export Dossier
+                </button>
 
-              <button
-                type="button"
-                onClick={() => handleExportDossier('print')}
-                disabled={isExporting}
-                className="p-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface border border-outline-variant/30 text-[11px] transition-colors disabled:opacity-50"
-                title="Print / Save PDF Official Officer Dossier"
-              >
-                <span className="material-symbols-outlined text-[16px]">print</span>
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => handleExportDossier('print')}
+                  disabled={isExporting}
+                  className="p-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface border border-outline-variant/30 text-[11px] transition-colors disabled:opacity-50"
+                  title="Print / Save PDF Official Officer Dossier"
+                >
+                  <span className="material-symbols-outlined text-[16px]">print</span>
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center justify-between sm:justify-end gap-3">
             <span className="font-mono-data text-[10px] text-outline hidden md:inline">
-              Session: SECURE_HMAC_SHA256
+              Session: {isAuthenticated ? 'SECURE_HMAC_SHA256' : 'NO_ACTIVE_SESSION'}
             </span>
             <button
               onClick={onClose}

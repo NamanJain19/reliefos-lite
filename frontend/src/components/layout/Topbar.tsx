@@ -54,21 +54,31 @@ export const Topbar: React.FC<Props> = ({ pageTitle, onToggleMobileMenu, onOpenC
       })
       .catch(() => {});
 
-    // Fetch authenticated profile
-    api.getAuthMe()
-      .then((u) => {
-        if (u) {
-          setCurrentUser({ name: u.name, role: u.role, avatar_url: u.avatar_url });
-        }
-      })
-      .catch(() => {});
+    // Fetch authenticated profile if session active
+    if (api.isAuthenticated()) {
+      api.getAuthMe()
+        .then((u) => {
+          if (u) {
+            setCurrentUser({ name: u.name, role: u.role, avatar_url: u.avatar_url });
+          }
+        })
+        .catch(() => {});
+    } else {
+      setCurrentUser({ name: 'Shift Inactive', role: 'LOGIN', avatar_url: undefined });
+    }
 
     const handleProfileUpdated = (e: any) => {
       if (e.detail) {
         setCurrentUser({ name: e.detail.name, role: e.detail.role, avatar_url: e.detail.avatar_url });
       }
     };
+
+    const handleAuthExpired = () => {
+      setCurrentUser({ name: 'Shift Inactive', role: 'LOGIN', avatar_url: undefined });
+    };
+
     window.addEventListener('reliefos-profile-updated', handleProfileUpdated);
+    window.addEventListener('reliefos-auth-expired', handleAuthExpired);
 
     // Global outside-click and Escape listeners for location and mode dropdowns
     const handleClickOutside = (e: MouseEvent) => {
@@ -92,6 +102,7 @@ export const Topbar: React.FC<Props> = ({ pageTitle, onToggleMobileMenu, onOpenC
 
     return () => {
       window.removeEventListener('reliefos-profile-updated', handleProfileUpdated);
+      window.removeEventListener('reliefos-auth-expired', handleAuthExpired);
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };

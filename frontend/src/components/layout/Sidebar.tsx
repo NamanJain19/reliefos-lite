@@ -91,19 +91,28 @@ export const Sidebar: React.FC<Props> = ({ isOpen = false, onClose }) => {
   useEffect(() => {
     fetchStatus();
 
-    // Fetch authenticated profile
-    api.getAuthMe()
-      .then((u) => {
-        if (u) {
-          setCurrentUser({
-            name: u.name,
-            role: u.role,
-            agency: u.agency || 'Disaster Ops, ASDMA',
-            avatar_url: u.avatar_url,
-          });
-        }
-      })
-      .catch(() => {});
+    // Fetch authenticated profile if session active
+    if (api.isAuthenticated()) {
+      api.getAuthMe()
+        .then((u) => {
+          if (u) {
+            setCurrentUser({
+              name: u.name,
+              role: u.role,
+              agency: u.agency || 'Disaster Ops, ASDMA',
+              avatar_url: u.avatar_url,
+            });
+          }
+        })
+        .catch(() => {});
+    } else {
+      setCurrentUser({
+        name: 'Shift Inactive',
+        role: 'AUTH REQUIRED',
+        agency: 'Click to Authenticate',
+        avatar_url: undefined,
+      });
+    }
 
     // Listen for custom mode change events dispatched by Topbar
     const handleModeEvent = (e: any) => {
@@ -125,13 +134,24 @@ export const Sidebar: React.FC<Props> = ({ isOpen = false, onClose }) => {
       }
     };
 
+    const handleAuthExpired = () => {
+      setCurrentUser({
+        name: 'Shift Inactive',
+        role: 'AUTH REQUIRED',
+        agency: 'Click to Authenticate',
+        avatar_url: undefined,
+      });
+    };
+
     window.addEventListener('reliefos-mode-changed', handleModeEvent);
     window.addEventListener('reliefos-profile-updated', handleProfileUpdated);
+    window.addEventListener('reliefos-auth-expired', handleAuthExpired);
     const interval = setInterval(fetchStatus, 25000);
 
     return () => {
       window.removeEventListener('reliefos-mode-changed', handleModeEvent);
       window.removeEventListener('reliefos-profile-updated', handleProfileUpdated);
+      window.removeEventListener('reliefos-auth-expired', handleAuthExpired);
       clearInterval(interval);
     };
   }, []);
